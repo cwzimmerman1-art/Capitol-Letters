@@ -149,7 +149,6 @@ export default function App() {
   return (
     <div style={styles.gameContainer}>
 
-      {/* GRID */}
       <div style={styles.gridWrapper}>
         <div>
           {[...Array(MAX_GUESSES)].map((_, r) => (
@@ -175,37 +174,40 @@ export default function App() {
         </div>
       </div>
 
-      {/* KEYBOARD */}
-      <div style={styles.keyboardContainer}>
-        {KEYS.map((row, i) => (
-          <div key={i} style={styles.keyboardRow}>
-            {i === 2 && (
-              <button onClick={() => handleKey("ENTER")} style={{ ...styles.key, flex: 1.5 }}>
-                Enter
-              </button>
-            )}
-            {row.split("").map(k => (
-              <button key={k} onClick={() => handleKey(k)} style={styles.key}>{k}</button>
-            ))}
-            {i === 2 && (
-              <button onClick={() => handleKey("DEL")} style={{ ...styles.key, flex: 1.5 }}>
-                Delete
-              </button>
-            )}
-          </div>
-        ))}
-      </div>
+      {/* ✅ KEYBOARD ONLY SHOWS IF GAME NOT OVER */}
+      {!gameOver && (
+        <div style={styles.keyboardContainer}>
+          {KEYS.map((row, i) => (
+            <div key={i} style={styles.keyboardRow}>
+              {i === 2 && (
+                <button onClick={() => handleKey("ENTER")} style={{ ...styles.key, flex: 1.5 }}>
+                  Enter
+                </button>
+              )}
+              {row.split("").map(k => (
+                <button key={k} onClick={() => handleKey(k)} style={styles.key}>{k}</button>
+              ))}
+              {i === 2 && (
+                <button onClick={() => handleKey("DEL")} style={{ ...styles.key, flex: 1.5 }}>
+                  Delete
+                </button>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
 
+      {/* ✅ RESULT NOW FLOWS + CENTERS */}
       {gameOver && (
-        <div style={styles.result}>
+        <div style={styles.resultCentered}>
           <div style={styles.answer}>{SOLUTION}</div>
           <div style={styles.fact}>{DESCRIPTION}</div>
 
           <button onClick={handleShare} style={styles.share}>
-            Play with your people
+            Play with friends
           </button>
 
-          {copied && <div style={styles.copied}>Copied to clipboard, send to friends</div>}
+          {copied && <div style={styles.copied}>Copied to clipboard, share with friends</div>}
 
           <div style={styles.return}>Same time tomorrow?</div>
         </div>
@@ -222,30 +224,22 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
     textAlign: "center",
-    fontFamily: "Georgia, serif",
-    backgroundColor: "#ffffff",
-    color: "#111111"
+    backgroundColor: "#fff",
+    color: "#111"
   },
 
-  logo: { width: 70, marginBottom: 3 },
+  logo: { width: 70, marginBottom: 8 },
 
-  title: {
-    fontSize: 36,
-    margin: "14px 0",
-    fontFamily: "'Playfair Display', serif",
-    color: "#111111"
-  },
+  title: { fontSize: 36, margin: "8px 0", color: "#111" },
 
   subtitle: { fontSize: 16, color: "#555" },
 
   playButton: {
-    marginTop: 15,
+    marginTop: 20,
     padding: "10px 20px",
-    borderRadius: 6,
-    border: "1px solid #ccc",
     backgroundColor: "#111",
     color: "#fff",
-    cursor: "pointer"
+    borderRadius: 6
   },
 
   meta: { marginTop: 16, fontSize: 12, color: "#777" },
@@ -256,18 +250,18 @@ const styles = {
     flexDirection: "column",
     alignItems: "center",
     padding: 16,
-    backgroundColor: "#ffffff",
-    color: "#111111"
+    backgroundColor: "#fff",
+    color: "#111"
   },
 
   gridWrapper: {
-  flex: 1,
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  width: "100%",
-  paddingBottom: 140 // 👈 reserve space for keyboard
-},
+    flex: 1,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    paddingBottom: 140
+  },
 
   row: { display: "flex", gap: 6, marginBottom: 6 },
 
@@ -290,36 +284,28 @@ const styles = {
     position: "fixed",
     bottom: 10,
     left: "50%",
-    transform: "translateX(-50%)",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    boxSizing: "border-box",
-    backgroundColor: "#ffffff"
+    transform: "translateX(-50%)"
   },
 
   keyboardRow: {
     display: "flex",
     gap: 3,
-    margin: "3px 0",
-    width: "100%"
+    margin: "3px 0"
   },
 
   key: {
     flex: 1,
-    minWidth: 0,
     height: 52,
-    padding: "0 4px",
-    border: "1px solid #ccc",
-    cursor: "pointer",
+    fontSize: 14,
     backgroundColor: "#f3f4f6",
     color: "#111",
-    fontSize: 14,
-    borderRadius: 6,
-    boxSizing: "border-box"
+    borderRadius: 6
   },
 
-  result: { textAlign: "center", marginTop: 16 },
+  resultCentered: {
+    textAlign: "center",
+    marginTop: 20
+  },
 
   answer: { fontWeight: "bold", fontSize: 18 },
 
@@ -330,9 +316,7 @@ const styles = {
     padding: "10px 16px",
     backgroundColor: "#111",
     color: "#fff",
-    borderRadius: 6,
-    border: "none",
-    cursor: "pointer"
+    borderRadius: 6
   },
 
   copied: { fontSize: 12, marginTop: 5 },
