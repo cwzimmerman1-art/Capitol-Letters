@@ -218,7 +218,7 @@ const styles = {
     backgroundColor: "#fff",
     color: "#111"
   },
-  logo: { width: 70, marginBottom: 2 },
+  logo: { width: 70, marginBottom: 8 },
   title: {
     fontSize: 36,
     margin: "8px 0",
@@ -234,7 +234,9 @@ const styles = {
     fontSize: 16,
     cursor: "pointer",
     borderRadius: 6,
-    border: "1px solid #ccc"
+    border: "1px solid #ccc",
+    backgroundColor: "#111",
+    color: "#fff"
   },
   meta: { marginTop: 16, fontSize: 12, color: "#777" },
 
@@ -242,6 +244,7 @@ const styles = {
     minHeight: "100vh",
     display: "flex",
     flexDirection: "column",
+    justifyContent: "flex-start",
     alignItems: "center",
     padding: 16,
     fontFamily: "Georgia, serif",
@@ -252,6 +255,7 @@ const styles = {
   row: { display: "flex", gap: 6, marginBottom: 6 },
 
   tile: {
+    marginBottom: 2,
     width: 56,
     height: 56,
     border: "1px solid #e5e7eb",
@@ -264,17 +268,28 @@ const styles = {
     fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
   },
 
-  keyboardContainer: { marginTop: 6 },
+  keyboardContainer: {
+    marginTop: 6,
+    paddingTop: 1,
+    width: "100%",
+    position: "fixed",
+    bottom: 10,
+    left: 0,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center"
+  },
 
-  keyboardRow: { display: "flex", justifyContent: "center", gap: 6, margin: "4px 0" },
+  keyboardRow: { display: "flex", justifyContent: "center", gap: 6, margin: "4px 0", width: "100%" },
 
   key: {
-    padding: "10px",
+    padding: "14px",
     border: "1px solid #ccc",
     cursor: "pointer",
     backgroundColor: "#f3f4f6",
     color: "#111",
-    fontWeight: "500"
+    fontSize: 16,
+    borderRadius: 6
   },
 
   result: { textAlign: "center", marginTop: 16 },
