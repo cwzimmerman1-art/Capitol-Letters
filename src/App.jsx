@@ -6,7 +6,7 @@ const WORD_BANK = {
   "2026-04-17": { word: "CURDS", fact: "squeaky if you know what you're doing" }
 };
 
-const BASE_DATE = "2026-04-16"; // Puzzle #1
+const BASE_DATE = "2026-04-16";
 
 const getDevDate = () => {
   const params = new URLSearchParams(window.location.search);
@@ -30,8 +30,7 @@ const getPuzzleNumber = () => {
   return diff + 1;
 };
 
-const MAX_GUESSES = 5;
-const TODAY_KEY = getTodayKey();
+const MAX_GUESSES = 6;
 
 function evaluateGuess(guess, solution) {
   const result = Array(5).fill("gray");
@@ -149,29 +148,34 @@ export default function App() {
 
   return (
     <div style={styles.gameContainer}>
-      <div>
-        {[...Array(MAX_GUESSES)].map((_, r) => (
-          <div key={r} style={styles.row}>
-            {[...Array(5)].map((_, c) => {
-              const guess = guesses[r];
-              const isCurrentRow = r === guesses.length;
-              const letter = guess ? guess.word[c] : isCurrentRow ? current[c] || "" : "";
 
-              const color = guess
-                ? guess.result[c] === "green" ? "#34d399" :
-                  guess.result[c] === "blue" ? "#60a5fa" : "#e5e7eb"
-                : "#ffffff";
+      {/* GRID */}
+      <div style={styles.gridWrapper}>
+        <div>
+          {[...Array(MAX_GUESSES)].map((_, r) => (
+            <div key={r} style={styles.row}>
+              {[...Array(5)].map((_, c) => {
+                const guess = guesses[r];
+                const isCurrentRow = r === guesses.length;
+                const letter = guess ? guess.word[c] : isCurrentRow ? current[c] || "" : "";
 
-              return (
-                <div key={c} style={{ ...styles.tile, backgroundColor: color }}>
-                  {letter}
-                </div>
-              );
-            })}
-          </div>
-        ))}
+                const color = guess
+                  ? guess.result[c] === "green" ? "#34d399" :
+                    guess.result[c] === "blue" ? "#60a5fa" : "#e5e7eb"
+                  : "#ffffff";
+
+                return (
+                  <div key={c} style={{ ...styles.tile, backgroundColor: color }}>
+                    {letter}
+                  </div>
+                );
+              })}
+            </div>
+          ))}
+        </div>
       </div>
 
+      {/* KEYBOARD */}
       <div style={styles.keyboardContainer}>
         {KEYS.map((row, i) => (
           <div key={i} style={styles.keyboardRow}>
@@ -201,9 +205,7 @@ export default function App() {
             Play with your people
           </button>
 
-          {copied && (
-            <div style={styles.copied}>Copied to clipboard, send to friends</div>
-          )}
+          {copied && <div style={styles.copied}>Copied to clipboard, send to friends</div>}
 
           <div style={styles.return}>Same time tomorrow?</div>
         </div>
@@ -221,47 +223,55 @@ const styles = {
     alignItems: "center",
     textAlign: "center",
     fontFamily: "Georgia, serif",
-    backgroundColor: "#fff",
-    color: "#111"
+    backgroundColor: "#ffffff",
+    color: "#111111"
   },
-  logo: { width: 70, marginBottom: 8 },
+
+  logo: { width: 70, marginBottom: 3 },
+
   title: {
     fontSize: 36,
-    margin: "8px 0",
-    color: "#111",
+    margin: "14px 0",
     fontFamily: "'Playfair Display', serif",
-    fontWeight: "600",
-    letterSpacing: "0.05em"
+    color: "#111111"
   },
+
   subtitle: { fontSize: 16, color: "#555" },
+
   playButton: {
-    marginTop: 20,
+    marginTop: 15,
     padding: "10px 20px",
-    fontSize: 16,
-    cursor: "pointer",
     borderRadius: 6,
     border: "1px solid #ccc",
     backgroundColor: "#111",
-    color: "#fff"
+    color: "#fff",
+    cursor: "pointer"
   },
+
   meta: { marginTop: 16, fontSize: 12, color: "#777" },
 
   gameContainer: {
     minHeight: "100vh",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-between",
     alignItems: "center",
     padding: 16,
-    fontFamily: "Georgia, serif",
-    backgroundColor: "#fff",
-    color: "#111"
+    backgroundColor: "#ffffff",
+    color: "#111111"
   },
+
+  gridWrapper: {
+  flex: 1,
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  width: "100%",
+  paddingBottom: 140 // 👈 reserve space for keyboard
+},
 
   row: { display: "flex", gap: 6, marginBottom: 6 },
 
   tile: {
-    marginBottom: 2,
     width: 56,
     height: 56,
     border: "1px solid #e5e7eb",
@@ -269,49 +279,63 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
     fontSize: 20,
-    fontWeight: "500",
     borderRadius: 6,
-    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+    color: "#111"
   },
 
-  // ✅ FIXED KEYBOARD
   keyboardContainer: {
-    marginTop: 6,
     width: "100%",
     maxWidth: 500,
+    padding: "0 8px",
     position: "fixed",
     bottom: 10,
     left: "50%",
     transform: "translateX(-50%)",
     display: "flex",
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
+    boxSizing: "border-box",
+    backgroundColor: "#ffffff"
   },
 
   keyboardRow: {
     display: "flex",
-    justifyContent: "center",
-    gap: 4,
-    margin: "4px 0",
+    gap: 3,
+    margin: "3px 0",
     width: "100%"
   },
 
   key: {
     flex: 1,
     minWidth: 0,
-    padding: "12px 6px",
+    height: 52,
+    padding: "0 4px",
     border: "1px solid #ccc",
     cursor: "pointer",
     backgroundColor: "#f3f4f6",
     color: "#111",
     fontSize: 14,
-    borderRadius: 6
+    borderRadius: 6,
+    boxSizing: "border-box"
   },
 
   result: { textAlign: "center", marginTop: 16 },
+
   answer: { fontWeight: "bold", fontSize: 18 },
+
   fact: { fontStyle: "italic", fontSize: 14 },
-  share: { marginTop: 10, padding: "10px 16px" },
+
+  share: {
+    marginTop: 10,
+    padding: "10px 16px",
+    backgroundColor: "#111",
+    color: "#fff",
+    borderRadius: 6,
+    border: "none",
+    cursor: "pointer"
+  },
+
   copied: { fontSize: 12, marginTop: 5 },
+
   return: { fontSize: 12, marginTop: 10, color: "#888" }
 };
