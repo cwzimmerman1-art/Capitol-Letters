@@ -132,7 +132,6 @@ export default function App() {
     return (
       <div style={styles.launchContainer}>
         <img src="/capitol.png" style={styles.logo} />
-        {/* load editorial font */}
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet" />
         <h1 style={styles.title}>CAPITOL LETTERS</h1>
         <p style={styles.subtitle}>A Madison word game.</p>
@@ -150,7 +149,6 @@ export default function App() {
 
   return (
     <div style={styles.gameContainer}>
-
       <div>
         {[...Array(MAX_GUESSES)].map((_, r) => (
           <div key={r} style={styles.row}>
@@ -177,11 +175,19 @@ export default function App() {
       <div style={styles.keyboardContainer}>
         {KEYS.map((row, i) => (
           <div key={i} style={styles.keyboardRow}>
-            {i === 2 && <button onClick={() => handleKey("ENTER")} style={styles.key}>Enter</button>}
+            {i === 2 && (
+              <button onClick={() => handleKey("ENTER")} style={{ ...styles.key, flex: 1.5 }}>
+                Enter
+              </button>
+            )}
             {row.split("").map(k => (
               <button key={k} onClick={() => handleKey(k)} style={styles.key}>{k}</button>
             ))}
-            {i === 2 && <button onClick={() => handleKey("DEL")} style={styles.key}>Delete</button>}
+            {i === 2 && (
+              <button onClick={() => handleKey("DEL")} style={{ ...styles.key, flex: 1.5 }}>
+                Delete
+              </button>
+            )}
           </div>
         ))}
       </div>
@@ -244,7 +250,7 @@ const styles = {
     minHeight: "100vh",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "flex-start",
+    justifyContent: "space-between",
     alignItems: "center",
     padding: 16,
     fontFamily: "Georgia, serif",
@@ -268,27 +274,37 @@ const styles = {
     fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
   },
 
+  // ✅ FIXED KEYBOARD
   keyboardContainer: {
     marginTop: 6,
-    paddingTop: 1,
     width: "100%",
+    maxWidth: 500,
     position: "fixed",
     bottom: 10,
-    left: 0,
+    left: "50%",
+    transform: "translateX(-50%)",
     display: "flex",
     flexDirection: "column",
     alignItems: "center"
   },
 
-  keyboardRow: { display: "flex", justifyContent: "center", gap: 6, margin: "4px 0", width: "100%" },
+  keyboardRow: {
+    display: "flex",
+    justifyContent: "center",
+    gap: 4,
+    margin: "4px 0",
+    width: "100%"
+  },
 
   key: {
-    padding: "14px",
+    flex: 1,
+    minWidth: 0,
+    padding: "12px 6px",
     border: "1px solid #ccc",
     cursor: "pointer",
     backgroundColor: "#f3f4f6",
     color: "#111",
-    fontSize: 16,
+    fontSize: 14,
     borderRadius: 6
   },
 
