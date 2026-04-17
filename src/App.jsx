@@ -3,18 +3,18 @@ import { useState, useEffect } from "react";
 // --- WORD SYSTEM ---
 const WORD_BANK = {
   "2026-04-16": { word: "STATE", fact: "A million vape shops will never fill the void that Paul’s Bookstore left in our hearts. But the THC may help…" },
-  "2026-04-17": { word: "METRO", fact: "The Madison Metro Transit operates with approximately 1,346 bus stops. There, now you know." }
+  "2026-04-17": { word: "PLAZA", fact: "The large paintings throughout the Plaza were given to the bar in return for erasing the painter’s $1,400+ running bar tab." }
 };
 
 const BASE_DATE = "2026-04-16";
 
 // --- BADGES ---
 const BADGES = [
-  { days: 15, label: 'Knows what "242-2000" is' },
+  { days: 15, label: 'Knows the "242-2000" jingle' },
   { days: 10, label: "Can name every Madison lake" },
   { days: 5, label: "Isthmuskateer" },
-  { days: 3, label: 'Familiar with the term "sett"' },
-  { days: 1, label: "Knows how to zipper merge" }
+  { days: 3, label: 'Comfortable zipper merging on beltline' },
+  { days: 1, label: "Can confidently navigate Woodman's" }
 ];
 
 const getDevDate = () => {
@@ -204,7 +204,9 @@ export default function App() {
   const handleShare = () => {
     const grid = guesses.map(g => g.result.map(r => emojiMap[r]).join(""))
       .join("\n");
-    const text = `CAPITOL LETTERS\n${formatDate()} • ${guesses.length}/${MAX_GUESSES}\n\n${grid}`;
+    const text = `CAPITOL LETTERS\n${formatDate()} • ${guesses.length}/${MAX_GUESSES}\n\n${grid};
+    
+I solved today's puzzle. Have you?`;
     navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -222,10 +224,10 @@ export default function App() {
       <div style={styles.launchContainer}>
         <img src="/capitol.png" style={styles.logo} />
 
-        <p style={styles.subtitle}>Play daily for a Madison fact</p>
+        <p style={styles.subtitle}>Solve for a Madison fact</p>
 
         <button onClick={() => setStarted(true)} style={styles.playButton}>
-          Solve now
+          Play now
         </button>
 
         <div style={styles.streak}>{streak} day streak</div>
@@ -316,7 +318,7 @@ export default function App() {
 
           {newBadge && (
             <div style={styles.badgeCard}>
-              <div style={styles.badgeTitle}>🎉 New title unlocked</div>
+              <div style={styles.badgeTitle}>🎉 New badge unlocked</div>
               <div style={styles.badgeName}>{newBadge}</div>
             </div>
           )}
@@ -325,7 +327,7 @@ export default function App() {
             Share with friends
           </button>
 
-          {copied && <div style={styles.copied}>Copied to clipboard, share with friends</div>}
+          {copied && <div style={styles.copied}>Copied to clipboard, challenge your friends</div>}
 
           <div style={styles.return}>Play again tomorrow</div>
         </div>
@@ -412,6 +414,7 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
     fontSize: 20,
+    fontWeight: 700,
     borderRadius: 6,
     color: "#111",
     backgroundColor: "#f9fafb"
