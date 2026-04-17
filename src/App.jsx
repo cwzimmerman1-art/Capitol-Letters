@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 // --- WORD SYSTEM ---
 const WORD_BANK = {
   "2026-04-16": { word: "METRO", fact: "The Madison Metro Transit operates with approximately 1,346 bus stops. There, now you know." },
-  "2026-04-17": { word: "PLAZA", fact: "The large paintings throughout the Plaza were given to the bar in return for erasing the painter’s $1,400+ running bar tab." }
+  "2026-04-17": { word: "PLAZA", fact: "The large paintings throughout the Plaza were given to the bar in return for erasing the painter's $1,400+ running bar tab." },
+  "2026-04-18": { word: "CHAIR", fact: "Sit down for this one. The Memorial Union typically replaces about 60 Terrace chairs annually. That's enough to seat 60 people." }
 };
 
 const BASE_DATE = "2026-04-16";
@@ -13,8 +14,8 @@ const BADGES = [
   { days: 15, label: 'Knows the "242-2000" jingle' },
   { days: 10, label: "Can name every Madison lake" },
   { days: 5, label: "Isthmuskateer" },
-  { days: 3, label: 'Comfortable zipper merging on beltline' },
-  { days: 1, label: "Can confidently navigate Woodman's" }
+  { days: 3, label: 'Zipper merges on beltline' },
+  { days: 1, label: "Confidently navigates Woodman's" }
 ];
 
 const getDevDate = () => {
@@ -88,7 +89,7 @@ const getBadge = (streak) => {
   for (let badge of BADGES) {
     if (streak >= badge.days) return badge.label;
   }
-  return "Solve to unlock a title";
+  return "Solve to unlock a badge";
 };
 
 const MAX_GUESSES = 6;
