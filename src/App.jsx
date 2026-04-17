@@ -32,6 +32,14 @@ const getTodayEntry = () => {
   return WORD_BANK[key] || WORD_BANK[BASE_DATE];
 };
 
+// --- NEW: YESTERDAY HELPER ---
+const getYesterdayEntry = () => {
+  const today = new Date(getTodayKey());
+  today.setDate(today.getDate() - 1);
+  const key = today.toISOString().slice(0, 10);
+  return WORD_BANK[key];
+};
+
 const getPuzzleNumber = () => {
   const base = new Date(BASE_DATE);
   const today = new Date(getTodayKey());
@@ -128,6 +136,8 @@ export default function App() {
   const [copied, setCopied] = useState(false);
   const [streak, setStreak] = useState(0);
 
+  const yesterday = getYesterdayEntry();
+
   useEffect(() => {
     const { streak } = getStreakData();
     setStreak(streak);
@@ -183,7 +193,8 @@ export default function App() {
   const emojiMap = { green: "🟩", blue: "🟦", gray: "⬜" };
 
   const handleShare = () => {
-    const grid = guesses.map(g => g.result.map(r => emojiMap[r]).join("")).join("\n");
+    const grid = guesses.map(g => g.result.map(r => emojiMap[r]).join(""))
+      .join("\n");
     const text = `CAPITOL LETTERS\n${formatDate()} • ${guesses.length}/${MAX_GUESSES}\n\n${grid}`;
     navigator.clipboard.writeText(text);
     setCopied(true);
@@ -202,20 +213,27 @@ export default function App() {
       <div style={styles.launchContainer}>
         <img src="/capitol.png" style={styles.logo} />
 
-        <p style={styles.subtitle}>Play every day for a Madison fact</p>
+        <p style={styles.subtitle}>Play daily for a Madison fact</p>
 
         <button onClick={() => setStarted(true)} style={styles.playButton}>
           Solve now
         </button>
 
-
-
         <div style={styles.streak}>{streak} day streak</div>
-        <div style={styles.badge}>{getBadge(streak)}</div>        
-        
+        <div style={styles.badge}>{getBadge(streak)}</div>
+
         <div style={styles.meta}>
           {formatDate()} • Puzzle {getPuzzleNumber()}
         </div>
+
+        {/* NEW TICKER */}
+        {yesterday && (
+          <div style={styles.tickerWrapper}>
+            <div style={styles.ticker}>
+              Yesterday’s word: {yesterday.word} — {yesterday.fact}
+            </div>
+          </div>
+        )}
       </div>
     );
   }
@@ -254,11 +272,11 @@ export default function App() {
             <div key={i} style={styles.keyboardRow}>
               {i === 2 && (
                 <button
-  onClick={() => handleKey("ENTER")}
-  style={{ ...styles.key, flex: 1.5, backgroundColor: "#e5e7eb" }}
->
-  Enter
-</button>
+                  onClick={() => handleKey("ENTER")}
+                  style={{ ...styles.key, flex: 1.5, backgroundColor: "#e5e7eb" }}
+                >
+                  Enter
+                </button>
               )}
               {row.split("").map(k => (
                 <button
@@ -271,11 +289,11 @@ export default function App() {
               ))}
               {i === 2 && (
                 <button
-  onClick={() => handleKey("DEL")}
-  style={{ ...styles.key, flex: 1.5, backgroundColor: "#e5e7eb" }}
->
-  Delete
-</button>
+                  onClick={() => handleKey("DEL")}
+                  style={{ ...styles.key, flex: 1.5, backgroundColor: "#e5e7eb" }}
+                >
+                  Delete
+                </button>
               )}
             </div>
           ))}
@@ -309,7 +327,8 @@ const styles = {
     alignItems: "center",
     textAlign: "center",
     backgroundColor: "#fff",
-    color: "#111"
+    color: "#111",
+    position: "relative"
   },
 
   logo: { width: 375, marginBottom: 2},
@@ -328,6 +347,25 @@ const styles = {
 
   streak: { marginTop: 10, fontSize: 14 },
   badge: { fontSize: 12, color: "#666", fontStyle: "italic", marginTop: 4 },
+
+  // --- NEW TICKER STYLES ---
+  tickerWrapper: {
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+    overflow: "hidden",
+    borderTop: "1px solid #eee",
+    backgroundColor: "#fafafa"
+  },
+
+  ticker: {
+    whiteSpace: "nowrap",
+    display: "inline-block",
+    padding: "8px 0",
+    fontSize: 12,
+    color: "#666",
+    animation: "scrollText 18s linear infinite"
+  },
 
   gameContainer: {
     minHeight: "100vh",
@@ -408,3 +446,12 @@ const styles = {
   copied: { fontSize: 12, marginTop: 5 },
   return: { fontSize: 12, marginTop: 10, color: "#888" }
 };
+
+/*
+ADD THIS TO YOUR GLOBAL CSS FILE:
+
+@keyframes scrollText {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+*/
