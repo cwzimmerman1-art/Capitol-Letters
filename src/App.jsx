@@ -2,11 +2,20 @@ import { useState, useEffect } from "react";
 
 // --- WORD SYSTEM ---
 const WORD_BANK = {
-  "2026-04-16": { word: "UNION", fact: "where the terrace lives and sunsets get crowded" },
-  "2026-04-17": { word: "CURDS", fact: "squeaky if you know what you're doing" }
+  "2026-04-16": { word: "STATE", fact: "A million vape shops will never fill the void that Paul’s Bookstore left in our hearts. But the THC may help…" },
+  "2026-04-17": { word: "METRO", fact: "The Madison Metro Transit operates with approximately 1,346 bus stops. There, now you know." }
 };
 
 const BASE_DATE = "2026-04-16";
+
+// --- BADGES ---
+const BADGES = [
+  { days: 15, label: 'Knows what "242-2000" is' },
+  { days: 10, label: "Can name every Madison lake" },
+  { days: 5, label: "Isthmuskateer" },
+  { days: 3, label: 'Familiar with the term "sett"' },
+  { days: 1, label: "Knows how to zipper merge" }
+];
 
 const getDevDate = () => {
   const params = new URLSearchParams(window.location.search);
@@ -28,6 +37,50 @@ const getPuzzleNumber = () => {
   const today = new Date(getTodayKey());
   const diff = Math.floor((today - base) / (1000 * 60 * 60 * 24));
   return diff + 1;
+};
+
+// --- STREAK SYSTEM ---
+const getStreakData = () => {
+  const data = JSON.parse(localStorage.getItem("capitol_streak") || "{}");
+  return {
+    streak: data.streak || 0,
+    lastPlayed: data.lastPlayed || null
+  };
+};
+
+const updateStreak = (won) => {
+  const today = getTodayKey();
+  const { streak, lastPlayed } = getStreakData();
+
+  let newStreak = streak;
+
+  if (!won) {
+    newStreak = 0;
+  } else {
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+    const yesterdayKey = yesterday.toISOString().slice(0, 10);
+
+    if (lastPlayed === yesterdayKey) {
+      newStreak += 1;
+    } else if (lastPlayed !== today) {
+      newStreak = 1;
+    }
+  }
+
+  localStorage.setItem(
+    "capitol_streak",
+    JSON.stringify({ streak: newStreak, lastPlayed: today })
+  );
+
+  return newStreak;
+};
+
+const getBadge = (streak) => {
+  for (let badge of BADGES) {
+    if (streak >= badge.days) return badge.label;
+  }
+  return "Solve to unlock a title";
 };
 
 const MAX_GUESSES = 6;
@@ -73,6 +126,12 @@ export default function App() {
   const [gameOver, setGameOver] = useState(false);
   const [keyStatus, setKeyStatus] = useState({});
   const [copied, setCopied] = useState(false);
+  const [streak, setStreak] = useState(0);
+
+  useEffect(() => {
+    const { streak } = getStreakData();
+    setStreak(streak);
+  }, []);
 
   const submitGuess = () => {
     if (current.length !== 5 || gameOver) return;
@@ -96,6 +155,10 @@ export default function App() {
 
     if (guess === SOLUTION || newGuesses.length === MAX_GUESSES) {
       setGameOver(true);
+
+      const won = guess === SOLUTION;
+      const newStreak = updateStreak(won);
+      setStreak(newStreak);
     }
   };
 
@@ -121,26 +184,37 @@ export default function App() {
 
   const handleShare = () => {
     const grid = guesses.map(g => g.result.map(r => emojiMap[r]).join("")).join("\n");
-    const text = `CAPITOL LETTERS\n${formatDate()} • ${guesses.length}/${MAX_GUESSES}\n\n${grid}`;
+    const text = `CAPITOL CODED\n${formatDate()} • ${guesses.length}/${MAX_GUESSES}\n\n${grid}`;
     navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const getKeyColor = (k) => {
+    if (keyStatus[k] === "green") return "#34d399";
+    if (keyStatus[k] === "blue") return "#60a5fa";
+    if (keyStatus[k] === "gray") return "#d1d5db";
+    return "#f3f4f6";
   };
 
   if (!started) {
     return (
       <div style={styles.launchContainer}>
         <img src="/capitol.png" style={styles.logo} />
-        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet" />
-        <h1 style={styles.title}>CAPITOL LETTERS</h1>
-        <p style={styles.subtitle}>A Madison word game.</p>
+
+        <p style={styles.subtitle}>A word game for Madison minds</p>
 
         <button onClick={() => setStarted(true)} style={styles.playButton}>
           Play now
         </button>
 
+
+
+        <div style={styles.streak}>{streak} day streak</div>
+        <div style={styles.badge}>{getBadge(streak)}</div>        
+        
         <div style={styles.meta}>
-          {formatDate()} • Puzzle #{getPuzzleNumber()}
+          {formatDate()} • Puzzle {getPuzzleNumber()}
         </div>
       </div>
     );
@@ -149,7 +223,7 @@ export default function App() {
   return (
     <div style={styles.gameContainer}>
 
-      <div style={styles.gridWrapper}>
+      <div style={{ ...styles.gridWrapper, paddingBottom: gameOver ? 0 : 140 }}>
         <div>
           {[...Array(MAX_GUESSES)].map((_, r) => (
             <div key={r} style={styles.row}>
@@ -174,7 +248,6 @@ export default function App() {
         </div>
       </div>
 
-      {/* ✅ KEYBOARD ONLY SHOWS IF GAME NOT OVER */}
       {!gameOver && (
         <div style={styles.keyboardContainer}>
           {KEYS.map((row, i) => (
@@ -185,7 +258,13 @@ export default function App() {
                 </button>
               )}
               {row.split("").map(k => (
-                <button key={k} onClick={() => handleKey(k)} style={styles.key}>{k}</button>
+                <button
+                  key={k}
+                  onClick={() => handleKey(k)}
+                  style={{ ...styles.key, backgroundColor: getKeyColor(k) }}
+                >
+                  {k}
+                </button>
               ))}
               {i === 2 && (
                 <button onClick={() => handleKey("DEL")} style={{ ...styles.key, flex: 1.5 }}>
@@ -197,19 +276,18 @@ export default function App() {
         </div>
       )}
 
-      {/* ✅ RESULT NOW FLOWS + CENTERS */}
       {gameOver && (
         <div style={styles.resultCentered}>
           <div style={styles.answer}>{SOLUTION}</div>
           <div style={styles.fact}>{DESCRIPTION}</div>
 
           <button onClick={handleShare} style={styles.share}>
-            Play with friends
+            Share with friends
           </button>
 
           {copied && <div style={styles.copied}>Copied to clipboard, share with friends</div>}
 
-          <div style={styles.return}>Same time tomorrow?</div>
+          <div style={styles.return}>New puzzles daily unless I forget</div>
         </div>
       )}
     </div>
@@ -228,9 +306,7 @@ const styles = {
     color: "#111"
   },
 
-  logo: { width: 70, marginBottom: 8 },
-
-  title: { fontSize: 36, margin: "8px 0", color: "#111" },
+  logo: { width: 375, marginBottom: 2 },
 
   subtitle: { fontSize: 16, color: "#555" },
 
@@ -243,6 +319,9 @@ const styles = {
   },
 
   meta: { marginTop: 16, fontSize: 12, color: "#777" },
+
+  streak: { marginTop: 10, fontSize: 14 },
+  badge: { fontSize: 12, color: "#666", marginTop: 4 },
 
   gameContainer: {
     minHeight: "100vh",
@@ -268,13 +347,14 @@ const styles = {
   tile: {
     width: 56,
     height: 56,
-    border: "1px solid #e5e7eb",
+    border: "1px solid #d1d5db",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     fontSize: 20,
     borderRadius: 6,
-    color: "#111"
+    color: "#111",
+    backgroundColor: "#f9fafb"
   },
 
   keyboardContainer: {
@@ -297,9 +377,8 @@ const styles = {
     flex: 1,
     height: 52,
     fontSize: 14,
-    backgroundColor: "#f3f4f6",
-    color: "#111",
-    borderRadius: 6
+    borderRadius: 6,
+    color: "#111"
   },
 
   resultCentered: {
@@ -308,7 +387,6 @@ const styles = {
   },
 
   answer: { fontWeight: "bold", fontSize: 18 },
-
   fact: { fontStyle: "italic", fontSize: 14 },
 
   share: {
@@ -320,6 +398,5 @@ const styles = {
   },
 
   copied: { fontSize: 12, marginTop: 5 },
-
   return: { fontSize: 12, marginTop: 10, color: "#888" }
 };
