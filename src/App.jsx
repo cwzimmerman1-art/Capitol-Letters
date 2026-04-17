@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 // --- WORD SYSTEM ---
 const WORD_BANK = {
   "2026-04-16": { word: "METRO", fact: "The Madison Metro Transit operates with approximately 1,346 bus stops. There, now you know." },
-  "2026-04-17": { word: "PLAZA", fact: "The large paintings throughout the Plaza were given to the bar in return for erasing the painter's $1,400+ running bar tab." },
+  "2026-04-17": { word: "PLAZA", fact: "True-ish story: the large paintings throughout the Plaza were given to the bar in return for erasing the painter's $1,400+ running bar tab." },
   "2026-04-18": { word: "CHAIR", fact: "Sit down for this one. The Memorial Union typically replaces about 60 Terrace chairs annually. That's enough to seat 60 people." }
 };
 
