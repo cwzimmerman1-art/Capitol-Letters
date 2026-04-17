@@ -2,38 +2,10 @@ import { useState, useEffect } from "react";
 
 // --- WORD SYSTEM ---
 const WORD_BANK = {
-  "2026-04-16": {
-    word: "METRO",
-    fact: "The Madison Metro Transit operates with approximately 1,346 bus stops. There, now you know."
-  },
-  "2026-04-17": {
-    word: "PLAZA",
-    fact: "True-ish story: the large paintings throughout the Plaza were given to the bar in return for erasing the painter's $1,400+ running bar tab."
-  },
-  "2026-04-18": {
-    word: "CHAIR",
-    fact: "Sit down for this one. The Memorial Union typically replaces about 60 Terrace chairs annually. That's enough to seat 60 people."
-  },
-  "2026-04-19": {
-    word: "BRATS",
-    fact: "As in, State Street Brats. If you’re new to Madison and looking for a nice date spot, look no further. Go on a Friday or Saturday night for a quiet, more intimate vibe."
-  },
-  "2026-04-20": {
-    word: "GARTH",
-    fact: "As in, Garth’s Brew Bar. The bar’s mascot (Marvin’s) head and antlers come from two different moose, referred to by taxidermists as a “Frankenmoose”."
-  },
-  "2026-04-21": {
-    word: "VILAS",
-    fact: "As in, Vilas Zoo. When Vilas opened in 1911, locals would donate animals they owned or found to the zoo. Because that’s how things worked in 1911."
-  },
-  "2026-04-22": {
-    word: "NOLEN",
-    fact: "As in, John Nolen Dr. Over 48,000 cars drive on this road every day, most of them wondering what the hell they were doing getting on John Nolen Dr. in the first place."
-  },
-  "2026-04-23": {
-    word: "QUILT",
-    fact: "As in, the Great Wisconsin Quilt Show at the Alliant Energy Center. Home to the famous Mini Quilt Challenge, where people make…like, really small quilts."
-  }
+  "2026-04-16": { word: "METRO", fact: "The Madison Metro Transit operates with approximately 1,346 bus stops. There, now you know." },
+  "2026-04-17": { word: "PLAZA", fact: "The large paintings throughout the Plaza were given to the bar in return for erasing the painter's $1,400+ running bar tab." },
+  "2026-04-17": { word: "PLAZA", fact: "True-ish story: the large paintings throughout the Plaza were given to the bar in return for erasing the painter's $1,400+ running bar tab." },
+  "2026-04-18": { word: "CHAIR", fact: "Sit down for this one. The Memorial Union typically replaces about 60 Terrace chairs annually. That's enough to seat 60 people." }
 };
 
 const BASE_DATE = "2026-04-16";
@@ -415,12 +387,14 @@ const styles = {
     animation: "scrollText 18s linear infinite"
   },
 
- gameContainer: {
-  height: "100vh",
-  display: "flex",
-  flexDirection: "column",
-  backgroundColor: "#fff",
-  color: "#111"
+  gameContainer: {
+    minHeight: "100vh",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: 16,
+    backgroundColor: "#fff",
+    color: "#111"
   },
 
   gridWrapper: {
@@ -429,7 +403,7 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
-    overflow: "auto",
+    paddingBottom: 140
   },
 
   row: { display: "flex", gap: 6, marginBottom: 6 },
@@ -449,10 +423,13 @@ const styles = {
   },
 
   keyboardContainer: {
-  width: "100%",
-  maxWidth: 500,
-  padding: "8px",
-  margin: "0 auto"
+    width: "100%",
+    maxWidth: 500,
+    padding: "0 8px",
+    position: "fixed",
+    bottom: 10,
+    left: "50%",
+    transform: "translateX(-50%)"
   },
 
   keyboardRow: {
