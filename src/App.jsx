@@ -202,10 +202,10 @@ export default function App() {
       <div style={styles.launchContainer}>
         <img src="/capitol.png" style={styles.logo} />
 
-        <p style={styles.subtitle}>A word game for Madison minds</p>
+        <p style={styles.subtitle}>Play every day for a Madison fact</p>
 
         <button onClick={() => setStarted(true)} style={styles.playButton}>
-          Play now
+          Solve now
         </button>
 
 
