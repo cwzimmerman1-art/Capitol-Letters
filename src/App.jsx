@@ -327,7 +327,7 @@ const styles = {
   meta: { marginTop: 16, fontSize: 12, color: "#868686" },
 
   streak: { marginTop: 10, fontSize: 14 },
-  badge: { fontSize: 12, color: "#666", marginTop: 4 },
+  badge: { fontSize: 12, color: "#666", fontStyle: "italic", marginTop: 4 },
 
   gameContainer: {
     minHeight: "100vh",
@@ -381,22 +381,23 @@ const styles = {
 
   key: {
     flex: 1,
-    height: 60,
-    fontSize: 14,
-    borderRadius: 6,
-    color: "#111"
+    height: 64,
+    fontSize: 16,
+    borderRadius: 10,
+    color: "#111",
+    margin: 2,
   },
 
   resultCentered: {
     textAlign: "center",
-    marginTop: 10
+    marginTop: 20
   },
 
   answer: { fontWeight: "bold", fontSize: 18 },
   fact: { fontStyle: "italic", fontSize: 14 },
 
   share: {
-    marginTop: 30,
+    marginTop: 10,
     padding: "10px 16px",
     backgroundColor: "#111",
     color: "#fff",
