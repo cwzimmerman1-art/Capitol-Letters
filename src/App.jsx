@@ -381,11 +381,12 @@ const styles = {
 
   key: {
     flex: 1,
-    height: 64,
-    fontSize: 16,
-    borderRadius: 10,
-    color: "#111",
-    margin: 2,
+    height: 60,
+    fontSize: 15,
+    borderRadius: 8,
+    color: "#5b5b5b",
+    margin: 1,
+    fontWeight: 600
   },
 
   resultCentered: {
