@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 // --- WORD SYSTEM ---
 const WORD_BANK = {
-  "2026-04-16": { word: "STATE", fact: "A million vape shops will never fill the void that Paul’s Bookstore left in our hearts. But the THC may help…" },
+  "2026-04-16": { word: "METRO", fact: "The Madison Metro Transit operates with approximately 1,346 bus stops. There, now you know." },
   "2026-04-17": { word: "PLAZA", fact: "The large paintings throughout the Plaza were given to the bar in return for erasing the painter’s $1,400+ running bar tab." }
 };
 
@@ -205,7 +205,7 @@ export default function App() {
     const grid = guesses.map(g => g.result.map(r => emojiMap[r]).join(""))
       .join("\n");
     const text = `CAPITOL LETTERS\n${formatDate()} • ${guesses.length}/${MAX_GUESSES}\n\n${grid};
-    
+
 I solved today's puzzle. Have you?`;
     navigator.clipboard.writeText(text);
     setCopied(true);
