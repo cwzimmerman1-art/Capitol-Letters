@@ -253,9 +253,12 @@ export default function App() {
           {KEYS.map((row, i) => (
             <div key={i} style={styles.keyboardRow}>
               {i === 2 && (
-                <button onClick={() => handleKey("ENTER")} style={{ ...styles.key, flex: 1.5 }}>
-                  Enter
-                </button>
+                <button
+  onClick={() => handleKey("ENTER")}
+  style={{ ...styles.key, flex: 1.5, backgroundColor: "#e5e7eb" }}
+>
+  Enter
+</button>
               )}
               {row.split("").map(k => (
                 <button
@@ -267,9 +270,12 @@ export default function App() {
                 </button>
               ))}
               {i === 2 && (
-                <button onClick={() => handleKey("DEL")} style={{ ...styles.key, flex: 1.5 }}>
-                  Delete
-                </button>
+                <button
+  onClick={() => handleKey("DEL")}
+  style={{ ...styles.key, flex: 1.5, backgroundColor: "#e5e7eb" }}
+>
+  Delete
+</button>
               )}
             </div>
           ))}
@@ -287,7 +293,7 @@ export default function App() {
 
           {copied && <div style={styles.copied}>Copied to clipboard, share with friends</div>}
 
-          <div style={styles.return}>New puzzles daily unless I forget</div>
+          <div style={styles.return}>Play again tomorrow</div>
         </div>
       )}
     </div>
@@ -375,7 +381,7 @@ const styles = {
 
   key: {
     flex: 1,
-    height: 52,
+    height: 60,
     fontSize: 14,
     borderRadius: 6,
     color: "#111"
