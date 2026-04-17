@@ -224,7 +224,7 @@ I solved today's puzzle. Have you?`;
       <div style={styles.launchContainer}>
         <img src="/capitol.png" style={styles.logo} />
 
-        <p style={styles.subtitle}>Solve for a Madison fact</p>
+        <p style={styles.subtitle}>A word game for Madison minds</p>
 
         <button onClick={() => setStarted(true)} style={styles.playButton}>
           Play now
