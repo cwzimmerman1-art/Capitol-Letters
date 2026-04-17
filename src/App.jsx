@@ -184,7 +184,7 @@ export default function App() {
 
   const handleShare = () => {
     const grid = guesses.map(g => g.result.map(r => emojiMap[r]).join("")).join("\n");
-    const text = `CAPITOL CODED\n${formatDate()} • ${guesses.length}/${MAX_GUESSES}\n\n${grid}`;
+    const text = `CAPITOL LETTERS\n${formatDate()} • ${guesses.length}/${MAX_GUESSES}\n\n${grid}`;
     navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -223,7 +223,7 @@ export default function App() {
   return (
     <div style={styles.gameContainer}>
 
-      <div style={{ ...styles.gridWrapper, paddingBottom: gameOver ? 20 : 140 }}>
+      <div style={{ ...styles.gridWrapper, paddingBottom: gameOver ? 0 : 140 }}>
         <div>
           {[...Array(MAX_GUESSES)].map((_, r) => (
             <div key={r} style={styles.row}>
@@ -312,19 +312,19 @@ const styles = {
     color: "#111"
   },
 
-  logo: { width: 375, marginBottom: 2 },
+  logo: { width: 375, marginBottom: 2},
 
   subtitle: { fontSize: 16, color: "#555" },
 
   playButton: {
     marginTop: 20,
-    padding: "10px 20px",
+    padding: "10px 25px",
     backgroundColor: "#111",
     color: "#fff",
-    borderRadius: 6
+    borderRadius: 8
   },
 
-  meta: { marginTop: 16, fontSize: 12, color: "#777" },
+  meta: { marginTop: 16, fontSize: 12, color: "#868686" },
 
   streak: { marginTop: 10, fontSize: 14 },
   badge: { fontSize: 12, color: "#666", marginTop: 4 },
@@ -389,14 +389,14 @@ const styles = {
 
   resultCentered: {
     textAlign: "center",
-    marginTop: 8
+    marginTop: 10
   },
 
   answer: { fontWeight: "bold", fontSize: 18 },
   fact: { fontStyle: "italic", fontSize: 14 },
 
   share: {
-    marginTop: 10,
+    marginTop: 30,
     padding: "10px 16px",
     backgroundColor: "#111",
     color: "#fff",
