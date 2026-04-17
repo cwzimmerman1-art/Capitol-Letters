@@ -223,7 +223,7 @@ export default function App() {
   return (
     <div style={styles.gameContainer}>
 
-      <div style={{ ...styles.gridWrapper, paddingBottom: gameOver ? 0 : 140 }}>
+      <div style={{ ...styles.gridWrapper, paddingBottom: gameOver ? 20 : 140 }}>
         <div>
           {[...Array(MAX_GUESSES)].map((_, r) => (
             <div key={r} style={styles.row}>
@@ -389,7 +389,7 @@ const styles = {
 
   resultCentered: {
     textAlign: "center",
-    marginTop: 20
+    marginTop: 8
   },
 
   answer: { fontWeight: "bold", fontSize: 18 },
