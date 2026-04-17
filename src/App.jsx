@@ -135,6 +135,7 @@ export default function App() {
   const [keyStatus, setKeyStatus] = useState({});
   const [copied, setCopied] = useState(false);
   const [streak, setStreak] = useState(0);
+  const [newBadge, setNewBadge] = useState(null);
 
   const yesterday = getYesterdayEntry();
 
@@ -144,6 +145,7 @@ export default function App() {
   }, []);
 
   const submitGuess = () => {
+    const prevStreak = streak;
     if (current.length !== 5 || gameOver) return;
 
     const guess = current.toUpperCase();
@@ -169,6 +171,13 @@ export default function App() {
       const won = guess === SOLUTION;
       const newStreak = updateStreak(won);
       setStreak(newStreak);
+
+      // --- BADGE DETECTION ---
+      const prevBadge = getBadge(prevStreak);
+      const nextBadge = getBadge(newStreak);
+      if (prevBadge !== nextBadge) {
+        setNewBadge(nextBadge);
+      }
     }
   };
 
@@ -304,6 +313,13 @@ export default function App() {
         <div style={styles.resultCentered}>
           <div style={styles.answer}>{SOLUTION}</div>
           <div style={styles.fact}>{DESCRIPTION}</div>
+
+          {newBadge && (
+            <div style={styles.badgeCard}>
+              <div style={styles.badgeTitle}>🎉 New title unlocked</div>
+              <div style={styles.badgeName}>{newBadge}</div>
+            </div>
+          )}
 
           <button onClick={handleShare} style={styles.share}>
             Share with friends
@@ -444,7 +460,28 @@ const styles = {
   },
 
   copied: { fontSize: 12, marginTop: 5 },
-  return: { fontSize: 12, marginTop: 10, color: "#888" }
+  return: { fontSize: 12, marginTop: 10, color: "#888" },
+
+  // --- NEW BADGE STYLES ---
+  badgeCard: {
+    marginTop: 16,
+    padding: "12px 16px",
+    borderRadius: 10,
+    backgroundColor: "#f9fafb",
+    border: "1px solid #e5e7eb",
+    animation: "fadeInUp 0.4s ease"
+  },
+
+  badgeTitle: {
+    fontSize: 12,
+    color: "#666",
+    marginBottom: 4
+  },
+
+  badgeName: {
+    fontSize: 16,
+    fontWeight: "600"
+  }
 };
 
 /*
