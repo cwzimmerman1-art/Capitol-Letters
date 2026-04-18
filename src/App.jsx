@@ -13,9 +13,9 @@ const BASE_DATE = "2026-04-16";
 const BADGES = [
   { days: 15, label: 'Knows the "242-2000" jingle' },
   { days: 10, label: "Has had a Caribou burger" },
-  { days: 5, label: "Can name every Madison lake" },
+  { days: 5, label: "Expert Woodman's navigator" },
   { days: 3, label: 'Zipper merges on beltline' },
-  { days: 1, label: "Knows way around Woodman's" }
+  { days: 1, label: "Knows every Madison lake" }
 ];
 
 const getDevDate = () => {
@@ -316,9 +316,9 @@ const nextBadges = BADGES
   .reverse()
   .slice(0, 5);
   return (
+    
     <div style={styles.launchContainer}>
       <h2 style={{ marginBottom: 10, color: "#171717" }}>CITY ACHIEVEMENTS</h2>
-
       <div style={{ marginTop: 10 }}>
        <div style={{ marginTop: 10 }}>
 
@@ -359,7 +359,7 @@ const nextBadges = BADGES
       <div style={styles.launchContainer}>
         <img src="/capitol.png" style={styles.logo} />
 
-        <p style={styles.subtitle}>Wordle meets the isthmus</p>
+        <p style={styles.subtitle}>A word game for Madison minds</p>
 
         <button onClick={() => setStarted(true)} style={styles.playButton}>
           Play now
