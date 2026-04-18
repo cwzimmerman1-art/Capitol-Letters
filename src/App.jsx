@@ -254,7 +254,7 @@ I solved today's puzzle. Have you?`;
   return (
     <div style={styles.gameContainer}>
 
-      <div style={{ ...styles.gridWrapper, paddingBottom: gameOver ? 0 : 140 }}>
+      <div style={{ ...styles.gridWrapper, paddingBottom: gameOver ? 0 : 220 }}>
         <div>
           {[...Array(MAX_GUESSES)].map((_, r) => (
             <div key={r} style={styles.row}>
