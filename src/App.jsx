@@ -64,6 +64,33 @@ const getStreakData = () => {
   };
 };
 
+// --- BADGE KEEPER ---
+const getUnlockedBadges = () => {
+  return JSON.parse(localStorage.getItem("capitol_badges") || "[]");
+};
+
+const unlockBadge = (badgeLabel) => {
+  const unlockBadge = (badgeLabel) => {
+  const badges = getUnlockedBadges(); // ✅ correct source
+
+  if (!badges.includes(badgeLabel)) {
+    const updated = [...badges, badgeLabel];
+    localStorage.setItem("capitol_badges", JSON.stringify(updated));
+    return true;
+  }
+
+  return false;
+};
+
+  if (!badges.includes(badgeLabel)) {
+    const updated = [...badges, badgeLabel];
+    localStorage.setItem("capitol_badges", JSON.stringify(updated));
+    return true; // new unlock
+  }
+
+  return false;
+};
+
 const updateStreak = (won) => {
   const today = getTodayKey();
   const { streak, lastPlayed } = getStreakData();
@@ -136,6 +163,7 @@ const formatDate = () => {
 const { word: SOLUTION, fact: DESCRIPTION } = getTodayEntry();
 
 export default function App() {
+  const [showTrophies, setShowTrophies] = useState(false);
   const [started, setStarted] = useState(false);
   const [guesses, setGuesses] = useState([]);
   const [current, setCurrent] = useState("");
@@ -144,13 +172,18 @@ export default function App() {
   const [copied, setCopied] = useState(false);
   const [streak, setStreak] = useState(0);
   const [newBadge, setNewBadge] = useState(null);
-
+  const [unlockedBadges, setUnlockedBadges] = useState([]);
   const yesterday = getYesterdayEntry();
+  const [showInstructions, setShowInstructions] = useState(false);
 
   useEffect(() => {
     const { streak } = getStreakData();
     setStreak(streak);
   }, []);
+
+  useEffect(() => {
+  setUnlockedBadges(getUnlockedBadges());
+}, []);
 
   const submitGuess = () => {
     const prevStreak = streak;
@@ -184,7 +217,12 @@ export default function App() {
       const prevBadge = getBadge(prevStreak);
       const nextBadge = getBadge(newStreak);
       if (prevBadge !== nextBadge) {
-        setNewBadge(nextBadge);
+  const isNew = unlockBadge(nextBadge);
+
+  if (isNew) {
+    setNewBadge(nextBadge);
+    setUnlockedBadges(getUnlockedBadges()); // ✅ refresh UI
+  }
       }
     }
   };
@@ -207,6 +245,24 @@ export default function App() {
     return () => window.removeEventListener("keydown", listener);
   }, [current, gameOver, started]);
 
+  useEffect(() => {
+  const { streak } = getStreakData();
+  setStreak(streak);
+
+  const savedBadges = getUnlockedBadges();
+
+  // 👇 ensure current streak badge is always included
+  const current = getBadge(streak);
+
+  if (!savedBadges.includes(current) && current !== "Solve to unlock a badge") {
+    const updated = [...savedBadges, current];
+    localStorage.setItem("capitol_badges", JSON.stringify(updated));
+    setUnlockedBadges(updated);
+  } else {
+    setUnlockedBadges(savedBadges);
+  }
+}, []);
+
   const emojiMap = { green: "🟩", blue: "🟦", gray: "⬜" };
 
   const handleShare = () => {
@@ -227,15 +283,104 @@ I solved today's puzzle. Have you?`;
     return "#f3f4f6";
   };
 
+  if (showInstructions) {
+  return (
+    <div style={styles.launchContainer}>
+      <h2 style={{ marginBottom: 10, color: "#000000" }}>How to play</h2>
+
+      <div style={{ maxWidth: 320, fontSize: 14, color: "#444", lineHeight: 1.5 }}>
+        Guess the Madison-themed word in 6 tries.
+
+        <br /><br />
+
+        🟩 = right letter, correct spot<br />
+        🟦 = right letter, wrong spot<br />
+        ⬜ = not in the word
+
+        <br /><br />
+
+        Play daily to build your streak and unlock new achievements.
+      </div>
+
+      <button
+        onClick={() => setShowInstructions(false)}
+        style={{ ...styles.playButton, marginTop: 20 }}
+      >
+        Back
+      </button>
+    </div>
+  );
+}
+if (showTrophies) {
+  const currentBadge = BADGES.find(b => unlockedBadges.includes(b.label));
+
+const nextBadges = BADGES
+  .filter(b => !unlockedBadges.includes(b.label))
+  .slice()
+  .reverse()
+  .slice(0, 5);
+  return (
+    <div style={styles.launchContainer}>
+      <h2 style={{ marginBottom: 10, color: "#000000" }}>City achievements</h2>
+
+      <div style={{ marginTop: 10 }}>
+       <div style={{ marginTop: 10 }}>
+
+  {/* CURRENT BADGE */}
+  {currentBadge && (
+    <div style={{ ...styles.badgeCard, opacity: 1 }}>
+      🏆 {currentBadge.label}
+    </div>
+  )}
+
+  {/* UPCOMING BADGES */}
+  {nextBadges.map((b, i) => (
+    <div
+      key={i}
+      style={{
+        ...styles.badgeCard,
+        opacity: 0.4
+      }}
+    >
+      🔒 Unlock with {b.days} day streak
+    </div>
+  ))}
+
+</div>
+      </div>
+
+      <button
+        onClick={() => setShowTrophies(false)}
+        style={{ ...styles.playButton, marginTop: 20 }}
+      >
+        Back
+      </button>
+    </div>
+  );
+}
   if (!started) {
     return (
       <div style={styles.launchContainer}>
         <img src="/capitol.png" style={styles.logo} />
 
-        <p style={styles.subtitle}>Wordle's weird Madison cousin</p>
+        <p style={styles.subtitle}>Wordle meets the isthmus</p>
 
         <button onClick={() => setStarted(true)} style={styles.playButton}>
           Play now
+        </button>
+
+        <button
+  onClick={() => setShowTrophies(true)}
+  style={styles.secondaryButton}
+        >
+        See achievements
+        </button>
+
+        <button
+           onClick={() => setShowInstructions(true)}
+          style={styles.secondaryButton}
+        >
+        How to play
         </button>
 
         <div style={styles.streak}>{streak} day streak</div>
@@ -337,7 +482,7 @@ I solved today's puzzle. Have you?`;
 
           {copied && <div style={styles.copied}>Copied to clipboard, challenge your friends</div>}
 
-          <div style={styles.return}>Play again tomorrow</div>
+          <div style={styles.return}>Add to bookmarks • New puzzles daily</div>
         </div>
       )}
     </div>
@@ -357,17 +502,29 @@ const styles = {
     position: "relative"
   },
 
-  logo: { width: 375, marginBottom: 2},
+  logo: { width: 375, marginBottom: 5},
 
   subtitle: { fontSize: 16, color: "#555" },
 
   playButton: {
-    marginTop: 20,
-    padding: "10px 25px",
+    marginTop: 18,
+    padding: "10px 22px",
     backgroundColor: "#111",
     color: "#fff",
+    fontSize: 14,
     borderRadius: 8
   },
+
+  secondaryButton: {
+  marginTop: 10,
+  padding: "8px 18px",
+  backgroundColor: "#f3f4f6",
+  color: "#111",
+  fontSize: 15,
+  borderRadius: 8,
+  border: "1px solid #e5e7eb",
+  cursor: "pointer"
+},
 
   meta: { marginTop: 16, fontSize: 12, color: "#868686" },
 
