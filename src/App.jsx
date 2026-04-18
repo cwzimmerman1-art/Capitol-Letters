@@ -206,7 +206,7 @@ export default function App() {
   const handleShare = () => {
     const grid = guesses.map(g => g.result.map(r => emojiMap[r]).join(""))
       .join("\n");
-    const text = `CAPITOL LETTERS\n${formatDate()} • ${guesses.length}/${MAX_GUESSES}\n\n${grid};
+    const text = `MAD TILES\n${formatDate()} • ${guesses.length}/${MAX_GUESSES}\n\n${grid};
 
 I solved today's puzzle. Have you?`;
     navigator.clipboard.writeText(text);
@@ -226,7 +226,7 @@ I solved today's puzzle. Have you?`;
       <div style={styles.launchContainer}>
         <img src="/capitol.png" style={styles.logo} />
 
-        <p style={styles.subtitle}>A word game for Madison minds</p>
+        <p style={styles.subtitle}>Wordle's weird Madison cousin</p>
 
         <button onClick={() => setStarted(true)} style={styles.playButton}>
           Play now
