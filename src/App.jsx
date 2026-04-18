@@ -3,9 +3,8 @@ import { useState, useEffect } from "react";
 // --- WORD SYSTEM ---
 const WORD_BANK = {
   "2026-04-16": { word: "METRO", fact: "The Madison Metro Transit operates with approximately 1,346 bus stops. There, now you know." },
-  "2026-04-17": { word: "PLAZA", fact: "The large paintings throughout the Plaza were given to the bar in return for erasing the painter's $1,400+ running bar tab." },
   "2026-04-17": { word: "PLAZA", fact: "True-ish story: the large paintings throughout the Plaza were given to the bar in return for erasing the painter's $1,400+ running bar tab." },
-  "2026-04-18": { word: "CHAIR", fact: "Sit down for this one. The Memorial Union typically replaces about 60 Terrace chairs annually. That's enough to seat 60 people." }
+  "2026-04-18": { word: "CHAIR", fact: "As in, a Union chair. The Memorial Union typically replaces about 60 Terrace chairs annually. That's enough to seat about 60 people." }
 };
 
 const BASE_DATE = "2026-04-16";
@@ -26,7 +25,14 @@ const getDevDate = () => {
 
 const getTodayKey = () => {
   const devDate = getDevDate();
-  return devDate || new Date().toISOString().slice(0, 10);
+  if (devDate) return devDate;
+
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
 };
 
 const getTodayEntry = () => {
@@ -425,23 +431,23 @@ const styles = {
   keyboardContainer: {
     width: "100%",
     maxWidth: 500,
-    padding: "12px 12px 16px",
+    padding: "12px 12px 8px",
     position: "fixed",
-    bottom: 10,
+    bottom: 5,
     left: "50%",
     transform: "translateX(-50%)"
   },
 
   keyboardRow: {
     display: "flex",
-    gap: 3,
-    margin: "3px 0"
+    gap: 4,
+    margin: "4px 0"
   },
 
   key: {
     flex: 1,
     height: 60,
-    fontSize: 15,
+    fontSize: 16,
     borderRadius: 8,
     color: "#5b5b5b",
     margin: 1,
