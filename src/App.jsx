@@ -15,7 +15,7 @@ const BADGES = [
   { days: 10, label: "Has had a Caribou burger" },
   { days: 5, label: "Can name every Madison lake" },
   { days: 3, label: 'Zipper merges on beltline' },
-  { days: 1, label: "Navigates Woodman's with ease" }
+  { days: 1, label: "Knows way around Woodman's" }
 ];
 
 const getDevDate = () => {
@@ -66,21 +66,20 @@ const getStreakData = () => {
 
 // --- BADGE KEEPER ---
 const getUnlockedBadges = () => {
-  return JSON.parse(localStorage.getItem("capitol_badges") || "[]");
+  const badges = JSON.parse(localStorage.getItem("capitol_badges") || "[]");
+  return [...badges]; // IMPORTANT: forces React update
 };
 
 const unlockBadge = (badgeLabel) => {
-  const unlockBadge = (badgeLabel) => {
-  const badges = getUnlockedBadges(); // ✅ correct source
-
+  const badges = getUnlockedBadges();
   if (!badges.includes(badgeLabel)) {
     const updated = [...badges, badgeLabel];
     localStorage.setItem("capitol_badges", JSON.stringify(updated));
+    window.dispatchEvent(new Event('achievementsUpdated'));
     return true;
   }
 
   return false;
-};
 
   if (!badges.includes(badgeLabel)) {
     const updated = [...badges, badgeLabel];
@@ -123,7 +122,7 @@ const getBadge = (streak) => {
   for (let badge of BADGES) {
     if (streak >= badge.days) return badge.label;
   }
-  return "Solve to unlock a badge";
+  return "Solve to earn achievements";
 };
 
 const MAX_GUESSES = 6;
@@ -176,13 +175,24 @@ export default function App() {
   const yesterday = getYesterdayEntry();
   const [showInstructions, setShowInstructions] = useState(false);
 
-  useEffect(() => {
+useEffect(() => {
+  const loadData = () => {
     const { streak } = getStreakData();
     setStreak(streak);
-  }, []);
 
-  useEffect(() => {
-  setUnlockedBadges(getUnlockedBadges());
+    const savedBadges = getUnlockedBadges();
+    setUnlockedBadges(savedBadges);
+  };
+
+  // run once
+  loadData();
+
+  // listen for updates
+  window.addEventListener('achievementsUpdated', loadData);
+
+  return () => {
+    window.removeEventListener('achievementsUpdated', loadData);
+  };
 }, []);
 
   const submitGuess = () => {
@@ -221,7 +231,6 @@ export default function App() {
 
   if (isNew) {
     setNewBadge(nextBadge);
-    setUnlockedBadges(getUnlockedBadges()); // ✅ refresh UI
   }
       }
     }
@@ -245,23 +254,6 @@ export default function App() {
     return () => window.removeEventListener("keydown", listener);
   }, [current, gameOver, started]);
 
-  useEffect(() => {
-  const { streak } = getStreakData();
-  setStreak(streak);
-
-  const savedBadges = getUnlockedBadges();
-
-  // 👇 ensure current streak badge is always included
-  const current = getBadge(streak);
-
-  if (!savedBadges.includes(current) && current !== "Solve to unlock a badge") {
-    const updated = [...savedBadges, current];
-    localStorage.setItem("capitol_badges", JSON.stringify(updated));
-    setUnlockedBadges(updated);
-  } else {
-    setUnlockedBadges(savedBadges);
-  }
-}, []);
 
   const emojiMap = { green: "🟩", blue: "🟦", gray: "⬜" };
 
@@ -286,7 +278,7 @@ I solved today's puzzle. Have you?`;
   if (showInstructions) {
   return (
     <div style={styles.launchContainer}>
-      <h2 style={{ marginBottom: 10, color: "#000000" }}>How to play</h2>
+      <h2 style={{ marginBottom: 10, color: "#252525" }}>HOW TO PLAY</h2>
 
       <div style={{ maxWidth: 320, fontSize: 14, color: "#444", lineHeight: 1.5 }}>
         Guess the Madison-themed word in 6 tries.
@@ -297,9 +289,13 @@ I solved today's puzzle. Have you?`;
         🟦 = right letter, wrong spot<br />
         ⬜ = not in the word
 
-        <br /><br />
+      <br /><br />
 
         Play daily to build your streak and unlock new achievements.
+        <br /><br />
+        ~~~
+        <br /><br />
+        Bookmark and add to your phone's home screen for the best experience.
       </div>
 
       <button
@@ -321,7 +317,7 @@ const nextBadges = BADGES
   .slice(0, 5);
   return (
     <div style={styles.launchContainer}>
-      <h2 style={{ marginBottom: 10, color: "#000000" }}>City achievements</h2>
+      <h2 style={{ marginBottom: 10, color: "#171717" }}>CITY ACHIEVEMENTS</h2>
 
       <div style={{ marginTop: 10 }}>
        <div style={{ marginTop: 10 }}>
@@ -329,7 +325,7 @@ const nextBadges = BADGES
   {/* CURRENT BADGE */}
   {currentBadge && (
     <div style={{ ...styles.badgeCard, opacity: 1 }}>
-      🏆 {currentBadge.label}
+      {currentBadge.label}
     </div>
   )}
 
@@ -373,7 +369,7 @@ const nextBadges = BADGES
   onClick={() => setShowTrophies(true)}
   style={styles.secondaryButton}
         >
-        See achievements
+        Achievements
         </button>
 
         <button
