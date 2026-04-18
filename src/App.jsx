@@ -11,11 +11,11 @@ const BASE_DATE = "2026-04-16";
 
 // --- BADGES ---
 const BADGES = [
-  { days: 15, label: 'Knows the "242-2000" jingle' },
-  { days: 10, label: "Has had a Caribou burger" },
-  { days: 5, label: "Expert Woodman's navigator" },
-  { days: 3, label: 'Zipper merges on beltline' },
-  { days: 1, label: "Knows every Madison lake" }
+  { days: 15, label: '🚕 Knows the "242-2000" jingle' },
+  { days: 10, label: "🍔 Has had a Caribou burger" },
+  { days: 5, label: "🛒 Expert Woodman's navigator" },
+  { days: 3, label: '🚘 Zipper merges on beltline' },
+  { days: 1, label: "⛵ Knows every Madison lake" }
 ];
 
 const getDevDate = () => {
