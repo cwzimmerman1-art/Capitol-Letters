@@ -13,10 +13,10 @@ const BASE_DATE = "2026-04-16";
 // --- BADGES ---
 const BADGES = [
   { days: 15, label: 'Knows the "242-2000" jingle' },
-  { days: 10, label: "Can name every Madison lake" },
-  { days: 5, label: "Isthmuskateer" },
+  { days: 10, label: "Has had a Caribou burger" },
+  { days: 5, label: "Can name every Madison lake" },
   { days: 3, label: 'Zipper merges on beltline' },
-  { days: 1, label: "Confidently navigates Woodman's" }
+  { days: 1, label: "Navigates Woodman's with ease" }
 ];
 
 const getDevDate = () => {
@@ -371,7 +371,7 @@ const styles = {
   // --- NEW TICKER STYLES ---
   tickerWrapper: {
     position: "absolute",
-    bottom: 0,
+    top: 0,
     width: "100%",
     overflow: "hidden",
     borderTop: "1px solid #eee",
@@ -382,9 +382,9 @@ const styles = {
     whiteSpace: "nowrap",
     display: "inline-block",
     padding: "8px 0",
-    fontSize: 12,
+    fontSize: 13,
     color: "#666",
-    animation: "scrollText 18s linear infinite"
+    animation: "scrollText 16s linear infinite"
   },
 
   gameContainer: {
@@ -425,7 +425,7 @@ const styles = {
   keyboardContainer: {
     width: "100%",
     maxWidth: 500,
-    padding: "0 8px",
+    padding: "12px 12px 16px",
     position: "fixed",
     bottom: 10,
     left: "50%",
