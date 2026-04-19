@@ -13,6 +13,7 @@ const BASE_DATE = "2026-04-16";
 
 // --- BADGES ---
 const BADGES = [
+  { days: 20, label: '🎸 Has given $$$ to Art Paul' },
   { days: 15, label: '🚕 Can sing the "242-2000" jingle' },
   { days: 10, label: "🍔 Enjoys a Caribou burger" },
   { days: 5, label: "🛒 Expert Woodman's navigator" },
@@ -124,7 +125,7 @@ const getBadge = (streak) => {
   for (let badge of BADGES) {
     if (streak >= badge.days) return badge.label;
   }
-  return "Solve to earn achievements";
+  return "Solve to earn city badges";
 };
 
 const MAX_GUESSES = 6;
@@ -262,9 +263,9 @@ useEffect(() => {
   const handleShare = () => {
     const grid = guesses.map(g => g.result.map(r => emojiMap[r]).join(""))
       .join("\n");
-    const text = `MAD TILES\n${formatDate()} • ${guesses.length}/${MAX_GUESSES}\n\n${grid};
+    const text = `MAD TILES\n${formatDate()} • ${guesses.length}/${MAX_GUESSES}\n\n${grid}
 
-I solved today's puzzle. Have you?`;
+I played today's puzzle. Have you?`;
     navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -287,17 +288,17 @@ I solved today's puzzle. Have you?`;
 
         <br /><br />
 
-        🟩 = right letter, correct spot<br />
+        🟩 = right letter, right spot<br />
         🟦 = right letter, wrong spot<br />
         ⬜ = not in the word
 
       <br /><br />
 
-        Play daily to build your streak and unlock new achievements.
+        Play daily to add to your streak and unlock new badges.
         <br /><br />
         ~~~
         <br /><br />
-        Bookmark and add to your phone's home screen for the best experience.
+        Add Mad Tiles to your phone's home screen to play in a tap.
       </div>
 
       <button
@@ -320,7 +321,7 @@ const nextBadges = BADGES
   return (
     
     <div style={styles.launchContainer}>
-      <h2 style={{ marginBottom: 10, fontWeight: "600",color: "#171717" }}>CITY ACHIEVEMENTS</h2>
+      <h2 style={{ marginBottom: 10, fontWeight: "600",color: "#171717" }}>CITY BADGES</h2>
       <div style={{ marginTop: 10 }}>
        <div style={{ marginTop: 10 }}>
 
@@ -371,7 +372,7 @@ const nextBadges = BADGES
   onClick={() => setShowTrophies(true)}
   style={styles.secondaryButton}
         >
-        Achievements
+        City badges
         </button>
 
         <button
@@ -392,7 +393,7 @@ const nextBadges = BADGES
         {yesterday && (
           <div style={styles.tickerWrapper}>
             <div style={styles.ticker}>
-              Yesterday’s word: {yesterday.word} — {yesterday.fact}
+               ✅ Yesterday’s word: {yesterday.word} — {yesterday.fact}
             </div>
           </div>
         )}
@@ -479,7 +480,7 @@ const nextBadges = BADGES
   }}
   style={styles.achievementButton}
 >
-  See achievements
+  See city badges
 </button>
   </div>
 )}
@@ -569,6 +570,7 @@ const styles = {
   // --- BUTTONS ---
   playButton: {
     marginTop: 18,
+    fontWeight: "600",
     padding: "10px 22px",
     backgroundColor: "#3983f3",
     color: "#fff",
@@ -577,11 +579,11 @@ const styles = {
   },
 
   secondaryButton: {
-    marginTop: 10,
+    marginTop: 12,
     padding: "8px 18px",
     backgroundColor: "#f3f4f6",
     color: "#111",
-    fontSize: 15,
+    fontSize: 14,
     borderRadius: 8,
     border: "1px solid #e5e7eb",
     cursor: "pointer"
@@ -593,7 +595,6 @@ const styles = {
     backgroundColor: "#3FC28D",
     color: "#000000",
     borderRadius: 8,
-    fontWeight: "600",
     fontSize: 14,
     border: "none",
     cursor: "pointer"
@@ -731,6 +732,6 @@ const styles = {
     padding: "8px 0",
     fontSize: 13,
     color: "#666",
-    animation: "scrollText 16s linear infinite"
+    animation: "scrollText 12s linear infinite"
   }
 };
