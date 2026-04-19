@@ -5,15 +5,16 @@ const WORD_BANK = {
   "2026-04-16": { word: "METRO", fact: "The Madison Metro Transit operates with approximately 1,346 bus stops. There, now you know." },
   "2026-04-17": { word: "PLAZA", fact: "True-ish story: the large paintings throughout the Plaza were given to the bar in return for erasing the painter's $1,400+ running bar tab." },
   "2026-04-18": { word: "CHAIR", fact: "As in, a Union chair. The Memorial Union typically replaces about 60 Terrace chairs annually. That's enough to seat about 60 people." },
-  "2026-04-19": { word: "VILAS", fact: "As in, Vilas Zoo. When Vilas opened in 1911, locals would donate animals they owned or found to the zoo. Because that’s how things worked in 1911." }
+  "2026-04-19": { word: "VILAS", fact: "As in, Vilas Zoo. When Vilas opened in 1911, locals would donate animals they owned or found to the zoo. Because that’s how things worked in 1911." },
+  "2026-04-20": { word: "GANJA", fact: "As in, grass. Sticky. The devil's lettuce. In Madison, adults can legally possess up to 28g of marijuana in public or private spaces." }
 };
 
 const BASE_DATE = "2026-04-16";
 
 // --- BADGES ---
 const BADGES = [
-  { days: 15, label: '🚕 Knows the "242-2000" jingle' },
-  { days: 10, label: "🍔 Has had a Caribou burger" },
+  { days: 15, label: '🚕 Can sing the "242-2000" jingle' },
+  { days: 10, label: "🍔 Enjoys a Caribou burger" },
   { days: 5, label: "🛒 Expert Woodman's navigator" },
   { days: 3, label: '🚘 Zipper merges on beltline' },
   { days: 1, label: "⛵ Knows every Madison lake" }
@@ -279,7 +280,7 @@ I solved today's puzzle. Have you?`;
   if (showInstructions) {
   return (
     <div style={styles.launchContainer}>
-      <h2 style={{ marginBottom: 10, color: "#252525" }}>HOW TO PLAY</h2>
+      <h2 style={{ marginBottom: 10, fontWeight: "600", color: "#252525" }}>HOW TO PLAY</h2>
 
       <div style={{ maxWidth: 320, fontSize: 14, color: "#444", lineHeight: 1.5 }}>
         Guess the Madison-themed word in 6 tries.
@@ -319,7 +320,7 @@ const nextBadges = BADGES
   return (
     
     <div style={styles.launchContainer}>
-      <h2 style={{ marginBottom: 10, color: "#171717" }}>CITY ACHIEVEMENTS</h2>
+      <h2 style={{ marginBottom: 10, fontWeight: "600",color: "#171717" }}>CITY ACHIEVEMENTS</h2>
       <div style={{ marginTop: 10 }}>
        <div style={{ marginTop: 10 }}>
 
@@ -336,7 +337,7 @@ const nextBadges = BADGES
       key={i}
       style={{
         ...styles.badgeCard,
-        opacity: 0.4
+        opacity: 0.3
       }}
     >
       🔒 Unlock with {b.days} day streak
@@ -467,19 +468,45 @@ const nextBadges = BADGES
           <div style={styles.fact}>{DESCRIPTION}</div>
 
           {newBadge && (
-            <div style={styles.badgeCard}>
-              <div style={styles.badgeTitle}>🎉 New badge unlocked</div>
-              <div style={styles.badgeName}>{newBadge}</div>
-            </div>
-          )}
+  <div style={styles.badgeCard}>
+    <div style={styles.badgeTitle}>New badge unlocked!</div>
+    <div style={styles.badgeName}>{newBadge}</div>
 
-          <button onClick={handleShare} style={styles.share}>
-            Share with friends
-          </button>
+    <button
+      onClick={() => {
+      setNewBadge(null);
+      setShowTrophies(true);
+  }}
+  style={styles.achievementButton}
+>
+  See achievements
+</button>
+  </div>
+)}
 
-          {copied && <div style={styles.copied}>Copied to clipboard, challenge your friends</div>}
+ <div style={styles.buttonStack}>
+  <button onClick={handleShare} style={styles.share}>
+    Share with friends
+  </button>
 
-          <div style={styles.return}>Add to bookmarks • New puzzles daily</div>
+  <button
+    onClick={() => {
+      setStarted(false);
+      setGameOver(false);
+      setGuesses([]);
+      setCurrent("");
+      setKeyStatus({});
+      setNewBadge(null);
+    }}
+    style={styles.secondaryButton}
+  >
+    Back to home
+  </button>
+</div>
+
+{copied && <div style={styles.copied}>Copied to clipboard, challenge your friends</div>}
+
+<div style={styles.return}>Add to bookmarks • New puzzles daily</div>
         </div>
       )}
     </div>
@@ -487,6 +514,8 @@ const nextBadges = BADGES
 }
 
 const styles = {
+
+  // --- LAYOUT ---
   launchContainer: {
     height: "100vh",
     display: "flex",
@@ -497,54 +526,6 @@ const styles = {
     backgroundColor: "#fff",
     color: "#111",
     position: "relative"
-  },
-
-  logo: { width: 375, marginBottom: 5},
-
-  subtitle: { fontSize: 16, color: "#555" },
-
-  playButton: {
-    marginTop: 18,
-    padding: "10px 22px",
-    backgroundColor: "#111",
-    color: "#fff",
-    fontSize: 14,
-    borderRadius: 8
-  },
-
-  secondaryButton: {
-  marginTop: 10,
-  padding: "8px 18px",
-  backgroundColor: "#f3f4f6",
-  color: "#111",
-  fontSize: 15,
-  borderRadius: 8,
-  border: "1px solid #e5e7eb",
-  cursor: "pointer"
-},
-
-  meta: { marginTop: 16, fontSize: 12, color: "#868686" },
-
-  streak: { marginTop: 10, fontSize: 14 },
-  badge: { fontSize: 12, color: "#666", fontStyle: "italic", marginTop: 4 },
-
-  // --- NEW TICKER STYLES ---
-  tickerWrapper: {
-    position: "absolute",
-    top: 0,
-    width: "100%",
-    overflow: "hidden",
-    borderTop: "1px solid #eee",
-    backgroundColor: "#fafafa"
-  },
-
-  ticker: {
-    whiteSpace: "nowrap",
-    display: "inline-block",
-    padding: "8px 0",
-    fontSize: 13,
-    color: "#666",
-    animation: "scrollText 16s linear infinite"
   },
 
   gameContainer: {
@@ -566,6 +547,80 @@ const styles = {
     paddingBottom: 140
   },
 
+  buttonStack: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: 10,
+    marginTop: 12
+  },
+
+  // --- TYPOGRAPHY ---
+  subtitle: { fontSize: 16, color: "#555" },
+  meta: { marginTop: 16, fontSize: 12, color: "#868686" },
+  streak: { marginTop: 12, fontSize: 14 },
+  badge: { fontSize: 12, color: "#666", fontStyle: "italic", marginTop: 4 },
+
+  answer: { fontWeight: "bold", fontSize: 18 },
+  fact: { fontStyle: "italic", fontSize: 14 },
+  copied: { fontSize: 12, marginTop: 5 },
+  return: { fontSize: 12, marginTop: 10, color: "#888" },
+
+  // --- BUTTONS ---
+  playButton: {
+    marginTop: 18,
+    padding: "10px 22px",
+    backgroundColor: "#3983f3",
+    color: "#fff",
+    fontSize: 14,
+    borderRadius: 8
+  },
+
+  secondaryButton: {
+    marginTop: 10,
+    padding: "8px 18px",
+    backgroundColor: "#f3f4f6",
+    color: "#111",
+    fontSize: 15,
+    borderRadius: 8,
+    border: "1px solid #e5e7eb",
+    cursor: "pointer"
+  },
+
+  share: {
+    marginTop: 14,
+    padding: "12px 18px",
+    backgroundColor: "#3FC28D",
+    color: "#000000",
+    borderRadius: 8,
+    fontWeight: "600",
+    fontSize: 14,
+    border: "none",
+    cursor: "pointer"
+  },
+
+  achievementButton: {
+    marginTop: 10,
+    padding: "8px 14px",
+    backgroundColor: "#111",
+    color: "#fff",
+    fontSize: 13,
+    borderRadius: 6,
+    border: "none",
+    cursor: "pointer"
+  },
+
+  dismissButton: {
+    marginTop: 8,
+    padding: "6px 12px",
+    backgroundColor: "transparent",
+    color: "#666",
+    fontSize: 12,
+    border: "none",
+    cursor: "pointer"
+  },
+
+  // --- GAME BOARD ---
   row: { display: "flex", gap: 6, marginBottom: 6 },
 
   tile: {
@@ -577,7 +632,7 @@ const styles = {
     justifyContent: "center",
     fontSize: 20,
     fontWeight: 700,
-    borderRadius: 6,
+    borderRadius: 8,
     color: "#111",
     backgroundColor: "#f9fafb"
   },
@@ -608,26 +663,12 @@ const styles = {
     fontWeight: 600
   },
 
+  // --- RESULTS / BADGES ---
   resultCentered: {
     textAlign: "center",
     marginTop: 20
   },
 
-  answer: { fontWeight: "bold", fontSize: 18 },
-  fact: { fontStyle: "italic", fontSize: 14 },
-
-  share: {
-    marginTop: 10,
-    padding: "10px 16px",
-    backgroundColor: "#111",
-    color: "#fff",
-    borderRadius: 6
-  },
-
-  copied: { fontSize: 12, marginTop: 5 },
-  return: { fontSize: 12, marginTop: 10, color: "#888" },
-
-  // --- NEW BADGE STYLES ---
   badgeCard: {
     marginTop: 16,
     padding: "12px 16px",
@@ -646,14 +687,50 @@ const styles = {
   badgeName: {
     fontSize: 16,
     fontWeight: "600"
+  },
+
+  // --- MODAL / OVERLAY ---
+  overlay: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0,0,0,0.4)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 1000
+  },
+
+  popup: {
+    backgroundColor: "#fff",
+    padding: "20px 24px",
+    borderRadius: 12,
+    textAlign: "center",
+    width: 280,
+    boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
+    animation: "fadeInUp 0.3s ease"
+  },
+
+  // --- MISC ---
+  logo: { width: 375, marginBottom: 5 },
+
+  tickerWrapper: {
+    position: "absolute",
+    top: 0,
+    width: "100%",
+    overflow: "hidden",
+    borderTop: "1px solid #eee",
+    backgroundColor: "#fafafa"
+  },
+
+  ticker: {
+    whiteSpace: "nowrap",
+    display: "inline-block",
+    padding: "8px 0",
+    fontSize: 13,
+    color: "#666",
+    animation: "scrollText 16s linear infinite"
   }
 };
-
-/*
-ADD THIS TO YOUR GLOBAL CSS FILE:
-
-@keyframes scrollText {
-  0% { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
-}
-*/
