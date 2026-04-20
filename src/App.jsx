@@ -1,19 +1,26 @@
 import { useState, useEffect } from "react";
+import { Analytics } from "@vercel/analytics/react";
 
 // --- WORD SYSTEM ---
 const WORD_BANK = {
-  "2026-04-16": { word: "METRO", fact: "The Madison Metro Transit operates with approximately 1,346 bus stops. There, now you know." },
-  "2026-04-17": { word: "PLAZA", fact: "True-ish story: the large paintings throughout the Plaza were given to the bar in return for erasing the painter's $1,400+ running bar tab." },
-  "2026-04-18": { word: "CHAIR", fact: "As in, a Union chair. The Memorial Union typically replaces about 60 Terrace chairs annually. That's enough to seat about 60 people." },
-  "2026-04-19": { word: "NOLEN", fact: "As in, John Nolen Drive. Over 48,000 people drive on this road daily, most wondering what the hell they were thinking getting on John Nolen Drive in the first place." },
-  "2026-04-20": { word: "GANJA", fact: "As in, grass. Sticky. The devil's lettuce. In Madison, adults can legally possess up to 28g of marijuana in public or private spaces." }
+  "2026-04-19": { word: "CHAIR", fact: "As in, a Union chair. The Memorial Union typically replaces about 60 Terrace chairs annually. That's enough to seat about 60 people." },
+  "2026-04-20": { word: "NOLEN", fact: "As in, John Nolen Drive. Over 48,000 people drive on this road daily, most wondering what the hell they were thinking getting on John Nolen Drive in the first place." },
+  "2026-04-21": { word: "VILAS", fact: "As in, Vilas Zoo. When Vilas opened in 1911, locals would donate animals they owned or found to the zoo. Because that’s how things worked in 1911." },
+  "2026-04-22": { word: "METRO", fact: "The Madison Metro Transit operates with approximately 1,346 bus stops. There, now you know." },
+  "2026-04-23": { word: "PLAZA", fact: "True-ish story: the large paintings throughout the Plaza were given to the bar in return for erasing the painter's $1,400+ running bar tab." },
+  "2026-04-25": { word: "HAPPY", fact: "As in, happy hour. Madison's best? Canteen gets my vote: 2-5pm daily, half-off tacos, $3 Tecates, half off margs. #notanaditsjustthatgood"},
+  "2026-04-26": { word: "GARTH", fact: "As in, Garth’s Brew Bar. The bar’s mascot (Marvins) is a Frankenmoose. His head and antlers come from two different moose."}, 
+  "2026-04-27": { word: "BIRDS", fact: "As in, our city's official bird: the plastic pink flamingo. Charming, or just another win for Big Plastic? You be the judge, Madison."},
+  "2026-04-28": { word: "BRATS", fact: "As in, the world's largest Brat Fest. In 2010, Madison downed 209,376 brats. That's 26.4 miles worth."}
 };
 
-const BASE_DATE = "2026-04-16";
+const BASE_DATE = "2026-04-19";
 
 // --- BADGES ---
 const BADGES = [
-  { days: 20, label: '🎸 Has given $$$ to Art Paul' },
+  { days: 30, label: '👻 Has seen a ghost at the Ohio Tavern' },
+  { days: 25, label: '🔦 Has crossed paths with Tunnel Bob' },
+  { days: 20, label: '🎸 Has witnessed the great Art Paul' },
   { days: 15, label: '🚕 Can sing the "242-2000" jingle' },
   { days: 10, label: "🍔 Enjoys a Caribou burger" },
   { days: 5, label: "🛒 Expert Woodman's navigator" },
@@ -80,14 +87,6 @@ const unlockBadge = (badgeLabel) => {
     localStorage.setItem("capitol_badges", JSON.stringify(updated));
     window.dispatchEvent(new Event('achievementsUpdated'));
     return true;
-  }
-
-  return false;
-
-  if (!badges.includes(badgeLabel)) {
-    const updated = [...badges, badgeLabel];
-    localStorage.setItem("capitol_badges", JSON.stringify(updated));
-    return true; // new unlock
   }
 
   return false;
@@ -309,17 +308,18 @@ I played today's puzzle. Have you?`;
       >
         Back
       </button>
+    <Analytics />
     </div>
   );
 }
 if (showTrophies) {
-  const currentBadge = BADGES.find(b => unlockedBadges.includes(b.label));
+  const earnedBadges = BADGES.filter(b => unlockedBadges.includes(b.label)).reverse();
 
 const nextBadges = BADGES
   .filter(b => !unlockedBadges.includes(b.label))
   .slice()
   .reverse()
-  .slice(0, 5);
+  .slice(0, 4);
   return (
     
     <div style={styles.launchContainer}>
@@ -327,12 +327,17 @@ const nextBadges = BADGES
       <div style={{ marginTop: 10 }}>
        <div style={{ marginTop: 10 }}>
 
-  {/* CURRENT BADGE */}
-  {currentBadge && (
-    <div style={{ ...styles.badgeCard, opacity: 1 }}>
-      {currentBadge.label}
-    </div>
-  )}
+  {/* EARNED BADGES */}
+{earnedBadges.length > 0 && (
+  <>
+
+    {earnedBadges.map((b, i) => (
+      <div key={i} style={{ ...styles.badgeCard, opacity: 1 }}>
+        {b.label}
+      </div>
+    ))}
+  </>
+)}
 
   {/* UPCOMING BADGES */}
   {nextBadges.map((b, i) => (
@@ -356,6 +361,7 @@ const nextBadges = BADGES
       >
         Back
       </button>
+    <Analytics />
     </div>
   );
 }
@@ -399,6 +405,7 @@ const nextBadges = BADGES
             </div>
           </div>
         )}
+      <Analytics />
       </div>
     );
   }
@@ -512,6 +519,7 @@ const nextBadges = BADGES
 <div style={styles.return}>Add to bookmarks • New puzzles daily</div>
         </div>
       )}
+      <Analytics />
     </div>
   );
 }
