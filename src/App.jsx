@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Analytics } from "@vercel/analytics/react";
 
 // --- WORD SYSTEM ---
 const WORD_BANK = {
@@ -308,7 +307,6 @@ I played today's puzzle. Have you?`;
       >
         Back
       </button>
-    <Analytics />
     </div>
   );
 }
@@ -361,7 +359,6 @@ const nextBadges = BADGES
       >
         Back
       </button>
-    <Analytics />
     </div>
   );
 }
@@ -405,7 +402,6 @@ const nextBadges = BADGES
             </div>
           </div>
         )}
-      <Analytics />
       </div>
     );
   }
@@ -519,7 +515,6 @@ const nextBadges = BADGES
 <div style={styles.return}>Add to bookmarks • New puzzles daily</div>
         </div>
       )}
-      <Analytics />
     </div>
   );
 }
