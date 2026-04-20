@@ -440,7 +440,7 @@ const nextBadges = BADGES
   ←
 </button>
 
-      <div style={{ ...styles.gridWrapper, paddingBottom: gameOver ? 0 : 220 }}>
+      <div style={{ ...styles.gridWrapper, paddingBottom: gameOver ? 0 : 260 }}>
         <div>
           {[...Array(MAX_GUESSES)].map((_, r) => (
             <div key={r} style={styles.row}>
@@ -582,14 +582,15 @@ const styles = {
     color: "#111"
   },
 
-  gridWrapper: {
-    flex: 1,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "100%",
-    paddingBottom: 140
-  },
+gridWrapper: {
+  flex: 1,
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  width: "100%",
+  paddingBottom: 140,
+  pointerEvents: "none"
+},
 
   buttonStack: {
     display: "flex",
@@ -677,16 +678,16 @@ backButton: {
 },
 
   // --- GAME BOARD ---
-  row: { display: "flex", gap: 6, marginBottom: 6 },
+  row: { display: "flex", gap: "clamp(6px, 1.5vw, 10px)", marginBottom: 6 },
 
   tile: {
-    width: 56,
-    height: 56,
+    width: "clamp(52px, 14vw, 72px)",
+    height: "clamp(52px, 14vw, 72px)",
     border: "1px solid #d1d5db",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    fontSize: 20,
+    fontSize: "clamp(18px, 5vw, 26px)",
     fontWeight: 700,
     borderRadius: 8,
     color: "#111",
@@ -694,25 +695,25 @@ backButton: {
   },
 
   keyboardContainer: {
-    width: "100%",
-    maxWidth: 500,
+    width: "min(95vw, 600px)",
     padding: "12px 16px 8px",
     position: "fixed",
     bottom: 5,
     left: "50%",
-    transform: "translateX(-50%)"
-  },
+    transform: "translateX(-50%)",
+    zIndex: 1000
+},
 
   keyboardRow: {
     display: "flex",
     gap: 4,
-    margin: "4px 8px"
+    margin: "4px 4px"
   },
 
   key: {
     flex: 1,
-    height: 60,
-    fontSize: 16,
+    height: "clamp(48px, 10vw, 64px)",
+    fontSize: "clamp(14px, 3.5vw, 18px)",
     borderRadius: 8,
     color: "#5b5b5b",
     margin: 1,
@@ -770,7 +771,11 @@ backButton: {
   },
 
   // --- MISC ---
-  logo: { width: 375, marginBottom: 5 },
+  logo: { 
+    width: "70vw",
+    maxWidth: 375, 
+    marginbottom: 5,
+  },
 
   tickerWrapper: {
     position: "absolute",
