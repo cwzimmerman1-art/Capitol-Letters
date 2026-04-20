@@ -421,7 +421,9 @@ const nextBadges = BADGES
 
   return (
     <div style={styles.gameContainer}>
-      <button
+  
+  
+  <button
   onClick={() => {
     setStarted(false);
     setGameOver(false);
@@ -430,7 +432,11 @@ const nextBadges = BADGES
     setKeyStatus({});
     setNewBadge(null);
   }}
-  style={styles.backButton}
+  style={{
+    ...styles.backButton,
+    opacity: gameOver ? 0 : 1,
+    pointerEvents: gameOver ? "none" : "auto"
+  }}
 >
   ←
 </button>
@@ -494,8 +500,14 @@ const nextBadges = BADGES
         </div>
       )}
 
-      {gameOver && (
-        <div style={styles.resultCentered}>
+<div
+  style={{
+    ...styles.resultCentered,
+    opacity: gameOver ? 1 : 0,
+    transform: gameOver ? "translateY(0px)" : "translateY(10px)",
+    transition: "opacity 1.0s ease, transform 0.4s ease"
+  }}
+>
           <div style={styles.answer}>{SOLUTION}</div>
           <div style={styles.fact}>{DESCRIPTION}</div>
 
@@ -540,7 +552,6 @@ const nextBadges = BADGES
 
 <div style={styles.return}>Add to bookmarks • New puzzles daily</div>
         </div>
-      )}
       <Analytics />
     </div>
   );
@@ -654,15 +665,16 @@ const styles = {
   },
 
   backButton: {
-    position: "absolute",
-    top: 16,
-    left: 16,
-    backgroundColor: "transparent",
-    border: "none",
-    fontSize: 24,
-    color: "#b1b1b1",
-    cursor: "pointer",
-    padding: 10
+  position: "absolute",
+  top: 16,
+  left: 16,
+  backgroundColor: "transparent",
+  border: "none",
+  fontSize: 24,
+  color: "#b1b1b1",
+  cursor: "pointer",
+  padding: 10,
+  transition: "opacity 0.3s ease"
 },
 
   // --- GAME BOARD ---
@@ -755,7 +767,7 @@ const styles = {
     textAlign: "center",
     width: 280,
     boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
-    animation: "fadeInUp 0.3s ease"
+    animation: "fadeInUp 0.4s ease"
   },
 
   // --- MISC ---
