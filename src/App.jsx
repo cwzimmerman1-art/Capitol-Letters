@@ -52,9 +52,14 @@ const getTodayEntry = () => {
 
 // --- NEW: YESTERDAY HELPER ---
 const getYesterdayEntry = () => {
-  const today = new Date(getTodayKey());
-  today.setDate(today.getDate() - 1);
-  const key = today.toISOString().slice(0, 10);
+  const base = new Date(getTodayKey());
+  base.setDate(base.getDate() - 1);
+
+  const year = base.getFullYear();
+  const month = String(base.getMonth() + 1).padStart(2, "0");
+  const day = String(base.getDate()).padStart(2, "0");
+
+  const key = `${year}-${month}-${day}`;
   return WORD_BANK[key];
 };
 
