@@ -717,7 +717,11 @@ backButton: {
     borderRadius: 8,
     color: "#5b5b5b",
     margin: 1,
-    fontWeight: 600
+    fontWeight: 600,
+    border: "none",
+    outline: "none",
+    boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
+    WebkitAppearance: "none",
   },
 
   // --- RESULTS / BADGES ---
