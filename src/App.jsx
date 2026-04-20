@@ -3,6 +3,7 @@ import { Analytics } from "@vercel/analytics/react";
 
 // --- WORD SYSTEM ---
 const WORD_BANK = {
+  "2026-04-18": { word: "CHAIR", fact: "As in, a Union chair. The Memorial Union typically replaces about 60 Terrace chairs annually. That's enough to seat about 60 people." },
   "2026-04-19": { word: "CHAIR", fact: "As in, a Union chair. The Memorial Union typically replaces about 60 Terrace chairs annually. That's enough to seat about 60 people." },
   "2026-04-20": { word: "BRATS", fact: "As in, the world's largest Brat Fest. In 2010, Madison ate a record 209,376 brats. That's 26.4 miles worth of brats. That's too many brats." },
   "2026-04-21": { word: "NOLEN", fact: "As in, John Nolen Drive. Over 48,000 people drive on this road daily, most wondering what the hell they were thinking getting on John Nolen Drive in the first place." },
@@ -14,7 +15,7 @@ const WORD_BANK = {
   "2026-04-27": { word: "BIRDS", fact: "As in, our city's official bird: the plastic pink flamingo. Charming, or just another win for Big Plastic? You be the judge, Madison."}
 };
 
-const BASE_DATE = "2026-04-19";
+const BASE_DATE = "2026-04-18";
 
 // --- BADGES ---
 const BADGES = [
@@ -52,14 +53,17 @@ const getTodayEntry = () => {
 
 // --- NEW: YESTERDAY HELPER ---
 const getYesterdayEntry = () => {
-  const base = new Date(getTodayKey());
+  const todayKey = getTodayKey();
+  const [year, month, day] = todayKey.split("-").map(Number);
+
+  const base = new Date(year, month - 1, day); // LOCAL date (this is key)
   base.setDate(base.getDate() - 1);
 
-  const year = base.getFullYear();
-  const month = String(base.getMonth() + 1).padStart(2, "0");
-  const day = String(base.getDate()).padStart(2, "0");
+  const y = base.getFullYear();
+  const m = String(base.getMonth() + 1).padStart(2, "0");
+  const d = String(base.getDate()).padStart(2, "0");
 
-  const key = `${year}-${month}-${day}`;
+  const key = `${y}-${m}-${d}`;
   return WORD_BANK[key];
 };
 
