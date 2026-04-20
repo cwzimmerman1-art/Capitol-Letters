@@ -417,6 +417,19 @@ const nextBadges = BADGES
 
   return (
     <div style={styles.gameContainer}>
+      <button
+  onClick={() => {
+    setStarted(false);
+    setGameOver(false);
+    setGuesses([]);
+    setCurrent("");
+    setKeyStatus({});
+    setNewBadge(null);
+  }}
+  style={styles.backButton}
+>
+  ←
+</button>
 
       <div style={{ ...styles.gridWrapper, paddingBottom: gameOver ? 0 : 220 }}>
         <div>
@@ -635,6 +648,18 @@ const styles = {
     border: "none",
     cursor: "pointer"
   },
+
+  backButton: {
+    position: "absolute",
+    top: 16,
+    left: 16,
+    backgroundColor: "transparent",
+    border: "none",
+    fontSize: 24,
+    color: "#b1b1b1",
+    cursor: "pointer",
+    padding: 10
+},
 
   // --- GAME BOARD ---
   row: { display: "flex", gap: 6, marginBottom: 6 },
