@@ -4,14 +4,14 @@ import { Analytics } from "@vercel/analytics/react";
 // --- WORD SYSTEM ---
 const WORD_BANK = {
   "2026-04-19": { word: "CHAIR", fact: "As in, a Union chair. The Memorial Union typically replaces about 60 Terrace chairs annually. That's enough to seat about 60 people." },
-  "2026-04-20": { word: "NOLEN", fact: "As in, John Nolen Drive. Over 48,000 people drive on this road daily, most wondering what the hell they were thinking getting on John Nolen Drive in the first place." },
-  "2026-04-21": { word: "VILAS", fact: "As in, Vilas Zoo. When Vilas opened in 1911, locals would donate animals they owned or found to the zoo. Because that’s how things worked in 1911." },
-  "2026-04-22": { word: "METRO", fact: "The Madison Metro Transit operates with approximately 1,346 bus stops. There, now you know." },
-  "2026-04-23": { word: "PLAZA", fact: "True-ish story: the large paintings throughout the Plaza were given to the bar in return for erasing the painter's $1,400+ running bar tab." },
+  "2026-04-20": { word: "BRATS", fact: "As in, the world's largest Brat Fest. In 2010, Madison ate a record 209,376 brats. That's 26.4 miles worth of brats. That's too many brats." },
+  "2026-04-21": { word: "NOLEN", fact: "As in, John Nolen Drive. Over 48,000 people drive on this road daily, most wondering what the hell they were thinking getting on John Nolen Drive in the first place." },
+  "2026-04-22": { word: "VILAS", fact: "As in, Vilas Zoo. When Vilas opened in 1911, locals would donate animals they owned or found to the zoo. Because that’s how things worked in 1911." },
+  "2026-04-23": { word: "METRO", fact: "As in, the Madison Metro Transit. It operates with approximately 1,346 bus stops. That's it. That's the fact." },
+  "2026-04-24": { word: "PLAZA", fact: "As in, the Plaza. The large paintings throughout the Plaza were given to the bar in return for erasing the painter's $1,400+ running bar tab." },
   "2026-04-25": { word: "HAPPY", fact: "As in, happy hour. Madison's best? Canteen gets my vote: 2-5pm daily, half-off tacos, $3 Tecates, half off margs. #notanaditsjustthatgood"},
   "2026-04-26": { word: "GARTH", fact: "As in, Garth’s Brew Bar. The bar’s mascot (Marvins) is a Frankenmoose. His head and antlers come from two different moose."}, 
-  "2026-04-27": { word: "BIRDS", fact: "As in, our city's official bird: the plastic pink flamingo. Charming, or just another win for Big Plastic? You be the judge, Madison."},
-  "2026-04-28": { word: "BRATS", fact: "As in, the world's largest Brat Fest. In 2010, Madison downed 209,376 brats. That's 26.4 miles worth."}
+  "2026-04-27": { word: "BIRDS", fact: "As in, our city's official bird: the plastic pink flamingo. Charming, or just another win for Big Plastic? You be the judge, Madison."}
 };
 
 const BASE_DATE = "2026-04-19";
@@ -586,8 +586,8 @@ const styles = {
 
   // --- TYPOGRAPHY ---
   subtitle: { fontSize: 16, color: "#555" },
-  meta: { marginTop: 16, fontSize: 12, color: "#868686" },
-  streak: { marginTop: 12, fontSize: 14 },
+  meta: { marginTop: 10, fontSize: 12, color: "#868686" },
+  streak: { marginTop: 18, fontSize: 14 },
   badge: { fontSize: 12, color: "#666", fontStyle: "italic", marginTop: 4 },
 
   answer: { fontWeight: "bold", fontSize: 18 },
@@ -597,7 +597,7 @@ const styles = {
 
   // --- BUTTONS ---
   playButton: {
-    marginTop: 18,
+    marginTop: 20,
     fontWeight: "600",
     padding: "10px 22px",
     backgroundColor: "#3983f3",
@@ -607,7 +607,7 @@ const styles = {
   },
 
   secondaryButton: {
-    marginTop: 12,
+    marginTop: 10,
     padding: "8px 18px",
     backgroundColor: "#f3f4f6",
     color: "#111",
