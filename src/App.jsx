@@ -5,7 +5,7 @@ const WORD_BANK = {
   "2026-04-16": { word: "METRO", fact: "The Madison Metro Transit operates with approximately 1,346 bus stops. There, now you know." },
   "2026-04-17": { word: "PLAZA", fact: "True-ish story: the large paintings throughout the Plaza were given to the bar in return for erasing the painter's $1,400+ running bar tab." },
   "2026-04-18": { word: "CHAIR", fact: "As in, a Union chair. The Memorial Union typically replaces about 60 Terrace chairs annually. That's enough to seat about 60 people." },
-  "2026-04-19": { word: "VILAS", fact: "As in, Vilas Zoo. When Vilas opened in 1911, locals would donate animals they owned or found to the zoo. Because that’s how things worked in 1911." },
+  "2026-04-19": { word: "NOLEN", fact: "As in, John Nolen Drive. Over 48,000 people drive on this road daily, most wondering what the hell they were thinking getting on John Nolen Drive in the first place." },
   "2026-04-20": { word: "GANJA", fact: "As in, grass. Sticky. The devil's lettuce. In Madison, adults can legally possess up to 28g of marijuana in public or private spaces." }
 };
 
@@ -19,6 +19,11 @@ const BADGES = [
   { days: 5, label: "🛒 Expert Woodman's navigator" },
   { days: 3, label: '🚘 Zipper merges on beltline' },
   { days: 1, label: "⛵ Knows every Madison lake" }
+];
+
+// --- TROPHIES ---
+const TROPHIES = [
+  { label: "⚡ Solved in 2 or less", description: "Solved a puzzle in 2 guesses or less" }
 ];
 
 const getDevDate = () => {
@@ -225,17 +230,24 @@ useEffect(() => {
       const won = guess === SOLUTION;
       const newStreak = updateStreak(won);
       setStreak(newStreak);
-
-      // --- BADGE DETECTION ---
-      const prevBadge = getBadge(prevStreak);
-      const nextBadge = getBadge(newStreak);
-      if (prevBadge !== nextBadge) {
-  const isNew = unlockBadge(nextBadge);
+      
+      // ⚡ QUICK SOLVE BADGE (2 guesses or less)
+if (won && newGuesses.length <= 2) {
+  const isNew = unlockBadge("⚡ Solved in 2 or less");
 
   if (isNew) {
+    setNewBadge("⚡ Solved in 2 or less");
+  }
+}
+
+      // --- BADGE DETECTION ---
+if (prevBadge !== nextBadge) {
+  const isNew = unlockBadge(nextBadge);
+
+  if (isNew && !newBadge) {
     setNewBadge(nextBadge);
   }
-      }
+}
     }
   };
 
@@ -341,7 +353,7 @@ const nextBadges = BADGES
         opacity: 0.3
       }}
     >
-      🔒 Unlock with {b.days} day streak
+      Unlock with {b.days} day streak
     </div>
   ))}
 
@@ -641,7 +653,7 @@ const styles = {
   keyboardContainer: {
     width: "100%",
     maxWidth: 500,
-    padding: "12px 12px 8px",
+    padding: "12px 16px 8px",
     position: "fixed",
     bottom: 5,
     left: "50%",
@@ -651,7 +663,7 @@ const styles = {
   keyboardRow: {
     display: "flex",
     gap: 4,
-    margin: "4px 0"
+    margin: "4px 8px"
   },
 
   key: {
