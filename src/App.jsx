@@ -4,7 +4,7 @@ import { Analytics } from "@vercel/analytics/react";
 // --- WORD SYSTEM ---
 const WORD_BANK = {
   "2026-04-18": { word: "CHAIR", fact: "As in, a Union chair. The Memorial Union typically replaces about 60 Terrace chairs annually. That's enough to seat about 60 people." },
-  "2026-04-19": { word: "CHAIR", fact: "As in, a Union chair. The Memorial Union typically replaces about 60 Terrace chairs annually. That's enough to seat about 60 people." },
+  "2026-04-19": { word: "VILAS", fact: "As in, Vilas Zoo. When Vilas opened in 1911, locals would donate animals they owned or found to the zoo. Because that’s how things worked in 1911." },
   "2026-04-20": { word: "BRATS", fact: "As in, the world's largest Brat Fest. In 2010, Madison ate a record 209,376 brats. That's 26.4 miles worth of brats. That's too many brats." },
   "2026-04-21": { word: "NOLEN", fact: "As in, John Nolen Drive. Over 48,000 people drive on this road daily, most wondering what the hell they were thinking getting on John Nolen Drive in the first place." },
   "2026-04-22": { word: "VILAS", fact: "As in, Vilas Zoo. When Vilas opened in 1911, locals would donate animals they owned or found to the zoo. Because that’s how things worked in 1911." },
@@ -12,7 +12,7 @@ const WORD_BANK = {
   "2026-04-24": { word: "PLAZA", fact: "As in, the Plaza. The large paintings throughout the Plaza were given to the bar in return for erasing the painter's $1,400+ running bar tab." },
   "2026-04-25": { word: "HAPPY", fact: "As in, happy hour. Madison's best? Canteen gets my vote: 2-5pm daily, half-off tacos, $3 Tecates, half off margs. #notanaditsjustthatgood"},
   "2026-04-26": { word: "GARTH", fact: "As in, Garth’s Brew Bar. The bar’s mascot (Marvins) is a Frankenmoose. His head and antlers come from two different moose."}, 
-  "2026-04-27": { word: "BIRDS", fact: "As in, our city's official bird: the plastic pink flamingo. Charming, or just another win for Big Plastic? You be the judge, Madison."}
+  "2026-04-27": { word: "BIRDS", fact: "As in, our city's official bird: the plastic pink flamingo. Charming, or just another win for Big Plastic? You be the judge."}
 };
 
 const BASE_DATE = "2026-04-18";
@@ -24,9 +24,9 @@ const BADGES = [
   { days: 20, label: '🎸 Has witnessed the great Art Paul' },
   { days: 15, label: '🚕 Can sing the "242-2000" jingle' },
   { days: 10, label: "🍔 Enjoys a Caribou burger" },
-  { days: 5, label: "🛒 Expert Woodman's navigator" },
+  { days: 5, label: "⛵ Knows every Madison lake" },
   { days: 3, label: '🚘 Zipper merges on beltline' },
-  { days: 1, label: "⛵ Knows every Madison lake" }
+  { days: 1, label: "🛒 Expert Woodman's navigator" }
 ];
 
 const getDevDate = () => {
@@ -275,7 +275,7 @@ if (prevBadge !== nextBadge) {
       .join("\n");
     const text = `MAD TILES\n${formatDate()} • ${guesses.length}/${MAX_GUESSES}\n\n${grid}
 
-I played today's puzzle. Have you?`;
+Consider myself puzzled. Come play with me at MadTiles.com.`;
     navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -422,7 +422,6 @@ const nextBadges = BADGES
   return (
     <div style={styles.gameContainer}>
   
-  
   <button
   onClick={() => {
     setStarted(false);
@@ -499,6 +498,7 @@ const nextBadges = BADGES
           ))}
         </div>
       )}
+  
 
 <div
   style={{
