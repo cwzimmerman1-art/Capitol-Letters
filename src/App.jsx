@@ -21,11 +21,6 @@ const BADGES = [
   { days: 1, label: "⛵ Knows every Madison lake" }
 ];
 
-// --- TROPHIES ---
-const TROPHIES = [
-  { label: "⚡ Solved in 2 or less", description: "Solved a puzzle in 2 guesses or less" }
-];
-
 const getDevDate = () => {
   const params = new URLSearchParams(window.location.search);
   return params.get("date");
@@ -231,20 +226,15 @@ useEffect(() => {
       const newStreak = updateStreak(won);
       setStreak(newStreak);
       
-      // ⚡ QUICK SOLVE BADGE (2 guesses or less)
-if (won && newGuesses.length <= 2) {
-  const isNew = unlockBadge("⚡ Solved in 2 or less");
 
-  if (isNew) {
-    setNewBadge("⚡ Solved in 2 or less");
-  }
-}
+// --- BADGE DETECTION ---
+const prevBadge = getBadge(prevStreak);
+const nextBadge = getBadge(newStreak);
 
-      // --- BADGE DETECTION ---
 if (prevBadge !== nextBadge) {
   const isNew = unlockBadge(nextBadge);
 
-  if (isNew && !newBadge) {
+  if (isNew) {
     setNewBadge(nextBadge);
   }
 }
