@@ -664,16 +664,15 @@ const styles = {
     cursor: "pointer"
   },
 
-  backButton: {
-  position: "absolute",
-  top: 16,
-  left: 16,
+backButton: {
+  alignSelf: "flex-start",
+  marginBottom: 1,
   backgroundColor: "transparent",
   border: "none",
   fontSize: 24,
   color: "#b1b1b1",
   cursor: "pointer",
-  padding: 10,
+  padding: 8,
   transition: "opacity 0.3s ease"
 },
 
