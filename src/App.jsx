@@ -7,23 +7,23 @@ const WORD_BANK = {
   "2026-04-19": { word: "VILAS", fact: "As in, Vilas Zoo. When Vilas opened in 1911, locals would donate animals they owned or found to the zoo. Because that’s how things worked in 1911." },
   "2026-04-20": { word: "BRATS", fact: "As in, the world's largest Brat Fest. In 2010, Madison ate a record 209,376 brats. That's 26.4 miles worth of brats. That's too many brats." },
   "2026-04-21": { word: "BIRDS", fact: "As in, our city's official bird: the plastic pink flamingo. Charming and quirky, or just another win for Big Plastic? You be the judge." },
-  "2026-04-22": { word: "METRO", fact: "As in, the Madison Metro Transit. It operates with approximately 1,346 bus stops. That's it. That's the fact." },
-  "2026-04-23": { word: "PLAZA", fact: "As in, the Plaza. The large paintings throughout the Plaza were given to the bar in return for erasing the painter's $1,400+ running bar tab." },
-  "2026-04-24": { word: "HAPPY", fact: "As in, happy hour. Madison's best? Canteen gets my vote: 2-5pm daily, half-off tacos, $3 Tecates, half off margs. #notanaditsjustthatgood"},
-  "2026-04-25": { word: "GARTH", fact: "As in, Garth’s Brew Bar. The bar’s mascot (Marvins) is a Frankenmoose. His head and antlers come from two different moose."}, 
-  "2026-04-26": { word: "BIRDS", fact: "As in, our city's official bird: the plastic pink flamingo. Charming, or just another win for Big Plastic? You be the judge."}
+  "2026-04-22": { word: "BROOM", fact: "As in, Broom Street. It closes tomorrow, and will reopen sometime in early June. In the meantime, a detour can be found on Dustpan Drive." },
+  "2026-04-23": { word: "HAPPY", fact: "As in, happy hour. Madison's best? Canteen gets my vote: 2-5pm daily. Half-off tacos and margs, $3 Tecates. We made it to patio season, people."},
+  "2026-04-24": { word: "METRO", fact: "As in, the Madison Metro Transit. It operates with approximately 1,346 bus stops. That's it. That's today's fact." },
+  "2026-04-25": { word: "PLAZA", fact: "As in, the Plaza. The large paintings throughout the Plaza were given to the bar in return for erasing the painter's $1,400+ running bar tab." },
+  "2026-04-26": { word: "GARTH", fact: "As in, Garth’s Brew Bar. The bar’s mascot (Marvins) is a Frankenmoose. His head and antlers come from two different moose."} 
 };
 
 const BASE_DATE = "2026-04-18";
 
 // --- BADGES ---
 const BADGES = [
-  { days: 30, label: '👻 Has seen a ghost at the Ohio Tavern' },
-  { days: 25, label: '🔦 Has crossed paths with Tunnel Bob' },
-  { days: 20, label: '🎸 Has witnessed the great Art Paul' },
-  { days: 15, label: '🚕 Can sing the "242-2000" jingle' },
-  { days: 10, label: "🍔 Enjoys a Caribou burger" },
-  { days: 5, label: "⛵ Knows every Madison lake" },
+  { days: 30, label: '👻 Believes in Ohio Tavern ghosts' },
+  { days: 25, label: '🔦 Crossed paths with Tunnel Bob' },
+  { days: 20, label: '🎸 Has seen Art Paul live' },
+  { days: 15, label: '🚕 Knows the "242-2000" jingle' },
+  { days: 10, label: "🍔 Loves a good Caribou burger" },
+  { days: 5, label: "⛵ Can name every Madison lake" },
   { days: 3, label: '🚘 Zipper merges on beltline' },
   { days: 1, label: "🛒 Expert Woodman's navigator" }
 ];
