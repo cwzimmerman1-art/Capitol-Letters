@@ -199,9 +199,13 @@ export default function App() {
   const [unlockedBadges, setUnlockedBadges] = useState([]);
   const yesterday = getYesterdayEntry();
   const todayKey = getTodayKey();
+  const parseLocalDate = (str) => {
+  const [y, m, d] = str.split("-").map(Number);
+  return new Date(y, m - 1, d);
+};
   const archiveEntries = Object.entries(WORD_BANK)
-    .filter(([date]) => date < todayKey)
-    .sort((a, b) => new Date(b[0]) - new Date(a[0]));
+  .filter(([date]) => date < todayKey)
+  .sort((a, b) => parseLocalDate(b[0]) - parseLocalDate(a[0]));
   const [showInstructions, setShowInstructions] = useState(false);
   const [showArchive, setShowArchive] = useState(false);
 
