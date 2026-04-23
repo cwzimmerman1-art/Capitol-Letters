@@ -360,7 +360,7 @@ Consider myself puzzled. Come play with me at MadTiles.com.`;
     setShowInstructions(false);
     setStarted(true);
   }}
-  style={styles.playButton}
+  style={{ ...styles.playButton, ...styles.pulse }}
 >
   Play now
 </button>
@@ -527,12 +527,12 @@ if (showArchive) {
 
     <button
       onClick={() => setStarted(true)}
-      onMouseDown={(e) => e.currentTarget.style.transform = "scale(0.97)"}
-      onMouseUp={(e) => e.currentTarget.style.transform = "scale(1)"}
-      onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}
-      onTouchStart={(e) => e.currentTarget.style.transform = "scale(0.97)"}
-      onTouchEnd={(e) => e.currentTarget.style.transform = "scale(1)"}
-      style={styles.playButton}
+      onMouseDown={(e) => e.currentTarget.style.opacity = "0.9"}
+      onMouseUp={(e) => e.currentTarget.style.opacity = "1"}
+      onMouseLeave={(e) => e.currentTarget.style.opacity = "1"}
+      onTouchStart={(e) => e.currentTarget.style.opacity = "0.9"}
+      onTouchEnd={(e) => e.currentTarget.style.opacity = "1"}
+      style={{ ...styles.playButton, ...styles.pulse }}
     >
       Play now
     </button>
@@ -711,7 +711,7 @@ if (showArchive) {
 
 {copied && <div style={styles.copied}>Copied to clipboard, challenge your friends</div>}
 
-<div style={styles.return}>Add to bookmarks • New puzzles daily</div>
+<div style={styles.return}>A new puzzle drops tomorrow</div>
         </div>
       <Analytics />
     </div>
