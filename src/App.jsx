@@ -64,8 +64,13 @@ const getYesterdayEntry = () => {
 };
 
 const getPuzzleNumber = () => {
-  const base = new Date(BASE_DATE);
-  const today = new Date(getTodayKey());
+const parseLocalDate = (str) => {
+  const [y, m, d] = str.split("-").map(Number);
+  return new Date(y, m - 1, d);
+};
+
+const base = parseLocalDate(BASE_DATE);
+const today = parseLocalDate(getTodayKey());
   const diff = Math.floor((today - base) / (1000 * 60 * 60 * 24));
   return diff + 1;
 };
@@ -106,7 +111,8 @@ const updateStreak = (won) => {
   if (!won) {
     newStreak = 0;
   } else {
-    const yesterday = new Date(today);
+    const [year, month, day] = today.split("-").map(Number);
+    const yesterday = new Date(year, month - 1, day);
     yesterday.setDate(yesterday.getDate() - 1);
     const yesterdayKey = yesterday.toLocaleDateString("en-CA");
 
@@ -204,20 +210,12 @@ useEffect(() => {
     const { streak } = getStreakData();
     setStreak(streak);
 
-    BADGES.forEach(b => {
-    if (streak >= b.days) {
-      unlockBadge(b.label);
-    }
-  });
-
     const savedBadges = getUnlockedBadges();
     setUnlockedBadges(savedBadges);
   };
 
-  // run once
   loadData();
 
-  // listen for updates
   window.addEventListener('achievementsUpdated', loadData);
 
   return () => {
@@ -226,7 +224,7 @@ useEffect(() => {
 }, []);
 
   const submitGuess = () => {
-    const prevStreak = streak;
+    const prevStreak = getStreakData().streak;
     if (current.length !== 5 || gameOver) return;
 
     const guess = current.toUpperCase();
