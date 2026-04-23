@@ -225,13 +225,20 @@ export default function App() {
   const [showArchive, setShowArchive] = useState(false);
 
 useEffect(() => {
-  const loadData = () => {
-    const { streak } = getStreakData();
-    setStreak(streak);
+const loadData = () => {
+  const { streak } = getStreakData();
+  setStreak(streak);
 
-    const savedBadges = getUnlockedBadges();
-    setUnlockedBadges(savedBadges);
-  };
+  // 🔥 AUTO-FIX: backfill missing badges
+  BADGES.forEach(badge => {
+    if (streak >= badge.days) {
+      unlockBadge(badge.label);
+    }
+  });
+
+  const savedBadges = getUnlockedBadges();
+  setUnlockedBadges(savedBadges);
+};
 
   loadData();
 
