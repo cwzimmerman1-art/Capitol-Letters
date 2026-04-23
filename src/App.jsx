@@ -320,7 +320,31 @@ if (prevBadge !== nextBadge) {
     const text = `MAD TILES\n${formatDate()} • ${guesses.length}/${MAX_GUESSES}\n\n${grid}
 
 Consider myself puzzled. Come play with me at MadTiles.com.`;
+    const handleShare = async () => {
+  const grid = guesses.map(g => g.result.map(r => emojiMap[r]).join(""))
+    .join("\n");
+
+  const text = `MAD TILES\n${formatDate()} • ${guesses.length}/${MAX_GUESSES}\n\n${grid}
+
+Consider myself puzzled. Come play with me at https://madtiles.com`;
+
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: "Mad Tiles",
+        text: text,
+        url: "https://madtiles.com"
+      });
+    } catch (err) {
+      // user cancelled — do nothing
+    }
+  } else {
+    // fallback for desktop
     navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }
+};
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
