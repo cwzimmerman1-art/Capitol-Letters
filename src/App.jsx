@@ -691,15 +691,18 @@ gridWrapper: {
   return: { fontSize: 12, marginTop: 10, color: "#888" },
 
   // --- BUTTONS ---
-  playButton: {
-    marginTop: 20,
-    fontWeight: "600",
-    padding: "10px 22px",
-    backgroundColor: "#3983f3",
-    color: "#fff",
-    fontSize: 14,
-    borderRadius: 8
-  },
+playButton: {
+  marginTop: 20,
+  fontWeight: "600",
+  padding: "10px 22px",
+  backgroundColor: "#3983f3",
+  color: "#fff",
+  fontSize: 14,
+  borderRadius: 8,
+  border: "none", 
+  outline: "none",
+  cursor: "pointer"
+},
 
   secondaryButton: {
     marginTop: 10,
