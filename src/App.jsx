@@ -369,13 +369,17 @@ Consider myself puzzled. Come play with me at MadTiles.com.`;
   );
 }
 if (showTrophies) {
-  const earnedBadges = BADGES.filter(b => unlockedBadges.includes(b.label)).reverse();
 
-const nextBadges = BADGES
+  const sortedBadges = [...BADGES].sort((a, b) => a.days - b.days);
+
+const earnedBadges = sortedBadges.filter(b =>
+  unlockedBadges.includes(b.label)
+);
+
+const nextBadges = sortedBadges
   .filter(b => !unlockedBadges.includes(b.label))
-  .slice()
-  .reverse()
   .slice(0, 4);
+
   return (
     
     <div style={styles.launchContainer}>
@@ -426,7 +430,7 @@ const nextBadges = BADGES
 if (showArchive) {
   return (
     <div style={styles.launchContainer}>
-      <h2 style={{ marginBottom: 10, fontWeight: "600", color: "#171717" }}>
+      <h2 style={{ marginBottom: 20, fontWeight: "600", color: "#171717" }}>
         PAST PUZZLES
       </h2>
 
