@@ -348,11 +348,22 @@ Consider myself puzzled. Come play with me at MadTiles.com.`;
       </div>
 
       <button
+  onClick={() => {
+    setShowInstructions(false);
+    setStarted(true);
+  }}
+  style={styles.playButton}
+>
+  Play now
+</button>
+
+      <button
         onClick={() => setShowInstructions(false)}
-        style={{ ...styles.playButton, marginTop: 20 }}
+        style={{ ...styles.secondaryButton, marginTop: 10 }}
       >
         Back
       </button>
+
     <Analytics />
     </div>
   );
@@ -402,10 +413,11 @@ const nextBadges = BADGES
 
       <button
         onClick={() => setShowTrophies(false)}
-        style={{ ...styles.playButton, marginTop: 20 }}
+        style={{ ...styles.secondaryButton, marginTop: 20 }}
       >
         Back
       </button>
+
     <Analytics />
     </div>
   );
@@ -455,7 +467,7 @@ if (showArchive) {
 
       <button
         onClick={() => setShowArchive(false)}
-        style={{ ...styles.playButton, marginTop: 20 }}
+        style={{ ...styles.secondaryButton, marginTop: 20 }}
       >
         Back
       </button>
