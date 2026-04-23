@@ -210,6 +210,17 @@ useEffect(() => {
     }
   });
 
+  useEffect(() => {
+  if (gameOver) {
+    setTimeout(() => {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: "smooth"
+      });
+    }, 200); // slight delay so content finishes rendering
+  }
+}, [gameOver]);
+
     const savedBadges = getUnlockedBadges();
     setUnlockedBadges(savedBadges);
   };
