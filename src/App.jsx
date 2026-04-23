@@ -212,6 +212,7 @@ export default function App() {
   const [streak, setStreak] = useState(0);
   const [newBadge, setNewBadge] = useState(null);
   const [unlockedBadges, setUnlockedBadges] = useState([]);
+  const [secretTapCount, setSecretTapCount] = useState(0);
   const yesterday = getYesterdayEntry();
   const todayKey = getTodayKey();
   const parseLocalDate = (str) => {
@@ -370,6 +371,36 @@ Consider myself puzzled. Come play with me at MadTiles.com.`;
       >
         Back
       </button>
+      <div
+  onClick={() => {
+    const newCount = secretTapCount + 1;
+    setSecretTapCount(newCount);
+
+    if (newCount === 5) {
+      const today = new Date();
+      const key = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+
+      localStorage.setItem(
+        "capitol_streak",
+        JSON.stringify({
+          streak: 5,
+          lastPlayed: key
+        })
+      );
+
+      window.location.reload();
+    }
+
+    // reset if they pause too long
+    setTimeout(() => setSecretTapCount(0), 2000);
+  }}
+  style={{
+    height: 40,
+    width: "100%",
+    marginTop: 10,
+    opacity: 0
+  }}
+/>
 
     <Analytics />
     </div>
