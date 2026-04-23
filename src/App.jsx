@@ -314,39 +314,27 @@ if (prevBadge !== nextBadge) {
 
   const emojiMap = { green: "🟩", blue: "🟦", gray: "⬜" };
 
-  const handleShare = () => {
-    const grid = guesses.map(g => g.result.map(r => emojiMap[r]).join(""))
-      .join("\n");
-    const text = `MAD TILES\n${formatDate()} • ${guesses.length}/${MAX_GUESSES}\n\n${grid}
-
-Consider myself puzzled. Come play with me at MadTiles.com.`;
-    const handleShare = async () => {
-  const grid = guesses.map(g => g.result.map(r => emojiMap[r]).join(""))
+const handleShare = async () => {
+  const grid = guesses
+    .map(g => g.result.map(r => emojiMap[r]).join(""))
     .join("\n");
 
-  const text = `MAD TILES\n${formatDate()} • ${guesses.length}/${MAX_GUESSES}\n\n${grid}
+  const text = `Mad Tiles ${getPuzzleNumber()}\n\n${grid}`;
 
-Consider myself puzzled. Come play with me at https://madtiles.com`;
-
-  if (navigator.share) {
-    try {
+  try {
+    if (navigator.share) {
       await navigator.share({
-  text: text
-});
-    } catch (err) {
-      // user cancelled — do nothing
+        text: text
+      });
+    } else {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     }
-  } else {
-    // fallback for desktop
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  } catch (err) {
+    console.log("Share failed:", err);
   }
 };
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
   const getKeyColor = (k) => {
     if (keyStatus[k] === "green") return "#34d399";
     if (keyStatus[k] === "blue") return "#60a5fa";
