@@ -9,9 +9,11 @@ const WORD_BANK = {
   "2026-04-21": { word: "BIRDS", fact: "As in, our city's official bird: the plastic pink flamingo. Charming and quirky, or just another win for Big Plastic? You be the judge." },
   "2026-04-22": { word: "BROOM", fact: "As in, Broom Street. It closes tomorrow, and will reopen sometime in early June. In the meantime, a detour can be found on Dustpan Drive." },
   "2026-04-23": { word: "HAPPY", fact: "As in, happy hour. Madison's best? Canteen gets my vote: 2-5pm daily. Half-off tacos and margs, $3 Tecates. We made it to patio season, people."},
-  "2026-04-24": { word: "METRO", fact: "As in, the Madison Metro Transit. It operates with approximately 1,346 bus stops. That's it. That's today's fact." },
-  "2026-04-25": { word: "PLAZA", fact: "As in, the Plaza. The large paintings throughout the Plaza were given to the bar in return for erasing the painter's $1,400+ running bar tab." },
-  "2026-04-26": { word: "GARTH", fact: "As in, Garth’s Brew Bar. The bar’s mascot (Marvins) is a Frankenmoose. His head and antlers come from two different moose."} 
+  "2026-04-24": { word: "UNION", fact: "As in, Memorial Union. Pro-tip: there's a private bathroom tucked away near the Rathskeller entrance. Down the stairs, to the left. Grab a pitcher, poop in peace."},
+  "2026-04-25": { word: "MATCH", fact: "As in, a Forward Madison FC match. In 2018, the team was nearly named 77 Square Miles SC, a nod to Madison’s almost exactly 77-square-mile footprint." },
+  "2026-04-26": { word: "METRO", fact: "As in, the Madison Metro Transit. It operates with approximately 1,346 bus stops. That's it. That's today's fact." },
+  "2026-04-27": { word: "PLAZA", fact: "As in, the Plaza. The large paintings throughout the Plaza were given to the bar in return for erasing the painter's $1,400+ running bar tab." },
+  "2026-04-28": { word: "GARTH", fact: "As in, Garth’s Brew Bar. Taxidermy trivia: the bar’s mascot (Marvins) is a Frankenmoose. His head and antlers come from two different moose."} 
 };
 
 const BASE_DATE = "2026-04-18";
