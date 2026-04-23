@@ -18,9 +18,8 @@ const BASE_DATE = "2026-04-18";
 
 // --- BADGES ---
 const BADGES = [
-  { days: 30, label: '👻 Believes in Ohio Tavern ghosts' },
-  { days: 25, label: '🔦 Crossed paths with Tunnel Bob' },
-  { days: 20, label: '🎸 Has seen Art Paul live' },
+  { days: 30, label: '👻 Has seen an Ohio Tavern ghost' },
+  { days: 25, label: '🔦 First name basis w/ Tunnel Bob' },
   { days: 15, label: '🚕 Knows the "242-2000" jingle' },
   { days: 10, label: "🍔 Loves a good Caribou burger" },
   { days: 5, label: "⛵ Can name every Madison lake" },
@@ -37,12 +36,8 @@ const getTodayKey = () => {
   const devDate = getDevDate();
   if (devDate) return devDate;
 
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = String(today.getMonth() + 1).padStart(2, "0");
-  const day = String(today.getDate()).padStart(2, "0");
-
-  return `${year}-${month}-${day}`;
+  const now = new Date();
+  return now.toLocaleDateString("en-CA");
 };
 
 const getTodayEntry = () => {
@@ -53,6 +48,8 @@ const getTodayEntry = () => {
 // --- NEW: YESTERDAY HELPER ---
 const getYesterdayEntry = () => {
   const todayKey = getTodayKey();
+  console.log("todayKey:", todayKey);
+  console.log("WORD_BANK keys:", Object.keys(WORD_BANK));
   const [year, month, day] = todayKey.split("-").map(Number);
 
   const base = new Date(year, month - 1, day); // LOCAL date (this is key)
@@ -111,7 +108,7 @@ const updateStreak = (won) => {
   } else {
     const yesterday = new Date(today);
     yesterday.setDate(yesterday.getDate() - 1);
-    const yesterdayKey = yesterday.toISOString().slice(0, 10);
+    const yesterdayKey = yesterday.toLocaleDateString("en-CA");
 
     if (lastPlayed === yesterdayKey) {
       newStreak += 1;
@@ -132,7 +129,7 @@ const getBadge = (streak) => {
   for (let badge of BADGES) {
     if (streak >= badge.days) return badge.label;
   }
-  return "Solve to earn city badges";
+  return "Solve to earn a city badge";
 };
 
 const MAX_GUESSES = 6;
@@ -161,11 +158,23 @@ function evaluateGuess(guess, solution) {
 const KEYS = ["QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM"];
 
 const formatDate = () => {
-  const devDate = getDevDate();
-  const d = devDate ? new Date(devDate) : new Date();
+  const todayKey = getTodayKey();
+  const [year, month, day] = todayKey.split("-").map(Number);
+  const d = new Date(year, month - 1, day);
   return d.toLocaleDateString(undefined, {
     month: "long",
     day: "numeric"
+  });
+};
+
+const formatFullDate = (dateString) => {
+  const [year, month, day] = dateString.split("-").map(Number);
+  const d = new Date(year, month - 1, day);
+
+  return d.toLocaleDateString(undefined, {
+    month: "long",
+    day: "numeric",
+    year: "numeric"
   });
 };
 
@@ -183,7 +192,12 @@ export default function App() {
   const [newBadge, setNewBadge] = useState(null);
   const [unlockedBadges, setUnlockedBadges] = useState([]);
   const yesterday = getYesterdayEntry();
+  const todayKey = getTodayKey();
+  const archiveEntries = Object.entries(WORD_BANK)
+    .filter(([date]) => date < todayKey)
+    .sort((a, b) => new Date(b[0]) - new Date(a[0]));
   const [showInstructions, setShowInstructions] = useState(false);
+  const [showArchive, setShowArchive] = useState(false);
 
 useEffect(() => {
   const loadData = () => {
@@ -373,6 +387,59 @@ const nextBadges = BADGES
     </div>
   );
 }
+
+if (showArchive) {
+  return (
+    <div style={styles.launchContainer}>
+      <h2 style={{ marginBottom: 10, fontWeight: "600", color: "#171717" }}>
+        PAST PUZZLES
+      </h2>
+
+      <div
+        style={{
+          maxWidth: 360,
+          width: "100%",
+          height: "60vh",
+          overflowY: "auto",
+          padding: "0 20px 0 10px"
+        }}
+      >
+        {archiveEntries.map(([date, entry], i) => (
+          <div
+            key={i}
+            style={{
+              marginBottom: 20,
+              textAlign: "left",
+              borderBottom: "1px solid #eee",
+              paddingBottom: 12
+            }}
+          >
+            <div style={{ fontSize: 13, color: "#666" }}>
+              {formatFullDate(date)}
+            </div>
+
+            <div style={{ fontSize: 18, fontWeight: "700", marginTop: 2 }}>
+              {entry.word}
+            </div>
+
+            <div style={{ fontSize: 14, color: "#444", marginTop: 4 }}>
+              {entry.fact}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <button
+        onClick={() => setShowArchive(false)}
+        style={{ ...styles.playButton, marginTop: 20 }}
+      >
+        Back
+      </button>
+
+      <Analytics />
+    </div>
+  );
+}
   if (!started) {
     return (
       <div style={styles.launchContainer}>
@@ -385,9 +452,8 @@ const nextBadges = BADGES
         </button>
 
         <button
-  onClick={() => setShowTrophies(true)}
-  style={styles.secondaryButton}
-        >
+          onClick={() => setShowTrophies(true)}
+           style={styles.secondaryButton} >
         City badges
         </button>
 
@@ -404,6 +470,13 @@ const nextBadges = BADGES
         <div style={styles.meta}>
           {formatDate()} • Puzzle {getPuzzleNumber()}
         </div>
+
+        <button
+        onClick={() => setShowArchive(true)}
+        style={styles.secondaryButton}
+      >
+        Past puzzles
+      </button>
 
         {/* NEW TICKER */}
         {yesterday && (
