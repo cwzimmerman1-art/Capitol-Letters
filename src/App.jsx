@@ -331,10 +331,8 @@ Consider myself puzzled. Come play with me at https://madtiles.com`;
   if (navigator.share) {
     try {
       await navigator.share({
-        title: "Mad Tiles",
-        text: text,
-        url: "https://madtiles.com"
-      });
+  text: text
+});
     } catch (err) {
       // user cancelled — do nothing
     }
