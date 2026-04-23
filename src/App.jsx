@@ -324,7 +324,8 @@ const handleShare = async () => {
   try {
     if (navigator.share) {
       await navigator.share({
-        text: text
+        text,
+        url: window.location.href
       });
     } else {
       await navigator.clipboard.writeText(text);
@@ -332,8 +333,10 @@ const handleShare = async () => {
       setTimeout(() => setCopied(false), 2000);
     }
   } catch (err) {
-    console.log("Share failed:", err);
-  }
+  await navigator.clipboard.writeText(text);
+  setCopied(true);
+  setTimeout(() => setCopied(false), 2000);
+}
 };
   const getKeyColor = (k) => {
     if (keyStatus[k] === "green") return "#34d399";
