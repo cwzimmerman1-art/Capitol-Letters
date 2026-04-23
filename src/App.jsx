@@ -204,6 +204,12 @@ useEffect(() => {
     const { streak } = getStreakData();
     setStreak(streak);
 
+    BADGES.forEach(b => {
+    if (streak >= b.days) {
+      unlockBadge(b.label);
+    }
+  });
+
     const savedBadges = getUnlockedBadges();
     setUnlockedBadges(savedBadges);
   };
@@ -396,14 +402,15 @@ if (showArchive) {
       </h2>
 
       <div
-        style={{
-          maxWidth: 360,
-          width: "100%",
-          height: "60vh",
-          overflowY: "auto",
-          padding: "0 20px 0 10px"
-        }}
-      >
+  style={{
+    maxWidth: 360,
+    width: "100%",
+    height: "60vh",
+    overflowY: "auto",
+    padding: "0 clamp(16px, 5vw, 24px)",
+    boxSizing: "border-box"
+  }}
+>
         {archiveEntries.map(([date, entry], i) => (
           <div
             key={i}
