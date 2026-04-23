@@ -454,9 +454,17 @@ if (showArchive) {
 
         <p style={styles.subtitle}>A word game for Madison minds</p>
 
-        <button onClick={() => setStarted(true)} style={styles.playButton}>
-          Play now
-        </button>
+    <button
+      onClick={() => setStarted(true)}
+      onMouseDown={(e) => e.currentTarget.style.transform = "scale(0.97)"}
+      onMouseUp={(e) => e.currentTarget.style.transform = "scale(1)"}
+      onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}
+      onTouchStart={(e) => e.currentTarget.style.transform = "scale(0.97)"}
+      onTouchEnd={(e) => e.currentTarget.style.transform = "scale(1)"}
+      style={styles.playButton}
+    >
+      Play now
+    </button>
 
         <button
           onClick={() => setShowTrophies(true)}
@@ -702,7 +710,8 @@ playButton: {
   border: "none",
   outline: "none",
   cursor: "pointer",
-  animation: "pulse 2.5s infinite"
+  animation: "pulse 2.5s infinite",
+  transition: "transform 0.1s ease"
 },
 
   secondaryButton: {
