@@ -319,7 +319,7 @@ const handleShare = async () => {
     .map(g => g.result.map(r => emojiMap[r]).join(""))
     .join("\n");
 
-  const text = `Mad Tiles ${getPuzzleNumber()}\n\n${grid}`;
+const text = `Consider myself puzzled.\n\n${grid}\n\nYour turn → MadTiles.com`;
 
   try {
     if (navigator.share) {
