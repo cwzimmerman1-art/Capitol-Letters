@@ -238,17 +238,6 @@ const loadData = () => {
     }
   });
 
-useEffect(() => {
-  const checkOrientation = () => {
-    setIsLandscape(window.innerWidth > window.innerHeight);
-  };
-
-  checkOrientation();
-  window.addEventListener("resize", checkOrientation);
-
-  return () => window.removeEventListener("resize", checkOrientation);
-}, []);
-
   const savedBadges = getUnlockedBadges();
   setUnlockedBadges(savedBadges);
 };
@@ -257,8 +246,9 @@ useEffect(() => {
 
   window.addEventListener('achievementsUpdated', loadData);
 
-return () =>
-  window.removeEventListener("resize", checkOrientation);
+  return () => {
+    window.removeEventListener('achievementsUpdated', loadData);
+  };
 }, []);
 
   const submitGuess = () => {
