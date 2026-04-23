@@ -32,12 +32,19 @@ const getDevDate = () => {
   return params.get("date");
 };
 
+const formatDateKey = (date) => {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+};
+
 const getTodayKey = () => {
   const devDate = getDevDate();
   if (devDate) return devDate;
 
   const now = new Date();
-  return now.toLocaleDateString("en-CA");
+  return formatDateKey(now);
 };
 
 const getTodayEntry = () => {
@@ -76,11 +83,19 @@ const today = parseLocalDate(getTodayKey());
 };
 
 // --- STREAK SYSTEM ---
+const normalizeDateKey = (str) => {
+  if (!str) return null;
+  if (str.includes("-")) return str;
+  const [m, d, y] = str.split("/");
+  return `${y}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
+};
+
 const getStreakData = () => {
   const data = JSON.parse(localStorage.getItem("capitol_streak") || "{}");
+
   return {
     streak: data.streak || 0,
-    lastPlayed: data.lastPlayed || null
+    lastPlayed: normalizeDateKey(data.lastPlayed)
   };
 };
 
@@ -114,7 +129,7 @@ const updateStreak = (won) => {
     const [year, month, day] = today.split("-").map(Number);
     const yesterday = new Date(year, month - 1, day);
     yesterday.setDate(yesterday.getDate() - 1);
-    const yesterdayKey = yesterday.toLocaleDateString("en-CA");
+    const yesterdayKey = formatDateKey(yesterday);
 
     if (lastPlayed === yesterdayKey) {
       newStreak += 1;
