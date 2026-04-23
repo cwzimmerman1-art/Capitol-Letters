@@ -687,7 +687,10 @@ if (showArchive) {
 )}
 
  <div style={styles.buttonStack}>
-  <button onClick={handleShare} style={styles.share}>
+  <button
+    onClick={handleShare}
+    style={{ ...styles.share, ...styles.pulse }}
+  >
     Share with friends
   </button>
 
@@ -738,6 +741,10 @@ const styles = {
     padding: 16,
     backgroundColor: "#fff",
     color: "#111"
+  },
+
+  pulse: {
+    animation: "pulse 1.8s ease-in-out infinite"
   },
 
 gridWrapper: {
