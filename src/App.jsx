@@ -224,13 +224,19 @@ export default function App() {
   .sort((a, b) => parseLocalDate(b[0]) - parseLocalDate(a[0]));
   const [showInstructions, setShowInstructions] = useState(false);
   const [showArchive, setShowArchive] = useState(false);
+  const [isLandscape, setIsLandscape] = useState(false);
 
 useEffect(() => {
 const loadData = () => {
   const { streak } = getStreakData();
   setStreak(streak);
 
-const [isLandscape, setIsLandscape] = useState(false);
+  // 🔥 AUTO-FIX: backfill missing badges
+  BADGES.forEach(badge => {
+    if (streak >= badge.days) {
+      unlockBadge(badge.label);
+    }
+  });
 
 useEffect(() => {
   const checkOrientation = () => {
@@ -243,13 +249,6 @@ useEffect(() => {
   return () => window.removeEventListener("resize", checkOrientation);
 }, []);
 
-  // 🔥 AUTO-FIX: backfill missing badges
-  BADGES.forEach(badge => {
-    if (streak >= badge.days) {
-      unlockBadge(badge.label);
-    }
-  });
-
   const savedBadges = getUnlockedBadges();
   setUnlockedBadges(savedBadges);
 };
@@ -258,9 +257,8 @@ useEffect(() => {
 
   window.addEventListener('achievementsUpdated', loadData);
 
-  return () => {
-    window.removeEventListener('achievementsUpdated', loadData);
-  };
+return () =>
+  window.removeEventListener("resize", checkOrientation);
 }, []);
 
   const submitGuess = () => {
@@ -323,20 +321,6 @@ if (prevBadge !== nextBadge) {
     window.addEventListener("keydown", listener);
     return () => window.removeEventListener("keydown", listener);
   }, [current, gameOver, started]);
-
-  if (isLandscape) {
-  return (
-    <div style={styles.launchContainer}>
-      <div style={{ fontSize: 40 }}>📱</div>
-      <div style={{ fontSize: 18, fontWeight: 600, marginTop: 10 }}>
-        Rotate your phone
-      </div>
-      <div style={{ fontSize: 14, color: "#666", marginTop: 8 }}>
-        Mad Tiles is best played in portrait mode
-      </div>
-    </div>
-  );
-}
 
 
   const emojiMap = { green: "🟩", blue: "🟦", gray: "⬜" };
