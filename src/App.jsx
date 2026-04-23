@@ -699,9 +699,10 @@ playButton: {
   color: "#fff",
   fontSize: 14,
   borderRadius: 8,
-  border: "none", 
+  border: "none",
   outline: "none",
-  cursor: "pointer"
+  cursor: "pointer",
+  animation: "pulse 2.5s infinite"
 },
 
   secondaryButton: {
