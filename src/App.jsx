@@ -710,8 +710,7 @@ playButton: {
   border: "none",
   outline: "none",
   cursor: "pointer",
-  animation: "pulse 2.5s infinite",
-  transition: "transform 0.1s ease"
+  transition: "transform 0.1s ease",
 },
 
   secondaryButton: {

@@ -50,6 +50,10 @@
   }
 }
 
+button:active {
+  transform: scale(0.97);
+}
+
 body {
   margin: 0;
 }
