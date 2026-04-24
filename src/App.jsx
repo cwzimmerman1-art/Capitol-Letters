@@ -10,10 +10,12 @@ const WORD_BANK = {
   "2026-04-22": { word: "BROOM", fact: "As in, Broom Street. It closes tomorrow, and will reopen sometime in early June. In the meantime, a detour can be found on Dustpan Drive." },
   "2026-04-23": { word: "HAPPY", fact: "As in, happy hour. Madison's best? Canteen gets my vote: 2-5pm daily. Half-off tacos and margs, $3 Tecates. We made it to patio season, people."},
   "2026-04-24": { word: "UNION", fact: "As in, Memorial Union. Pro-tip: there's a private bathroom tucked away near the Rathskeller entrance. Down the stairs, to the left. Grab a pitcher, poop in peace."},
-  "2026-04-25": { word: "MATCH", fact: "As in, a Forward Madison FC match. In 2018, the team was nearly named 77 Square Miles SC, a nod to Madison’s almost exactly 77-square-mile footprint." },
-  "2026-04-26": { word: "METRO", fact: "As in, the Madison Metro Transit. It operates with approximately 1,346 bus stops. That's it. That's today's fact." },
-  "2026-04-27": { word: "PLAZA", fact: "As in, the Plaza. The large paintings throughout the Plaza were given to the bar in return for erasing the painter's $1,400+ running bar tab." },
-  "2026-04-28": { word: "GARTH", fact: "As in, Garth’s Brew Bar. Taxidermy trivia: the bar’s mascot (Marvins) is a Frankenmoose. His head and antlers come from two different moose."} 
+  "2026-04-25": { word: "PARTY", fact: "As in, Mifflin St. Block Party. Heads up: it's happening today. If you plan on parking your car in the area, make sure you securely anchor it to the earth." },
+  "2026-04-26": { word: "FLOCK", fact: "As in, Forward Madison FC's fans. Fun fact: in 2018, the team was nearly named 77 Square Miles SC, a nod to Madison’s almost exactly 77-square-mile footprint."},
+  "2026-04-27": { word: "BLOOD", fact: "As in, Comedy on State + Ian's Pizza Blood Drive happening tomorrow. 10am-2:30pm at the Comedy Club. Donors get dope perks for doing a good thing. Check it out."},
+  "2026-04-28": { word: "METRO", fact: "As in, the Madison Metro Transit. It operates with approximately 1,346 bus stops. That's it. That's today's fact. " },
+  "2026-04-29": { word: "PLAZA", fact: "As in, the Plaza. The large paintings throughout the Plaza were given to the bar in return for erasing the painter's $1,400+ running bar tab." },
+  "2026-04-30": { word: "GARTH", fact: "As in, Garth’s Brew Bar. Taxidermy trivia: the bar’s mascot (Marvins) is a Frankenmoose. His head and antlers come from two different moose."} 
 };
 
 const BASE_DATE = "2026-04-18";
@@ -569,9 +571,17 @@ if (showArchive) {
         <div style={styles.streak}>{streak} day streak</div>
         <div style={styles.badge}>{getBadge(streak)}</div>
 
-        <div style={styles.meta}>
-          {formatDate()} • Puzzle {getPuzzleNumber()}
-        </div>
+       <div style={styles.meta}>
+        {formatDate()} • Puzzle {getPuzzleNumber()} •{" "}
+        <a
+          href="https://instagram.com/mad__tiles"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: "#888", textDecoration: "none" }}
+        >
+          @mad__tiles
+        </a>
+      </div>
 
         <button
         onClick={() => setShowArchive(true)}
@@ -710,6 +720,20 @@ if (showArchive) {
     Share with friends
   </button>
 
+  <a
+  href="https://instagram.com/mad__tiles"
+  target="_blank"
+  rel="noopener noreferrer"
+  style={{
+    fontSize: 12,
+    color: "#888",
+    marginTop: 6,
+    textDecoration: "none"
+  }}
+>
+  Follow @mad__tiles on IG
+</a>
+
   <button
     onClick={() => {
       setStarted(false);
@@ -727,7 +751,6 @@ if (showArchive) {
 
 {copied && <div style={styles.copied}>Copied to clipboard, challenge your friends</div>}
 
-<div style={styles.return}>A new puzzle drops tomorrow</div>
         </div>
       <Analytics />
     </div>
