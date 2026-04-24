@@ -594,7 +594,7 @@ if (showArchive) {
         {yesterday && (
           <div style={styles.tickerWrapper}>
             <div style={styles.ticker}>
-               ✅ Yesterday’s word: {yesterday.word} — {yesterday.fact}
+              This weekend, do your puzzle at a park • Fri 65°☀️ Sat 63°☀️ Sun 66°☁️ 
             </div>
           </div>
         )}
@@ -1004,6 +1004,6 @@ backButton: {
     padding: "8px 0",
     fontSize: 13,
     color: "#666",
-    animation: "scrollText 12s linear infinite"
+    animation: "scrollText 8s linear infinite"
   }
 };
