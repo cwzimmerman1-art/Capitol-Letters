@@ -246,39 +246,52 @@ export default function App() {
 }, [showArchive, showTrophies, showInstructions, started]);
 
 useEffect(() => {
-const loadData = () => {
-  const { streak } = getStreakData();
-  setStreak(streak);
+  const loadData = () => {
+    const { streak } = getStreakData();
+    setStreak(streak);
 
-useEffect(() => {
-  const checkOrientation = () => {
-    setIsLandscape(window.innerWidth > window.innerHeight);
+    // 🔥 AUTO-FIX: backfill missing badges
+    BADGES.forEach(badge => {
+      if (streak >= badge.days) {
+        unlockBadge(badge.label);
+      }
+    });
+
+    const savedBadges = getUnlockedBadges();
+    setUnlockedBadges(savedBadges);
   };
-
-  checkOrientation();
-  window.addEventListener("resize", checkOrientation);
-
-  return () => window.removeEventListener("resize", checkOrientation);
-}, []);
-
-
-  // 🔥 AUTO-FIX: backfill missing badges
-  BADGES.forEach(badge => {
-    if (streak >= badge.days) {
-      unlockBadge(badge.label);
-    }
-  });
-
-  const savedBadges = getUnlockedBadges();
-  setUnlockedBadges(savedBadges);
-};
 
   loadData();
 
-  window.addEventListener('achievementsUpdated', loadData);
+  window.addEventListener("achievementsUpdated", loadData);
 
   return () => {
-    window.removeEventListener('achievementsUpdated', loadData);
+    window.removeEventListener("achievementsUpdated", loadData);
+  };
+}, []);
+
+useEffect(() => {
+  const loadData = () => {
+    const { streak } = getStreakData();
+    setStreak(streak);
+
+    // 🔥 AUTO-FIX: backfill missing badges
+    BADGES.forEach(badge => {
+      if (streak >= badge.days) {
+        unlockBadge(badge.label);
+      }
+    });
+
+    const savedBadges = getUnlockedBadges();
+    setUnlockedBadges(savedBadges);
+  };
+
+  loadData();
+
+  window.addEventListener("achievementsUpdated", loadData);
+
+  return () => {
+    window.removeEventListener("achievementsUpdated", loadData);
   };
 }, []);
 
