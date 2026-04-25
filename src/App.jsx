@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Analytics } from "@vercel/analytics/react";
+import { track } from "@vercel/analytics";
 
 // --- WORD SYSTEM ---
 const WORD_BANK = {
@@ -12,10 +13,11 @@ const WORD_BANK = {
   "2026-04-24": { word: "UNION", fact: "As in, Memorial Union. Pro-tip: there's a private bathroom tucked away near the Rathskeller entrance. Down the stairs, to the left. Grab a pitcher, poop in peace."},
   "2026-04-25": { word: "PARTY", fact: "As in, Mifflin St. Block Party. Heads up: it's happening today. If you plan on parking your car in the area, make sure you securely anchor it to the earth." },
   "2026-04-26": { word: "FLOCK", fact: "As in, Forward Madison FC's fans. Fun fact: in 2018, the team was nearly named 77 Square Miles SC, a nod to Madison’s almost exactly 77-square-mile footprint."},
-  "2026-04-27": { word: "BLOOD", fact: "As in, Comedy on State + Ian's Pizza Blood Drive happening tomorrow. 10am-2:30pm at the Comedy Club. Donors get dope perks for doing a good thing. Check it out."},
+  "2026-04-27": { word: "BLOOD", fact: "As in, the Comedy on State + Ian's Pizza Blood Drive happening tomorrow. 10am-2:30pm at the Comedy Club. Donors get tasty perks for doing a good thing. Check it out."},
   "2026-04-28": { word: "METRO", fact: "As in, the Madison Metro Transit. It operates with approximately 1,346 bus stops. That's it. That's today's fact. " },
-  "2026-04-29": { word: "PLAZA", fact: "As in, the Plaza. The large paintings throughout the Plaza were given to the bar in return for erasing the painter's $1,400+ running bar tab." },
-  "2026-04-30": { word: "GARTH", fact: "As in, Garth’s Brew Bar. Taxidermy trivia: the bar’s mascot (Marvins) is a Frankenmoose. His head and antlers come from two different moose."} 
+  "2026-04-29": { word: "FRIED", fact: "As in, Bar Corallini's fried eggplant fritters. One of Madison's tastiest appetizers. Eggplants have no business being this good. And the sauce? 🤌"},
+  "2026-04-30": { word: "PLAZA", fact: "As in, the Plaza. The large paintings throughout the Plaza were given to the bar in return for erasing the painter's $1,400+ running bar tab." },
+  "2026-05-01": { word: "GARTH", fact: "As in, Garth’s Brew Bar. Taxidermy trivia: the bar’s mascot (Marvin) is a Frankenmoose. His head and antlers come from two different moose."} 
 };
 
 const BASE_DATE = "2026-04-18";
@@ -229,11 +231,36 @@ export default function App() {
   const [showInstructions, setShowInstructions] = useState(false);
   const [showArchive, setShowArchive] = useState(false);
   const [isLandscape, setIsLandscape] = useState(false);
+  useEffect(() => {
+  if (showArchive) {
+    track("view_archive");
+  } else if (showTrophies) {
+    track("view_trophies");
+  } else if (showInstructions) {
+    track("view_instructions");
+  } else if (!started) {
+    track("view_home");
+  } else {
+    track("view_game");
+  }
+}, [showArchive, showTrophies, showInstructions, started]);
 
 useEffect(() => {
 const loadData = () => {
   const { streak } = getStreakData();
   setStreak(streak);
+
+useEffect(() => {
+  const checkOrientation = () => {
+    setIsLandscape(window.innerWidth > window.innerHeight);
+  };
+
+  checkOrientation();
+  window.addEventListener("resize", checkOrientation);
+
+  return () => window.removeEventListener("resize", checkOrientation);
+}, []);
+
 
   // 🔥 AUTO-FIX: backfill missing badges
   BADGES.forEach(badge => {
@@ -536,6 +563,18 @@ if (showArchive) {
     </div>
   );
 }
+
+if (isLandscape) {
+  return (
+    <div style={styles.launchContainer}>
+      <h2 style={{ fontWeight: "600" }}>Rotate your phone</h2>
+      <p style={{ color: "#666", marginTop: 8 }}>
+        This game works best in portrait mode. To all my landscape fans: trust me, I tried. 
+      </p>
+    </div>
+  );
+}
+
   if (!started) {
     return (
       <div style={styles.launchContainer}>
