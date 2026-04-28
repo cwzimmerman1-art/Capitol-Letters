@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { Analytics } from "@vercel/analytics/react";
-import { track } from "@vercel/analytics";
+
 
 // --- WORD SYSTEM ---
 const WORD_BANK = {
@@ -14,7 +13,7 @@ const WORD_BANK = {
   "2026-04-25": { word: "PARTY", fact: "As in, Mifflin St. Block Party. Heads up: it's happening today. If you plan on parking your car in the area, make sure you securely anchor it to the earth." },
   "2026-04-26": { word: "FLOCK", fact: "As in, Forward Madison FC's fans. Fun fact: in 2018, the team was nearly named 77 Square Miles SC, a nod to Madison’s almost exactly 77-square-mile footprint."},
   "2026-04-27": { word: "BLOOD", fact: "As in, the Comedy on State + Ian's Pizza Blood Drive happening tomorrow. 10am-2:30pm at the Comedy Club. Donors get tasty perks for doing a good thing. Check it out."},
-  "2026-04-28": { word: "METRO", fact: "As in, the Madison Metro Transit. It operates with approximately 1,346 bus stops. That's it. That's today's fact. " },
+  "2026-04-28": { word: "METRO", fact: "As in, the Madison Metro Transit. It operates with approximately 1,346 bus stops. That's it. That's today's fact. Tell somebody." },
   "2026-04-29": { word: "FRIED", fact: "As in, Bar Corallini's fried eggplant fritters. One of Madison's tastiest appetizers. Eggplants have no business being this good. And the sauce? 🤌"},
   "2026-04-30": { word: "PLAZA", fact: "As in, the Plaza. The large paintings throughout the Plaza were given to the bar in return for erasing the painter's $1,400+ running bar tab." },
   "2026-05-01": { word: "GARTH", fact: "As in, Garth’s Brew Bar. Taxidermy trivia: the bar’s mascot (Marvin) is a Frankenmoose. His head and antlers come from two different moose."} 
@@ -24,16 +23,16 @@ const BASE_DATE = "2026-04-18";
 
 // --- BADGES ---
 const BADGES = [
-  { days: 30, label: '👻 Has seen an Ohio Tavern ghost' },
-  { days: 25, label: '🔦 First name basis w/ Tunnel Bob' },
-  { days: 15, label: '🚕 Knows the "242-2000" jingle' },
-  { days: 10, label: "🍔 Loves a good Caribou burger" },
+  { days: 20, label: '👻 Has seen an Ohio Tavern ghost' },
+  { days: 15, label: '🔦 First name basis w/ Tunnel Bob' },
+  { days: 10, label: '🚕 Knows the "242-2000" jingle' },
   { days: 5, label: "⛵ Can name every Madison lake" },
   { days: 3, label: '🚘 Zipper merges on beltline' },
   { days: 1, label: "🛒 Expert Woodman's navigator" }
 ];
 
 const getDevDate = () => {
+  if (typeof window === "undefined") return null;
   const params = new URLSearchParams(window.location.search);
   return params.get("date");
 };
@@ -231,7 +230,10 @@ export default function App() {
   const [showInstructions, setShowInstructions] = useState(false);
   const [showArchive, setShowArchive] = useState(false);
   const [isLandscape, setIsLandscape] = useState(false);
-  useEffect(() => {
+
+useEffect(() => {
+  if (typeof track !== "function") return;
+
   if (showArchive) {
     track("view_archive");
   } else if (showTrophies) {
@@ -270,30 +272,7 @@ useEffect(() => {
   };
 }, []);
 
-useEffect(() => {
-  const loadData = () => {
-    const { streak } = getStreakData();
-    setStreak(streak);
 
-    // 🔥 AUTO-FIX: backfill missing badges
-    BADGES.forEach(badge => {
-      if (streak >= badge.days) {
-        unlockBadge(badge.label);
-      }
-    });
-
-    const savedBadges = getUnlockedBadges();
-    setUnlockedBadges(savedBadges);
-  };
-
-  loadData();
-
-  window.addEventListener("achievementsUpdated", loadData);
-
-  return () => {
-    window.removeEventListener("achievementsUpdated", loadData);
-  };
-}, []);
 
   const submitGuess = () => {
     const prevStreak = getStreakData().streak;
@@ -355,6 +334,20 @@ if (prevBadge !== nextBadge) {
     window.addEventListener("keydown", listener);
     return () => window.removeEventListener("keydown", listener);
   }, [current, gameOver, started]);
+
+ useEffect(() => {
+  const checkOrientation = () => {
+    const isMobile = window.innerWidth < 768; // tweak if you want
+    const isLandscapeNow = window.innerWidth > window.innerHeight;
+
+    setIsLandscape(isMobile && isLandscapeNow);
+  };
+
+  checkOrientation();
+  window.addEventListener("resize", checkOrientation);
+
+  return () => window.removeEventListener("resize", checkOrientation);
+}, []);
 
 
   const emojiMap = { green: "🟩", blue: "🟦", gray: "⬜" };
@@ -460,7 +453,7 @@ const text = `Consider myself puzzled.\n\n${grid}\n\nYour turn → MadTiles.com`
   }}
 />
 
-    <Analytics />
+
     </div>
   );
 }
@@ -518,7 +511,7 @@ const nextBadges = sortedBadges
         Back
       </button>
 
-    <Analytics />
+  
     </div>
   );
 }
@@ -572,7 +565,7 @@ if (showArchive) {
         Back
       </button>
 
-      <Analytics />
+      
     </div>
   );
 }
@@ -646,11 +639,11 @@ if (isLandscape) {
         {yesterday && (
           <div style={styles.tickerWrapper}>
             <div style={styles.ticker}>
-              This weekend, do your puzzle at a park • Fri 65°☀️ Sat 63°☀️ Sun 66°☁️ 
+              This week's forecast: 100% chance of puzzles - Tue 58°☁️ Wed 53°☀️ Thu 50°⛅ Fri 49°⛅ Sat 53°☀️ 
             </div>
           </div>
         )}
-      <Analytics />
+      
       </div>
     );
   }
@@ -804,7 +797,7 @@ if (isLandscape) {
 {copied && <div style={styles.copied}>Copied to clipboard, challenge your friends</div>}
 
         </div>
-      <Analytics />
+     
     </div>
   );
 }
