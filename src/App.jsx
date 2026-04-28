@@ -573,7 +573,7 @@ if (showArchive) {
 if (isLandscape) {
   return (
     <div style={styles.launchContainer}>
-      <h2 style={{ fontWeight: "600" }}>Rotate your phone</h2>
+      <h2 style={{ fontWeight: "600", color: "#171717" }}>Rotate your phone</h2>
       <p style={{ color: "#171717", marginTop: 10 }}>
         This experience only works in portrait mode. If you're laying down and annoyed, just know I tried.
       </p>
