@@ -13,11 +13,12 @@ const WORD_BANK = {
   "2026-04-25": { word: "PARTY", fact: "As in, Mifflin St. Block Party. Heads up: it's happening today. If you plan on parking your car in the area, make sure you securely anchor it to the earth." },
   "2026-04-26": { word: "FLOCK", fact: "As in, Forward Madison FC's fans. Fun fact: in 2018, the team was nearly named 77 Square Miles SC, a nod to Madison’s almost exactly 77-square-mile footprint."},
   "2026-04-27": { word: "BLOOD", fact: "As in, the Comedy on State + Ian's Pizza Blood Drive happening tomorrow. 10am-2:30pm at the Comedy Club. Donors get tasty perks for doing a good thing. Check it out."},
-  "2026-04-28": { word: "TAPES", fact: "As in, Stanley Kutler—the UW historian who helped release the Nixon tapes. Nixon was the 37th president. 37 students were arrested at this year’s Mifflin. That's what we call a fact bomb." },
-  "2026-04-29": { word: "METRO", fact: "As in, the Madison Metro Transit. It operates with approximately 1,346 bus stops. That's it. That's today's fact. Tell somebody." },
-  "2026-04-30": { word: "FRIED", fact: "As in, Bar Corallini's fried eggplant fritters. One of Madison's tastiest appetizers. Eggplants have no business being this good. And the sauce? 🤌"},
-  "2026-05-01": { word: "PLAZA", fact: "As in, the Plaza. The large paintings throughout the Plaza were given to the bar in return for erasing the painter's $1,400+ running bar tab." },
-  "2026-05-02": { word: "GARTH", fact: "As in, Garth’s Brew Bar. Taxidermy trivia: the bar’s mascot (Marvin) is a Frankenmoose. His head and antlers come from two different moose."} 
+  "2026-04-28": { word: "BLAZE", fact: "As in, the Capitol Fire that happened on this day in 1904. The state neglected to renew its insurance policy two months prior, leaving it with the full cost of rebuilding." },
+  "2026-04-29": { word: "TAPES", fact: "As in, Stanley Kutler—the UW historian who helped release the Nixon tapes. Nixon was the 37th president. 37 students were arrested at this year’s Mifflin. And that's what we call a fact bomb." },
+  "2026-04-30": { word: "METRO", fact: "As in, the Madison Metro Transit. It operates with approximately 1,346 bus stops. That's it. That's today's fact. Tell somebody." },
+  "2026-05-01": { word: "FRIED", fact: "As in, Bar Corallini's fried eggplant fritters. One of Madison's tastiest appetizers. Eggplants have no business being this good. And the sauce? 🤌"},
+  "2026-05-02": { word: "PLAZA", fact: "As in, the Plaza. The large paintings throughout the Plaza were given to the bar in return for erasing the painter's $1,400+ running bar tab." },
+  "2026-05-03": { word: "GARTH", fact: "As in, Garth’s Brew Bar. Taxidermy trivia: the bar’s mascot (Marvin) is a Frankenmoose. His head and antlers come from two different moose."} 
 };
 
 const BASE_DATE = "2026-04-18";
