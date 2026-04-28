@@ -395,12 +395,15 @@ if (prevBadge !== nextBadge) {
 
     const hours = Math.floor(diff / (1000 * 60 * 60));
     const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
 
-    setTimeLeft(`${hours}h ${minutes}m`);
+    const pad = (n) => String(n).padStart(2, "0");
+
+    setTimeLeft(`${pad(hours)}h ${pad(minutes)}m ${pad(seconds)}s`);
   };
 
   updateCountdown(); // run immediately
-  const interval = setInterval(updateCountdown, 60000); // update every minute
+  const interval = setInterval(updateCountdown, 1000); // update every second
 
   return () => clearInterval(interval);
 }, []);
@@ -848,7 +851,7 @@ if (isLandscape) {
 
   {gameOver && (
   <div style={{ fontSize: 12, color: "#666", marginTop: 2 }}>
-    Next puzzle in {timeLeft}
+    Next puzzle: {timeLeft}
   </div>
 )}
 
