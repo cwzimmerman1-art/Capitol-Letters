@@ -35,9 +35,9 @@ const BADGES = [
 
 // --- TROPHIES ---
 const TROPHIES = [
-  { id: "first_guess", label: "🎯 First try", description: "Solve in one guess" },
-  { id: "speed", label: "⚡ Lightning solve", description: "Solve in ≤10s" },
-  { id: "clutch", label: "😅 Last guess", description: "Solve on final guess" }
+  { id: "first_guess", label: "🎯 First try", description: "Solve in a single guess" },
+  { id: "speed", label: "⚡ Lightning solve", description: "Solve in under 5 seconds" },
+  { id: "clutch", label: "😅 Clutch gene", description: "Solve on final guess" }
 ];
 
 const getDevDate = () => {
@@ -394,8 +394,8 @@ window.removeEventListener("trophiesUpdated", loadData);
           if (unlockTrophy("first_guess")) earnedTrophy = "🎯 First try";
         }
 
-        if (elapsedTime <= 10) {
-          if (unlockTrophy("speed")) earnedTrophy = "⚡ 10 seconds or less";
+        if (elapsedTime <= 5) {
+          if (unlockTrophy("speed")) earnedTrophy = "⚡ 5 seconds or less";
         }
 
         if (newGuesses.length === MAX_GUESSES) {
