@@ -384,6 +384,17 @@ if (prevBadge !== nextBadge) {
   }, [current, gameOver, started]);
 
   useEffect(() => {
+  if (gameOver) {
+    setTimeout(() => {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: "smooth"
+      });
+    }, 300); // slight delay so UI finishes rendering
+  }
+}, [gameOver]);
+
+  useEffect(() => {
   const updateCountdown = () => {
     const now = new Date();
 
