@@ -23,7 +23,7 @@ const BASE_DATE = "2026-04-18";
 
 // --- BADGES ---
 const BADGES = [
-  { days: 20, label: '👻 Has seen an Ohio Tavern ghost' },
+  { days: 20, label: '🐉 Has seen the Lake Monona monster' },
   { days: 15, label: '🔦 First name basis w/ Tunnel Bob' },
   { days: 10, label: '🚕 Knows the "242-2000" jingle' },
   { days: 5, label: "⛵ Can name every Madison lake" },
@@ -208,10 +208,25 @@ const { word: SOLUTION, fact: DESCRIPTION } = getTodayEntry();
 
 export default function App() {
   const [showTrophies, setShowTrophies] = useState(false);
-  const [started, setStarted] = useState(false);
-  const [guesses, setGuesses] = useState([]);
+  const [started, setStarted] = useState(() => {
+  const saved = JSON.parse(localStorage.getItem("capitol_game_state") || "null");
+  return saved && saved.date === getTodayKey();
+});
+  const savedGame = JSON.parse(localStorage.getItem("capitol_game_state") || "null");
+  const hasPlayedToday =
+    savedGame &&
+    savedGame.date === getTodayKey() &&
+    savedGame.gameOver;
+  const isToday = savedGame && savedGame.date === getTodayKey();
+  const [guesses, setGuesses] = useState(isToday ? savedGame.guesses || [] : []);
+  const [gameOver, setGameOver] = useState(isToday ? savedGame.gameOver || false : false);
+  useEffect(() => {
+  if (hasPlayedToday) {
+    setStarted(true);
+    setGameOver(true);
+  }
+}, []);
   const [current, setCurrent] = useState("");
-  const [gameOver, setGameOver] = useState(false);
   const [keyStatus, setKeyStatus] = useState({});
   const [copied, setCopied] = useState(false);
   const [streak, setStreak] = useState(0);
@@ -230,6 +245,26 @@ export default function App() {
   const [showInstructions, setShowInstructions] = useState(false);
   const [showArchive, setShowArchive] = useState(false);
   const [isLandscape, setIsLandscape] = useState(false);
+  const [timeLeft, setTimeLeft] = useState("");
+
+useEffect(() => {
+  const saved = JSON.parse(localStorage.getItem("capitol_game_state") || "null");
+
+  if (saved && saved.date === getTodayKey()) {
+    const rebuilt = {};
+
+    saved.guesses.forEach(g => {
+      g.word.split("").forEach((letter, i) => {
+        const res = g.result[i];
+        if (res === "green") rebuilt[letter] = "green";
+        else if (res === "blue" && rebuilt[letter] !== "green") rebuilt[letter] = "blue";
+        else if (!rebuilt[letter]) rebuilt[letter] = "gray";
+      });
+    });
+
+    setKeyStatus(rebuilt);
+  }
+}, []);
 
 useEffect(() => {
   if (typeof track !== "function") return;
@@ -302,6 +337,17 @@ useEffect(() => {
       const newStreak = updateStreak(won);
       setStreak(newStreak);
       
+      localStorage.setItem(
+  "capitol_game_state",
+  JSON.stringify({
+    date: getTodayKey(),
+    guesses: newGuesses,
+    gameOver: true,
+    won: guess === SOLUTION,
+    started: true
+  })
+);
+      
 
 // --- BADGE DETECTION ---
 const prevBadge = getBadge(prevStreak);
@@ -335,6 +381,28 @@ if (prevBadge !== nextBadge) {
     return () => window.removeEventListener("keydown", listener);
   }, [current, gameOver, started]);
 
+  useEffect(() => {
+  const updateCountdown = () => {
+    const now = new Date();
+
+    // next midnight (local time)
+    const next = new Date();
+    next.setHours(24, 0, 0, 0);
+
+    const diff = next - now;
+
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+
+    setTimeLeft(`${hours}h ${minutes}m`);
+  };
+
+  updateCountdown(); // run immediately
+  const interval = setInterval(updateCountdown, 60000); // update every minute
+
+  return () => clearInterval(interval);
+}, []);
+
  useEffect(() => {
   const checkOrientation = () => {
     const isMobile = window.innerWidth < 768; // tweak if you want
@@ -347,6 +415,7 @@ if (prevBadge !== nextBadge) {
   window.addEventListener("resize", checkOrientation);
 
   return () => window.removeEventListener("resize", checkOrientation);
+
 }, []);
 
 
@@ -575,7 +644,7 @@ if (isLandscape) {
     <div style={styles.launchContainer}>
       <h2 style={{ fontWeight: "600", color: "#171717" }}>Rotate your phone</h2>
       <p style={{ color: "#171717", marginTop: 10 }}>
-        This experience only works in portrait mode. If you're laying down and annoyed, just know I tried.
+        For now, this experience only works in portrait mode. Just know that I tried.
       </p>
     </div>
   );
@@ -653,13 +722,16 @@ if (isLandscape) {
   
   <button
   onClick={() => {
-    setStarted(false);
+  setStarted(false);
+
+  if (!hasPlayedToday) {
     setGameOver(false);
     setGuesses([]);
     setCurrent("");
     setKeyStatus({});
     setNewBadge(null);
-  }}
+  }
+}}
   style={{
     ...styles.backButton,
     opacity: gameOver ? 0 : 1,
@@ -669,7 +741,14 @@ if (isLandscape) {
   ←
 </button>
 
-      <div style={{ ...styles.gridWrapper, paddingBottom: gameOver ? 0 : 260 }}>
+      <div
+  style={{
+    ...styles.gridWrapper,
+    paddingBottom: gameOver ? 0 : 260,
+    opacity: gameOver ? 0.6 : 1,
+    transition: "opacity 0.5s ease"
+  }}
+>
         <div>
           {[...Array(MAX_GUESSES)].map((_, r) => (
             <div key={r} style={styles.row}>
@@ -765,6 +844,12 @@ if (isLandscape) {
     Share with friends
   </button>
 
+  {gameOver && (
+  <div style={{ fontSize: 12, color: "#666", marginTop: 2 }}>
+    Next puzzle in {timeLeft}
+  </div>
+)}
+
   <a
   href="https://instagram.com/mad__tiles"
   target="_blank"
@@ -772,7 +857,7 @@ if (isLandscape) {
   style={{
     fontSize: 12,
     color: "#888",
-    marginTop: 6,
+    marginTop: 1,
     textDecoration: "none"
   }}
 >
@@ -781,13 +866,16 @@ if (isLandscape) {
 
   <button
     onClick={() => {
-      setStarted(false);
-      setGameOver(false);
-      setGuesses([]);
-      setCurrent("");
-      setKeyStatus({});
-      setNewBadge(null);
-    }}
+  setStarted(false);
+
+  if (!hasPlayedToday) {
+    setGameOver(false);
+    setGuesses([]);
+    setCurrent("");
+    setKeyStatus({});
+    setNewBadge(null);
+  }
+}}
     style={styles.secondaryButton}
   >
     Back to home
