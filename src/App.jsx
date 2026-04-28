@@ -33,6 +33,13 @@ const BADGES = [
   { days: 1, label: "🛒 Expert Woodman's navigator" }
 ];
 
+// --- TROPHIES ---
+const TROPHIES = [
+  { id: "first_guess", label: "🎯 First try", description: "Solve in one guess" },
+  { id: "speed", label: "⚡ Lightning solve", description: "Solve in ≤10s" },
+  { id: "clutch", label: "😅 Last guess", description: "Solve on final guess" }
+];
+
 const getDevDate = () => {
   if (typeof window === "undefined") return null;
   const params = new URLSearchParams(window.location.search);
@@ -118,6 +125,23 @@ const unlockBadge = (badgeLabel) => {
     const updated = [...badges, badgeLabel];
     localStorage.setItem("capitol_badges", JSON.stringify(updated));
     window.dispatchEvent(new Event('achievementsUpdated'));
+    return true;
+  }
+
+  return false;
+};
+
+const getUnlockedTrophies = () => {
+  return JSON.parse(localStorage.getItem("capitol_trophies") || "[]");
+};
+
+const unlockTrophy = (id) => {
+  const trophies = getUnlockedTrophies();
+
+  if (!trophies.includes(id)) {
+    const updated = [...trophies, id];
+    localStorage.setItem("capitol_trophies", JSON.stringify(updated));
+    window.dispatchEvent(new Event("trophiesUpdated"));
     return true;
   }
 
@@ -219,6 +243,10 @@ export default function App() {
     savedGame &&
     savedGame.date === getTodayKey() &&
     savedGame.gameOver;
+  const [startTime, setStartTime] = useState(null);
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const [trophies, setTrophies] = useState([]);
+  const [showTrophiesTab, setShowTrophiesTab] = useState(false);
   const isToday = savedGame && savedGame.date === getTodayKey();
   const [guesses, setGuesses] = useState(isToday ? savedGame.guesses || [] : []);
   const [gameOver, setGameOver] = useState(isToday ? savedGame.gameOver || false : false);
@@ -233,6 +261,7 @@ export default function App() {
   const [copied, setCopied] = useState(false);
   const [streak, setStreak] = useState(0);
   const [newBadge, setNewBadge] = useState(null);
+  const [newTrophy, setNewTrophy] = useState(null);
   const [unlockedBadges, setUnlockedBadges] = useState([]);
   const [secretTapCount, setSecretTapCount] = useState(0);
   const yesterday = getYesterdayEntry();
@@ -269,6 +298,22 @@ useEffect(() => {
 }, []);
 
 useEffect(() => {
+  if (started && !gameOver && !startTime) {
+    setStartTime(Date.now());
+  }
+}, [started]);
+
+useEffect(() => {
+  if (!startTime || gameOver) return;
+
+  const interval = setInterval(() => {
+    setElapsedTime(Math.floor((Date.now() - startTime) / 1000));
+  }, 100);
+
+  return () => clearInterval(interval);
+}, [startTime, gameOver]);
+
+useEffect(() => {
   if (typeof track !== "function") return;
 
   if (showArchive) {
@@ -288,6 +333,11 @@ useEffect(() => {
   const loadData = () => {
     const { streak } = getStreakData();
     setStreak(streak);
+    const savedTrophies = getUnlockedTrophies();
+setTrophies(savedTrophies);
+window.addEventListener("trophiesUpdated", loadData);
+window.removeEventListener("trophiesUpdated", loadData);
+
 
     // 🔥 AUTO-FIX: backfill missing badges
     BADGES.forEach(badge => {
@@ -336,6 +386,26 @@ useEffect(() => {
       setGameOver(true);
 
       const won = guess === SOLUTION;
+
+    if (won) {
+        let earnedTrophy = null;
+
+        if (newGuesses.length === 1) {
+          if (unlockTrophy("first_guess")) earnedTrophy = "🎯 First try";
+        }
+
+        if (elapsedTime <= 10) {
+          if (unlockTrophy("speed")) earnedTrophy = "⚡ 10 seconds or less";
+        }
+
+        if (newGuesses.length === MAX_GUESSES) {
+          if (unlockTrophy("clutch")) earnedTrophy = "😅 Final guess";
+        }
+
+        if (earnedTrophy) {
+          setNewTrophy(earnedTrophy);
+  }
+}
       const newStreak = updateStreak(won);
       setStreak(newStreak);
       
@@ -556,10 +626,57 @@ const nextBadges = sortedBadges
 
   return (
     
-    <div style={styles.launchContainer}>
-      <h2 style={{ marginBottom: 10, fontWeight: "600",color: "#171717" }}>CITY BADGES</h2>
-      <div style={{ marginTop: 10 }}>
-       <div style={{ marginTop: 10 }}>
+    <div style={{ 
+  ...styles.launchContainer, 
+  justifyContent: "flex-start",
+  paddingTop: 100
+}}>
+<div style={{
+  display: "flex",
+  gap: 6,
+  backgroundColor: "#ffffff",
+  borderRadius: 10,
+  padding: 4,
+  marginBottom: 16
+}}>  
+
+<div
+  onClick={() => setShowTrophiesTab(false)}
+  style={{
+    flex: 1,
+    textAlign: "center",
+    padding: "8px 12px",
+    borderRadius: 8,
+    cursor: "pointer",
+    fontWeight: "600",
+    backgroundColor: !showTrophiesTab ? "#fff" : "transparent",
+    color: !showTrophiesTab ? "#111" : "#888",
+    boxShadow: !showTrophiesTab ? "0 1px 3px rgba(0,0,0,0.08)" : "none"
+  }}
+>
+  BADGES
+</div>
+
+  <div
+  onClick={() => setShowTrophiesTab(true)}
+  style={{
+    flex: 1,
+    textAlign: "center",
+    padding: "8px 12px",
+    borderRadius: 8,
+    cursor: "pointer",
+    fontWeight: "600",
+    backgroundColor: showTrophiesTab ? "#fff" : "transparent",
+    color: showTrophiesTab ? "#111" : "#888",
+    boxShadow: showTrophiesTab ? "0 1px 3px rgba(0,0,0,0.08)" : "none"
+  }}
+>
+  TROPHIES
+</div>
+
+</div>
+      {!showTrophiesTab ? (
+  <div style={{ marginTop: 10 }}>
 
   {/* EARNED BADGES */}
 {earnedBadges.length > 0 && (
@@ -586,8 +703,26 @@ const nextBadges = sortedBadges
     </div>
   ))}
 
-</div>
-      </div>
+     </div>
+) : (
+  <div style={{ marginTop: 10 }}>
+    {TROPHIES.map((t, i) => {
+      const unlocked = trophies.includes(t.id);
+
+      return (
+        <div
+          key={i}
+          style={{
+            ...styles.badgeCard,
+            opacity: unlocked ? 1 : 0.3
+          }}
+        >
+          {unlocked ? t.label : t.description}
+        </div>
+      );
+    })}
+  </div>
+)}
 
       <button
         onClick={() => setShowTrophies(false)}
@@ -688,7 +823,7 @@ if (isLandscape) {
         <button
           onClick={() => setShowTrophies(true)}
            style={styles.secondaryButton} >
-        City badges
+        Achievements
         </button>
 
         <button
@@ -724,7 +859,7 @@ if (isLandscape) {
         {yesterday && (
           <div style={styles.tickerWrapper}>
             <div style={styles.ticker}>
-              This week's forecast: 100% chance of puzzles - Tue 58°☁️ Wed 53°☀️ Thu 50°⛅ Fri 49°⛅ Sat 53°☀️ 
+              This week's forecast: Wed 53°⛅ Thu 50°⛅ Fri 48°⛅ Sat 53°⛅ Sun 66°⛅ • 100% chance of puzzles
             </div>
           </div>
         )}
@@ -835,20 +970,40 @@ if (isLandscape) {
           <div style={styles.answer}>{SOLUTION}</div>
           <div style={styles.fact}>{DESCRIPTION}</div>
 
-          {newBadge && (
+    {/* BADGE */}
+{newBadge && (
   <div style={styles.badgeCard}>
     <div style={styles.badgeTitle}>New badge unlocked!</div>
     <div style={styles.badgeName}>{newBadge}</div>
 
     <button
       onClick={() => {
-      setNewBadge(null);
-      setShowTrophies(true);
-  }}
-  style={styles.achievementButton}
->
-  See city badges
-</button>
+        setNewBadge(null);
+
+        // AFTER badge is dismissed, trophy will show if it exists
+      }}
+      style={styles.achievementButton}
+    >
+      {newTrophy ? "Next" : "See achievements"}
+    </button>
+  </div>
+)}
+
+{/* TROPHY (only shows AFTER badge is cleared) */}
+{!newBadge && newTrophy && (
+  <div style={styles.badgeCard}>
+    <div style={styles.badgeTitle}>New trophy earned!</div>
+    <div style={styles.badgeName}>{newTrophy}</div>
+
+    <button
+      onClick={() => {
+        setNewTrophy(null);
+        setShowTrophies(true);
+      }}
+      style={styles.achievementButton}
+    >
+      See achievements
+    </button>
   </div>
 )}
 
