@@ -15,10 +15,11 @@ const WORD_BANK = {
   "2026-04-27": { word: "BLOOD", fact: "As in, the Comedy on State + Ian's Pizza Blood Drive happening tomorrow. 10am-2:30pm at the Comedy Club. Donors get tasty perks for doing a good thing. Check it out."},
   "2026-04-28": { word: "BLAZE", fact: "As in, the Capitol Fire that happened on this day in 1904. The state neglected to renew its insurance policy two months prior, leaving it with the full cost of rebuilding." },
   "2026-04-29": { word: "TAPES", fact: "As in, Stanley Kutler—the UW historian who helped release the Nixon tapes. Nixon was the 37th president. 37 students were arrested at this year’s Mifflin. And that's what we call a fact bomb." },
-  "2026-04-30": { word: "METRO", fact: "As in, the Madison Metro Transit. It operates with approximately 1,346 bus stops. That's it. That's today's fact. Tell somebody." },
-  "2026-05-01": { word: "FRIED", fact: "As in, Bar Corallini's fried eggplant fritters. One of Madison's tastiest appetizers. Eggplants have no business being this good. And the sauce? 🤌"},
-  "2026-05-02": { word: "PLAZA", fact: "As in, the Plaza. The large paintings throughout the Plaza were given to the bar in return for erasing the painter's $1,400+ running bar tab." },
-  "2026-05-03": { word: "GARTH", fact: "As in, Garth’s Brew Bar. Taxidermy trivia: the bar’s mascot (Marvin) is a Frankenmoose. His head and antlers come from two different moose."} 
+  "2026-04-30": { word: "NEVER", fact: "As in, the Madison Public Market may never open at this point. But since this is supposed to be factual, the market is anticipated to open in summer 2026. 20 vendor suites leased, 7 remain available." },
+  "2026-05-01": { word: "METRO", fact: "As in, the Madison Metro Transit. It operates with approximately 1,346 bus stops. That's it. That's today's fact. Go tell somebody." },
+  "2026-05-02": { word: "FRIED", fact: "As in, Bar Corallini's fried eggplant fritters. One of Madison's tastiest appetizers. Eggplants have no business being this good. And the sauce? 🤌"},
+  "2026-05-03": { word: "PLAZA", fact: "As in, the Plaza. The large paintings throughout the Plaza were given to the bar in return for erasing the painter's $1,400+ running bar tab." },
+  "2026-05-04": { word: "GARTH", fact: "As in, Garth’s Brew Bar. Taxidermy trivia: the bar’s mascot (Marvin) is a Frankenmoose. His head and antlers come from two different moose. Mooses? No. Definitely moose."} 
 };
 
 const BASE_DATE = "2026-04-18";
@@ -35,9 +36,10 @@ const BADGES = [
 
 // --- TROPHIES ---
 const TROPHIES = [
-  { id: "first_guess", label: "🎯 First try", description: "Solve in a single guess" },
-  { id: "speed", label: "⚡ Lightning solve", description: "Solve in under 5 seconds" },
-  { id: "clutch", label: "😅 Clutch gene", description: "Solve on final guess" }
+  { id: "first_guess", label: "🎯 Lucky Badger", description: "Solve in 1 guess" },
+  { id: "two_guess", label: "✌️ 2nd Lap", description: "Solve in 2 guesses" },
+  { id: "speed", label: "⚡ East Wash Racing Club", description: "Solve in <10 seconds" },
+  { id: "clutch", label: "😅 Last Call", description: "Solve on final guess" }
 ];
 
 const getDevDate = () => {
@@ -394,8 +396,12 @@ window.removeEventListener("trophiesUpdated", loadData);
           if (unlockTrophy("first_guess")) earnedTrophy = "🎯 First try";
         }
 
-        if (elapsedTime <= 5) {
-          if (unlockTrophy("speed")) earnedTrophy = "⚡ 5 seconds or less";
+        if (newGuesses.length === 2) {
+        if (unlockTrophy("two_guess")) earnedTrophy = "✌️ Second try";
+        }
+
+        if (elapsedTime <= 10) {
+          if (unlockTrophy("speed")) earnedTrophy = "⚡ 10 seconds or less";
         }
 
         if (newGuesses.length === MAX_GUESSES) {
@@ -859,7 +865,7 @@ if (isLandscape) {
         {yesterday && (
           <div style={styles.tickerWrapper}>
             <div style={styles.ticker}>
-              This week's forecast: Wed 53°⛅ Thu 50°⛅ Fri 48°⛅ Sat 53°⛅ Sun 66°⛅ • 100% chance of puzzles
+              This week's forecast: Thu 52°⛅ Fri 49°☁️ Sat 56°☁️ Sun 67°☁️ Mon 73°⛅ • 100% chance of puzzles
             </div>
           </div>
         )}
