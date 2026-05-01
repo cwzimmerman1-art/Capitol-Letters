@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import { useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 
 
 
@@ -249,6 +248,7 @@ export default function App() {
     savedGame.gameOver;
   const [startTime, setStartTime] = useState(null);
   const [elapsedTime, setElapsedTime] = useState(0);
+  const audioRef = useRef(null);
   const [trophies, setTrophies] = useState([]);
   const [showTrophiesTab, setShowTrophiesTab] = useState(false);
   const isToday = savedGame && savedGame.date === getTodayKey();
@@ -288,7 +288,13 @@ export default function App() {
   const [isLandscape, setIsLandscape] = useState(false);
   const [timeLeft, setTimeLeft] = useState("");
   const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef(null);
+  const [audio] = useState(
+  typeof Audio !== "undefined" ? (() => {
+    const a = new Audio(import.meta.env.BASE_URL + "sounds/week1.mp3");
+    a.loop = true;
+    return a;
+  })() : null
+);
   
 useEffect(() => {
   if (!audio) return;
@@ -677,9 +683,7 @@ const toggleAudio = () => {
   } else {
     a.play()
       .then(() => setIsPlaying(true))
-      .catch((err) => {
-        console.log("Playback blocked:", err);
-      });
+      .catch(err => console.log("Playback blocked:", err));
   }
 };
 
@@ -1007,7 +1011,7 @@ if (isLandscape) {
   
   <button
 onClick={() => {
-  if (audio) audio.pause();
+  audioRef.current?.pause();
   setStarted(false);
 }}
 
@@ -1165,7 +1169,7 @@ onClick={() => {
 
   <button
 onClick={() => {
-  if (audioRef.current) audioRef.current.pause();
+  if (audio) audio.pause();
   setStarted(false);
 }}
     style={styles.secondaryButton}
