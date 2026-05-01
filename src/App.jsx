@@ -586,6 +586,8 @@ const text = `Consider myself puzzled.\n\n${grid}\n\nYour turn → MadTiles.com`
     return "#f3f4f6";
   };
 
+let screen = null;
+
   if (showInstructions) {
   return (
     <div style={styles.launchContainer}>
@@ -662,23 +664,34 @@ const text = `Consider myself puzzled.\n\n${grid}\n\nYour turn → MadTiles.com`
 }
 
 const toggleAudio = () => {
-  let a = audio;
+  try {
+    let a = audio;
 
-  if (!a) {
-    a = new Audio("/sounds/week1.mp3");
-    a.loop = true;
-    setAudio(a);
-  }
+    if (!a) {
+      a = new Audio("/sounds/week1.mp3");
+      a.loop = true;
+      setAudio(a);
+    }
 
-  if (isPlaying) {
-    a.pause();
-    setIsPlaying(false);
-  } else {
-    a.play().then(() => {
-      setIsPlaying(true);
-    }).catch(() => {
-      console.log("Playback failed (Safari restriction)");
-    });
+    if (isPlaying) {
+      a.pause();
+      setIsPlaying(false);
+    } else {
+      const playPromise = a.play();
+
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => setIsPlaying(true))
+          .catch(() => {
+            console.log("Playback blocked");
+          });
+      } else {
+        // fallback for Safari weirdness
+        setIsPlaying(true);
+      }
+    }
+  } catch (err) {
+    console.log("Audio error:", err);
   }
 };
 
