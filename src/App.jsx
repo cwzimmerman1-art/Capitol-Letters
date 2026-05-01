@@ -29,8 +29,8 @@ const WORD_BANK = {
   "2026-04-29": { word: "TAPES", fact: "As in, Stanley Kutler—the UW historian who helped release the Nixon tapes. Nixon was the 37th president. 37 students were arrested at this year’s Mifflin. And that's what we call a fact bomb." },
   "2026-04-30": { word: "NEVER", fact: "As in, the Madison Public Market may never open at this point. But since this is supposed to be factual, the market is anticipated to open in summer 2026. 20 vendor suites leased, 7 remain available." },
   "2026-05-01": { word: "METRO", fact: "As in Madison Metro Transit. Today, it operates roughly 1,346 bus stops. Before buses, Madison relied on a small-but-busy 3-line streetcar system, until it was replaced by buses in 1935." },
-  "2026-05-02": { word: "FRIED", fact: "As in, Bar Corallini's fried eggplant fritters. One of Madison's tastiest appetizers. Eggplants have no business being this good. And the sauce? 🤌"},
-  "2026-05-03": { word: "PLAZA", fact: "As in, the Plaza. The large paintings throughout the Plaza were given to the bar in return for erasing the painter's $1,400+ running bar tab." },
+  "2026-05-02": { word: "TASTY", fact: "As in, Bar Corallini's eggplant fritters. One of Madison's tastiest appetizers, IMO. Eggplants have no business being this good. And that red sauce? 🤌 My god."},
+  "2026-05-03": { word: "PLAZA", fact: "As in, the Plaza. I once heard large paintings throughout the Plaza were given to the bar in return for erasing the painter's $1,400+ running bar tab." },
   "2026-05-04": { word: "GARTH", fact: "As in, Garth’s Brew Bar. Taxidermy trivia: the bar’s mascot (Marvin) is a Frankenmoose. His head and antlers come from two different moose. Mooses? No. Definitely moose."} 
 };
 
@@ -815,21 +815,35 @@ const nextBadges = sortedBadges
      </div>
 ) : (
   <div style={{ marginTop: 10 }}>
-    {TROPHIES.map((t, i) => {
-      const unlocked = trophies.includes(t.id);
+{[...TROPHIES]
+  .sort((a, b) => {
+    const aUnlocked = trophies.includes(a.id);
+    const bUnlocked = trophies.includes(b.id);
 
-      return (
-        <div
-          key={i}
-          style={{
-            ...styles.badgeCard,
-            opacity: unlocked ? 1 : 0.3
-          }}
-        >
-          {unlocked ? t.label : t.description}
-        </div>
-      );
-    })}
+    return bUnlocked - aUnlocked; // unlocked first
+  })
+  .map((t, i) => {
+    const unlocked = trophies.includes(t.id);
+
+  return (
+    <div
+      key={i}
+      style={{
+        ...styles.badgeCard,
+        opacity: unlocked ? 1 : 0.3
+      }}
+    >
+      {unlocked ? (
+        <>
+          <div>{t.label}</div>
+          <div style={styles.trophyDescription}>{t.description}</div>
+        </>
+      ) : (
+        t.description
+      )}
+    </div>
+  );
+})}
   </div>
 )}
 
@@ -1015,7 +1029,7 @@ if (showArchive) {
     transition: "opacity 1.4s ease"
   }}
 >
-  This week’s sound: my backyard
+  Today's sound: Olbrich evening
 </div>
 
   {isPlaying && (
@@ -1418,6 +1432,12 @@ backButton: {
     fontSize: 16,
     fontWeight: "600"
   },
+
+  trophyDescription: {
+  fontSize: 12,
+  color: "#666",
+  marginTop: 2
+},
 
   // --- MODAL / OVERLAY ---
   overlay: {
