@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { useRef } from "react";
+
 
 
 // --- WORD SYSTEM ---
@@ -286,13 +288,7 @@ export default function App() {
   const [isLandscape, setIsLandscape] = useState(false);
   const [timeLeft, setTimeLeft] = useState("");
   const [isPlaying, setIsPlaying] = useState(false);
-  const [audio] = useState(
-  typeof Audio !== "undefined" ? (() => {
-    const a = new Audio(import.meta.env.BASE_URL + "sounds/week1.mp3");
-    a.loop = true;
-    return a;
-  })() : null
-);
+  const audioRef = useRef(null);
   
 useEffect(() => {
   if (!audio) return;
@@ -667,25 +663,23 @@ const text = `Consider myself puzzled.\n\n${grid}\n\nYour turn → MadTiles.com`
 }
 
 const toggleAudio = () => {
-  if (!audio) return;
+  if (!audioRef.current) {
+    const a = new Audio(import.meta.env.BASE_URL + "sounds/week1.mp3");
+    a.loop = true;
+    audioRef.current = a;
+  }
+
+  const a = audioRef.current;
 
   if (isPlaying) {
-    audio.pause();
+    a.pause();
     setIsPlaying(false);
   } else {
-    const playPromise = audio.play();
-
-    if (playPromise !== undefined) {
-      playPromise
-        .then(() => {
-          setIsPlaying(true);
-        })
-        .catch((err) => {
-          console.log("Playback blocked:", err);
-        });
-    } else {
-      setIsPlaying(true);
-    }
+    a.play()
+      .then(() => setIsPlaying(true))
+      .catch((err) => {
+        console.log("Playback blocked:", err);
+      });
   }
 };
 
@@ -1171,7 +1165,7 @@ onClick={() => {
 
   <button
 onClick={() => {
-  if (audio) audio.pause();
+  if (audioRef.current) audioRef.current.pause();
   setStarted(false);
 }}
     style={styles.secondaryButton}
