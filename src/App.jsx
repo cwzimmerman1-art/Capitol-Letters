@@ -685,6 +685,7 @@ const text = `Consider myself puzzled.\n\n${grid}\n\nYour turn → MadTiles.com`
 const toggleAudio = () => {
   if (!audioRef.current) {
     const a = new Audio("/sounds/wk1.mp3");
+    a.preload = "none";
     a.loop = true;
     audioRef.current = a;
   }
