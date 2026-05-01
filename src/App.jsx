@@ -985,7 +985,7 @@ if (showArchive) {
         {yesterday && (
           <div style={styles.tickerWrapper}>
             <div style={styles.ticker}>
-              This week's forecast: Fri 49°☁️ Sat 56°☁️ Sun 67°☁️ Mon 73°⛅ • 100% chance of puzzles
+              This week's forecast: Fri 50°☁️ Sat 58°☁️ Sun 70°🌧️ Mon 78°🌧️ Tue 58°🌤️ •  100% chance of puzzles
             </div>
           </div>
         )}
