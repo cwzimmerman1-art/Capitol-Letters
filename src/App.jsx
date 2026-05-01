@@ -544,19 +544,23 @@ if (prevBadge !== nextBadge) {
   return () => clearInterval(interval);
 }, []);
 
- useEffect(() => {
+useEffect(() => {
   const checkOrientation = () => {
-    const isMobile = window.innerWidth < 768; // tweak if you want
+    const isMobile = window.innerWidth < 768;
     const isLandscapeNow = window.innerWidth > window.innerHeight;
 
     setIsLandscape(isMobile && isLandscapeNow);
   };
 
   checkOrientation();
+
   window.addEventListener("resize", checkOrientation);
+  window.addEventListener("orientationchange", checkOrientation);
 
-  return () => window.removeEventListener("resize", checkOrientation);
-
+  return () => {
+    window.removeEventListener("resize", checkOrientation);
+    window.removeEventListener("orientationchange", checkOrientation);
+  };
 }, []);
 
 
@@ -981,10 +985,16 @@ if (isLandscape) {
         gap: 8
       }}
     >
-     <div style={{
-    fontSize: 11, color: "#888" }}>
-    This week’s sound: my backyard
-  </div>
+<div
+  style={{
+    fontSize: 11,
+    color: "#888",
+    opacity: isPlaying ? 0 : 1,
+    transition: "opacity 1.4s ease"
+  }}
+>
+  This week’s sound: my backyard
+</div>
 
   {isPlaying && (
     <div style={styles.audioBars}>
