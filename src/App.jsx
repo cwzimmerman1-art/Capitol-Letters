@@ -286,14 +286,9 @@ export default function App() {
   const [isLandscape, setIsLandscape] = useState(false);
   const [timeLeft, setTimeLeft] = useState("");
   const [isPlaying, setIsPlaying] = useState(false);
-  const [audio] = useState(
-  typeof Audio !== "undefined" ? (() => {
-    const a = new Audio("/sounds/week1.mp3");
-    a.loop = true;
-    return a;
-  })() : null
-);
   
+  const [audio, setAudio] = useState(null);
+
 useEffect(() => {
   if (!audio) return;
 
@@ -667,14 +662,23 @@ const text = `Consider myself puzzled.\n\n${grid}\n\nYour turn → MadTiles.com`
 }
 
 const toggleAudio = () => {
-  if (!audio) return;
+  let a = audio;
+
+  if (!a) {
+    a = new Audio("/sounds/week1.mp3");
+    a.loop = true;
+    setAudio(a);
+  }
 
   if (isPlaying) {
-    audio.pause();
+    a.pause();
     setIsPlaying(false);
   } else {
-    audio.play();
-    setIsPlaying(true);
+    a.play().then(() => {
+      setIsPlaying(true);
+    }).catch(() => {
+      console.log("Playback failed (Safari restriction)");
+    });
   }
 };
 
@@ -856,17 +860,6 @@ if (showArchive) {
   );
 }
 
-if (isLandscape) {
-  return (
-    <div style={styles.launchContainer}>
-      <h2 style={{ fontWeight: "600", color: "#171717" }}>Rotate your phone</h2>
-      <p style={{ color: "#171717", marginTop: 10 }}>
-        For now, this experience only works in portrait mode. Just know that I tried.
-      </p>
-    </div>
-  );
-}
-
   if (!started) {
     return (
       <div style={styles.launchContainer}>
@@ -961,6 +954,32 @@ if (isLandscape) {
 
   return (
   <div style={styles.gameContainer}>
+
+  {isLandscape && (
+  <div style={{
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#fff",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 2000,
+    textAlign: "center",
+    padding: 20
+  }}>
+    <div>
+      <h2 style={{ fontWeight: "600", color: "#171717" }}>
+        Rotate your phone
+      </h2>
+      <p style={{ color: "#171717", marginTop: 10 }}>
+        This works best in portrait mode
+      </p>
+    </div>
+  </div>
+)}
 
 <div
       style={{
