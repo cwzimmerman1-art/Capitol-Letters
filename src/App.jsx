@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
+
 
 // --- WORD SYSTEM ---
 const WORD_BANK = {
@@ -285,20 +286,24 @@ export default function App() {
   const [isLandscape, setIsLandscape] = useState(false);
   const [timeLeft, setTimeLeft] = useState("");
   const [isPlaying, setIsPlaying] = useState(false);
+  const [audio] = useState(
+  typeof Audio !== "undefined" ? (() => {
+    const a = new Audio("/sounds/week1.mp3");
+    a.loop = true;
+    return a;
+  })() : null
+);
   
-const audioRef = useRef(null);
-
 useEffect(() => {
-  const a = audioRef.current;
-  if (!a) return;
+  if (!audio) return;
 
   const handleEnded = () => setIsPlaying(false);
-  a.addEventListener("ended", handleEnded);
+  audio.addEventListener("ended", handleEnded);
 
   return () => {
-    a.removeEventListener("ended", handleEnded);
+    audio.removeEventListener("ended", handleEnded);
   };
-}, [isPlaying]);
+}, [audio]);
 
 useEffect(() => {
   const style = document.createElement("style");
@@ -586,8 +591,6 @@ const text = `Consider myself puzzled.\n\n${grid}\n\nYour turn → MadTiles.com`
     return "#f3f4f6";
   };
 
-let screen = null;
-
   if (showInstructions) {
   return (
     <div style={styles.launchContainer}>
@@ -664,33 +667,14 @@ let screen = null;
 }
 
 const toggleAudio = () => {
-  try {
-    if (!audioRef.current) {
-      const a = new Audio("/sounds/week1.mp3");
-      a.loop = true;
-      audioRef.current = a;
-    }
+  if (!audio) return;
 
-    const a = audioRef.current;
-
-    if (isPlaying) {
-      a.pause();
-      setIsPlaying(false);
-    } else {
-      const playPromise = a.play();
-
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => setIsPlaying(true))
-          .catch((err) => {
-            console.log("Playback blocked:", err);
-          });
-      } else {
-        setIsPlaying(true);
-      }
-    }
-  } catch (err) {
-    console.log("Audio error:", err);
+  if (isPlaying) {
+    audio.pause();
+    setIsPlaying(false);
+  } else {
+    audio.play();
+    setIsPlaying(true);
   }
 };
 
@@ -872,6 +856,17 @@ if (showArchive) {
   );
 }
 
+if (isLandscape) {
+  return (
+    <div style={styles.launchContainer}>
+      <h2 style={{ fontWeight: "600", color: "#171717" }}>Rotate your phone</h2>
+      <p style={{ color: "#171717", marginTop: 10 }}>
+        For now, this experience only works in portrait mode. Just know that I tried.
+      </p>
+    </div>
+  );
+}
+
   if (!started) {
     return (
       <div style={styles.launchContainer}>
@@ -966,35 +961,6 @@ if (showArchive) {
 
   return (
   <div style={styles.gameContainer}>
-  
-    
-    <div style={{ width: "100%", maxWidth: 500, margin: "0 auto" }}>
-
-  {isLandscape && (
-  <div style={{
-    position: "fixed",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    backgroundColor: "#fff",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    zIndex: 2000,
-    textAlign: "center",
-    padding: 20
-  }}>
-    <div>
-      <h2 style={{ fontWeight: "600", color: "#171717" }}>
-        Rotate your phone
-      </h2>
-      <p style={{ color: "#171717", marginTop: 10 }}>
-        This works best in portrait mode
-      </p>
-    </div>
-  </div>
-)}
 
 <div
       style={{
@@ -1036,7 +1002,7 @@ if (showArchive) {
   
   <button
 onClick={() => {
-  if (audioRef.current) audioRef.current.pause();
+  if (audio) audio.pause();
   setStarted(false);
 }}
 
@@ -1194,7 +1160,7 @@ onClick={() => {
 
   <button
 onClick={() => {
-  if (audioRef.current) audioRef.current.pause();
+  if (audio) audio.pause();
   setStarted(false);
 }}
     style={styles.secondaryButton}
@@ -1208,7 +1174,6 @@ onClick={() => {
         </div>
      
     </div>
-    </div>
   );
 }
 
@@ -1217,7 +1182,6 @@ const styles = {
   // --- LAYOUT ---
   launchContainer: {
     height: "100vh",
-    width: "100%",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -1228,19 +1192,15 @@ const styles = {
     position: "relative"
   },
 
-    gameContainer: {
-      minHeight: "100vh",
-      width: "100%",       
-      maxWidth: "100%",
-      overflowX: "hidden",     
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      padding: 16,
-      backgroundColor: "#fff",
-      color: "#111",
-      overflowX: "hidden"    // 👈 prevents weird horizontal scroll
-    },
+  gameContainer: {
+    minHeight: "100vh",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: 16,
+    backgroundColor: "#fff",
+    color: "#111"
+  },
 
   pulse: {
     animation: "pulse 1.8s ease-in-out infinite"
@@ -1334,16 +1294,15 @@ playButton: {
   },
 
 backButton: {
-  position: "absolute",
-  top: 12,
-  left: 16,
+  alignSelf: "flex-start",
+  marginBottom: 1,
   backgroundColor: "transparent",
   border: "none",
   fontSize: 24,
   color: "#b1b1b1",
   cursor: "pointer",
   padding: 8,
-  zIndex: 1000
+  transition: "opacity 0.3s ease"
 },
 
   // --- GAME BOARD ---
