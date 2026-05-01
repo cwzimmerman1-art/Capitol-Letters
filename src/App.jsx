@@ -928,7 +928,15 @@ if (showArchive) {
         🎧 Sounds of Madison <br />
         🗃️ Past puzzle archive <br />
 <br />
-        Feedback? Message me at<br /> @mad__tiles on IG.
+        Feedback? Message me at<br />
+<a
+  href="https://instagram.com/mad__tiles"
+  target="_blank"
+  rel="noopener noreferrer"
+  style={{ color: "#3983f3", textDecoration: "none" }}
+>
+  @mad__tiles
+</a> on IG.
       </div>
 
       <button
