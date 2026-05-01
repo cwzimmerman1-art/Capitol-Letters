@@ -1,6 +1,17 @@
 import { useState, useEffect, useRef } from "react";
+import { Analytics } from "@vercel/analytics/react";
 
+// --- ANALYTICS ---
+if (typeof window !== "undefined") {
+  window.track = (eventName) => {
+    if (window.va) {
+      window.va('event', { name: eventName });
+    }
 
+    // optional: helps you debug in console
+    console.log("Tracked:", eventName);
+  };
+}
 
 // --- WORD SYSTEM ---
 const WORD_BANK = {
@@ -438,9 +449,13 @@ window.removeEventListener("trophiesUpdated", loadData);
       setGameOver(true);
 
       const won = guess === SOLUTION;
+      if (!won) {
+  track("puzzle_failed");
+}
 
     if (won) {
         let earnedTrophy = null;
+        track("puzzle_solved");
 
         if (newGuesses.length === 1) {
           if (unlockTrophy("first_guess")) earnedTrophy = "🎯 First try";
@@ -917,7 +932,10 @@ if (showArchive) {
         <p style={styles.subtitle}>A word game for Madison minds</p>
 
     <button
-      onClick={() => setStarted(true)}
+      onClick={() => {
+        track("start_game");
+        setStarted(true);
+}}
       onMouseDown={(e) => e.currentTarget.style.opacity = "0.9"}
       onMouseUp={(e) => e.currentTarget.style.opacity = "1"}
       onMouseLeave={(e) => e.currentTarget.style.opacity = "1"}
@@ -1195,7 +1213,7 @@ onClick={() => {
 {copied && <div style={styles.copied}>Copied to clipboard, challenge your friends</div>}
 
         </div>
-     
+<Analytics />
     </div>
   );
 }
