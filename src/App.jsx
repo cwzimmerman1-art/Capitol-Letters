@@ -597,6 +597,17 @@ const text = `Consider myself puzzled.\n\n${grid}\n\nYour turn → MadTiles.com`
     return "#f3f4f6";
   };
 
+  if (isLandscape) {
+  return (
+    <div style={styles.launchContainer}>
+      <h2 style={{ fontWeight: "600", color: "#171717" }}>Rotate your phone</h2>
+      <p style={{ color: "#171717", marginTop: 10 }}>
+        For now, this experience only works in portrait mode. Just know that I tried.
+      </p>
+    </div>
+  );
+}
+
   if (showInstructions) {
   return (
     <div style={styles.launchContainer}>
@@ -865,17 +876,6 @@ if (showArchive) {
       </button>
 
       
-    </div>
-  );
-}
-
-if (isLandscape) {
-  return (
-    <div style={styles.launchContainer}>
-      <h2 style={{ fontWeight: "600", color: "#171717" }}>Rotate your phone</h2>
-      <p style={{ color: "#171717", marginTop: 10 }}>
-        For now, this experience only works in portrait mode. Just know that I tried.
-      </p>
     </div>
   );
 }
