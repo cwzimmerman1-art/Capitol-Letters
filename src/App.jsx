@@ -253,6 +253,7 @@ export default function App() {
   const [showTrophiesTab, setShowTrophiesTab] = useState(false);
   const isToday = savedGame && savedGame.date === getTodayKey();
   const [guesses, setGuesses] = useState(isToday ? savedGame.guesses || [] : []);
+  const KEYBOARD_HEIGHT = 300;
   const [gameOver, setGameOver] = useState(isToday ? savedGame.gameOver || false : false);
   useEffect(() => {
   if (hasPlayedToday) {
@@ -545,12 +546,18 @@ if (prevBadge !== nextBadge) {
 }, []);
 
 useEffect(() => {
-  const checkOrientation = () => {
-    const isMobile = window.innerWidth < 768;
+const checkOrientation = () => {
+  setTimeout(() => {
     const isLandscapeNow = window.innerWidth > window.innerHeight;
 
-    setIsLandscape(isMobile && isLandscapeNow);
-  };
+    // ONLY treat as "phone-like" if it's BOTH touch AND small height
+    const isPhoneLike =
+      window.matchMedia("(pointer: coarse)").matches &&
+      window.innerHeight < 600;
+
+    setIsLandscape(isPhoneLike && isLandscapeNow);
+  }, 100);
+};
 
   checkOrientation();
 
@@ -1037,7 +1044,7 @@ onClick={() => {
       <div
   style={{
     ...styles.gridWrapper,
-    paddingBottom: gameOver ? 0 : 260,
+    paddingBottom: gameOver ? 0 : KEYBOARD_HEIGHT,
     opacity: gameOver ? 0.6 : 1,
     transition: "opacity 0.5s ease"
   }}
