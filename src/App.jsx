@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-
+import { useState, useEffect, useRef } from "react";
 
 // --- WORD SYSTEM ---
 const WORD_BANK = {
@@ -287,18 +286,19 @@ export default function App() {
   const [timeLeft, setTimeLeft] = useState("");
   const [isPlaying, setIsPlaying] = useState(false);
   
-  const [audio, setAudio] = useState(null);
+const audioRef = useRef(null);
 
 useEffect(() => {
-  if (!audio) return;
+  const a = audioRef.current;
+  if (!a) return;
 
   const handleEnded = () => setIsPlaying(false);
-  audio.addEventListener("ended", handleEnded);
+  a.addEventListener("ended", handleEnded);
 
   return () => {
-    audio.removeEventListener("ended", handleEnded);
+    a.removeEventListener("ended", handleEnded);
   };
-}, [audio]);
+}, [isPlaying]);
 
 useEffect(() => {
   const style = document.createElement("style");
@@ -665,13 +665,13 @@ let screen = null;
 
 const toggleAudio = () => {
   try {
-    let a = audio;
-
-    if (!a) {
-      a = new Audio("/sounds/week1.mp3");
+    if (!audioRef.current) {
+      const a = new Audio("/sounds/week1.mp3");
       a.loop = true;
-      setAudio(a);
+      audioRef.current = a;
     }
+
+    const a = audioRef.current;
 
     if (isPlaying) {
       a.pause();
@@ -682,11 +682,10 @@ const toggleAudio = () => {
       if (playPromise !== undefined) {
         playPromise
           .then(() => setIsPlaying(true))
-          .catch(() => {
-            console.log("Playback blocked");
+          .catch((err) => {
+            console.log("Playback blocked:", err);
           });
       } else {
-        // fallback for Safari weirdness
         setIsPlaying(true);
       }
     }
@@ -967,6 +966,9 @@ if (showArchive) {
 
   return (
   <div style={styles.gameContainer}>
+  
+    
+    <div style={{ width: "100%", maxWidth: 500, margin: "0 auto" }}>
 
   {isLandscape && (
   <div style={{
@@ -1034,7 +1036,7 @@ if (showArchive) {
   
   <button
 onClick={() => {
-  if (audio) audio.pause();
+  if (audioRef.current) audioRef.current.pause();
   setStarted(false);
 }}
 
@@ -1192,7 +1194,7 @@ onClick={() => {
 
   <button
 onClick={() => {
-  if (audio) audio.pause();
+  if (audioRef.current) audioRef.current.pause();
   setStarted(false);
 }}
     style={styles.secondaryButton}
@@ -1206,6 +1208,7 @@ onClick={() => {
         </div>
      
     </div>
+    </div>
   );
 }
 
@@ -1214,6 +1217,7 @@ const styles = {
   // --- LAYOUT ---
   launchContainer: {
     height: "100vh",
+    width: "100%",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -1224,15 +1228,19 @@ const styles = {
     position: "relative"
   },
 
-  gameContainer: {
-    minHeight: "100vh",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    padding: 16,
-    backgroundColor: "#fff",
-    color: "#111"
-  },
+    gameContainer: {
+      minHeight: "100vh",
+      width: "100%",       
+      maxWidth: "100%",
+      overflowX: "hidden",     
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      padding: 16,
+      backgroundColor: "#fff",
+      color: "#111",
+      overflowX: "hidden"    // 👈 prevents weird horizontal scroll
+    },
 
   pulse: {
     animation: "pulse 1.8s ease-in-out infinite"
@@ -1326,15 +1334,16 @@ playButton: {
   },
 
 backButton: {
-  alignSelf: "flex-start",
-  marginBottom: 1,
+  position: "absolute",
+  top: 12,
+  left: 16,
   backgroundColor: "transparent",
   border: "none",
   fontSize: 24,
   color: "#b1b1b1",
   cursor: "pointer",
   padding: 8,
-  transition: "opacity 0.3s ease"
+  zIndex: 1000
 },
 
   // --- GAME BOARD ---
