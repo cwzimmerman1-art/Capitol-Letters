@@ -1036,7 +1036,7 @@ if (showArchive) {
     transition: "opacity 1.4s ease"
   }}
 >
-  Today's sound: Olbrich evening
+  Today's sound: Olbrich afternoon
 </div>
 
   {isPlaying && (
