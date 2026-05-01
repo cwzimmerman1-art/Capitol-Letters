@@ -1420,14 +1420,16 @@ backButton: {
     marginTop: 20
   },
 
-  badgeCard: {
-    marginTop: 16,
-    padding: "12px 16px",
-    borderRadius: 10,
-    backgroundColor: "#f9fafb",
-    border: "1px solid #e5e7eb",
-    animation: "fadeInUp 0.4s ease"
-  },
+badgeCard: {
+  marginTop: 12,
+  padding: "12px 18px",
+  borderRadius: 12,
+  backgroundColor: "#ffffff",
+  border: "1px solid #e5e7eb",
+  boxShadow: "0 2px 4px rgba(0,0,0,0.06)",
+  animation: "fadeInUp 0.4s ease",
+  transition: "all 0.2s ease"
+},
 
   badgeTitle: {
     fontSize: 12,
