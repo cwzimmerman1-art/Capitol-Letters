@@ -288,7 +288,7 @@ export default function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [audio] = useState(
   typeof Audio !== "undefined" ? (() => {
-    const a = new Audio("/sounds/week1.mp3");
+    const a = new Audio(import.meta.env.BASE_URL + "sounds/week1.mp3");
     a.loop = true;
     return a;
   })() : null
@@ -673,8 +673,19 @@ const toggleAudio = () => {
     audio.pause();
     setIsPlaying(false);
   } else {
-    audio.play();
-    setIsPlaying(true);
+    const playPromise = audio.play();
+
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          setIsPlaying(true);
+        })
+        .catch((err) => {
+          console.log("Playback blocked:", err);
+        });
+    } else {
+      setIsPlaying(true);
+    }
   }
 };
 
