@@ -927,16 +927,15 @@ if (showArchive) {
         🌤️ Weather/events ticker <br />
         🎧 Sounds of Madison <br />
         🗃️ Past puzzle archive <br />
-        🪲 A million bug fixes <br />
 <br />
-        Appreciate you, thanks for playing.   
+        Feedback? Message me at<br /> @mad__tiles on IG.
       </div>
 
       <button
         onClick={closeWhatsNew}
         style={{ ...styles.playButton, marginTop: 16 }}
       >
-        Let's play
+        Puzzle time
       </button>
     </div>
   </div>
