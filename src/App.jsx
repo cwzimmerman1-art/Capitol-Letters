@@ -266,6 +266,12 @@ export default function App() {
   const [newTrophy, setNewTrophy] = useState(null);
   const [unlockedBadges, setUnlockedBadges] = useState([]);
   const [secretTapCount, setSecretTapCount] = useState(0);
+  const [showWhatsNew, setShowWhatsNew] = useState(false);
+  const closeWhatsNew = () => {
+  const VERSION = "whats_new_v1";
+  localStorage.setItem(VERSION, "seen");
+  setShowWhatsNew(false);
+};
   const yesterday = getYesterdayEntry();
   const todayKey = getTodayKey();
   const parseLocalDate = (str) => {
@@ -279,6 +285,38 @@ export default function App() {
   const [showArchive, setShowArchive] = useState(false);
   const [isLandscape, setIsLandscape] = useState(false);
   const [timeLeft, setTimeLeft] = useState("");
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [audio] = useState(
+  typeof Audio !== "undefined" ? (() => {
+    const a = new Audio("/sounds/week1.mp3");
+    a.loop = true;
+    return a;
+  })() : null
+);
+  
+useEffect(() => {
+  if (!audio) return;
+
+  const handleEnded = () => setIsPlaying(false);
+  audio.addEventListener("ended", handleEnded);
+
+  return () => {
+    audio.removeEventListener("ended", handleEnded);
+  };
+}, [audio]);
+
+useEffect(() => {
+  const style = document.createElement("style");
+  style.innerHTML = `
+    @keyframes bounce {
+      0%, 100% { transform: scaleY(0.5); }
+      50% { transform: scaleY(1.5); }
+    }
+  `;
+  document.head.appendChild(style);
+
+  return () => document.head.removeChild(style);
+}, []);
 
 useEffect(() => {
   const saved = JSON.parse(localStorage.getItem("capitol_game_state") || "null");
@@ -300,6 +338,15 @@ useEffect(() => {
 }, []);
 
 useEffect(() => {
+  const VERSION = "whats_new_v1"; // change this anytime you want a new popup
+  const seen = localStorage.getItem(VERSION);
+
+  if (!seen) {
+    setTimeout(() => setShowWhatsNew(true), 500);
+  }
+}, []);
+
+useEffect(() => {
   if (started && !gameOver && !startTime) {
     setStartTime(Date.now());
   }
@@ -310,7 +357,7 @@ useEffect(() => {
 
   const interval = setInterval(() => {
     setElapsedTime(Math.floor((Date.now() - startTime) / 1000));
-  }, 100);
+  }, 1000);
 
   return () => clearInterval(interval);
 }, [startTime, gameOver]);
@@ -618,6 +665,19 @@ const text = `Consider myself puzzled.\n\n${grid}\n\nYour turn → MadTiles.com`
     </div>
   );
 }
+
+const toggleAudio = () => {
+  if (!audio) return;
+
+  if (isPlaying) {
+    audio.pause();
+    setIsPlaying(false);
+  } else {
+    audio.play();
+    setIsPlaying(true);
+  }
+};
+
 if (showTrophies) {
 
   const sortedBadges = [...BADGES].sort((a, b) => a.days - b.days);
@@ -810,6 +870,31 @@ if (isLandscape) {
   if (!started) {
     return (
       <div style={styles.launchContainer}>
+        {showWhatsNew && (
+  <div style={styles.overlay}>
+    <div style={styles.popup}>
+      <h3 style={{ marginBottom: 10 }}>Mad Tiles V2</h3>
+
+      <div style={{ fontSize: 14, color: "#444", lineHeight: 1.5 }}>
+        📱 Improved keyboard <br />
+        🏆 Skill-based trophies <br />
+        🌤️ Weather/events ticker <br />
+        🎧 Sounds of Madison <br />
+        🗃️ Past puzzle archive <br />
+        🪲 A million bug fixes <br />
+<br />
+        Appreciate you, thanks for playing.   
+      </div>
+
+      <button
+        onClick={closeWhatsNew}
+        style={{ ...styles.playButton, marginTop: 16 }}
+      >
+        Let's play
+      </button>
+    </div>
+  </div>
+)}
         <img src="/capitol.png" style={styles.logo} />
 
         <p style={styles.subtitle}>A word game for Madison minds</p>
@@ -865,7 +950,7 @@ if (isLandscape) {
         {yesterday && (
           <div style={styles.tickerWrapper}>
             <div style={styles.ticker}>
-              This week's forecast: Thu 52°⛅ Fri 49°☁️ Sat 56°☁️ Sun 67°☁️ Mon 73°⛅ • 100% chance of puzzles
+              This week's forecast: Fri 49°☁️ Sat 56°☁️ Sun 67°☁️ Mon 73°⛅ • 100% chance of puzzles
             </div>
           </div>
         )}
@@ -875,20 +960,52 @@ if (isLandscape) {
   }
 
   return (
-    <div style={styles.gameContainer}>
+  <div style={styles.gameContainer}>
+
+<div
+      style={{
+        position: "absolute",
+        top: 12,
+        right: 16,
+        display: "flex",
+        alignItems: "center",
+        gap: 8
+      }}
+    >
+     <div style={{
+    fontSize: 11, color: "#888" }}>
+    This week’s sound: my backyard
+  </div>
+
+  {isPlaying && (
+    <div style={styles.audioBars}>
+      <div style={{ ...styles.bar, ...styles.bar1 }} />
+      <div style={{ ...styles.bar, ...styles.bar2 }} />
+      <div style={{ ...styles.bar, ...styles.bar3 }} />
+    </div>
+  )}
+
+  <button
+    onClick={toggleAudio}
+    style={{
+      backgroundColor: "transparent",
+      border: "none",
+      fontSize: 20,
+      color: "#b1b1b1",
+      cursor: "pointer",
+      padding: 6
+    }}
+  >
+    {isPlaying ? "❚❚" : "▶"}
+  </button>
+    </div>
   
   <button
-  onClick={() => {
+onClick={() => {
+  if (audio) audio.pause();
   setStarted(false);
-
-  if (!hasPlayedToday) {
-    setGameOver(false);
-    setGuesses([]);
-    setCurrent("");
-    setKeyStatus({});
-    setNewBadge(null);
-  }
 }}
+
   style={{
     ...styles.backButton,
     opacity: gameOver ? 0 : 1,
@@ -1042,16 +1159,9 @@ if (isLandscape) {
 </a>
 
   <button
-    onClick={() => {
+onClick={() => {
+  if (audio) audio.pause();
   setStarted(false);
-
-  if (!hasPlayedToday) {
-    setGameOver(false);
-    setGuesses([]);
-    setCurrent("");
-    setKeyStatus({});
-    setNewBadge(null);
-  }
 }}
     style={styles.secondaryButton}
   >
@@ -1315,5 +1425,34 @@ backButton: {
     fontSize: 13,
     color: "#666",
     animation: "scrollText 8s linear infinite"
-  }
+  }, 
+  audioBars: {
+  display: "flex",
+  alignItems: "flex-end",
+  gap: 2,
+  height: 14
+},
+
+bar: {
+  width: 2,
+  backgroundColor: "#b1b1b1",
+  borderRadius: 2,
+  animation: "bounce 1s infinite ease-in-out"
+},
+
+bar1: {
+  height: 6,
+  animationDelay: "0s"
+},
+
+bar2: {
+  height: 10,
+  animationDelay: "0.2s"
+},
+
+bar3: {
+  height: 8,
+  animationDelay: "0.4s"
+}
+
 };
