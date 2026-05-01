@@ -29,9 +29,10 @@ const WORD_BANK = {
   "2026-04-29": { word: "TAPES", fact: "As in, Stanley Kutler—the UW historian who helped release the Nixon tapes. Nixon was the 37th president. 37 students were arrested at this year’s Mifflin. And that's what we call a fact bomb." },
   "2026-04-30": { word: "NEVER", fact: "As in, the Madison Public Market may never open at this point. But since this is supposed to be factual, the market is anticipated to open in summer 2026. 20 vendor suites leased, 7 remain available." },
   "2026-05-01": { word: "METRO", fact: "As in Madison Metro Transit. Today, it operates roughly 1,346 bus stops. Before buses, Madison relied on a small-but-busy 3-line streetcar system, until it was replaced by buses in 1935." },
-  "2026-05-02": { word: "TASTY", fact: "As in, Bar Corallini's eggplant fritters. One of Madison's tastiest appetizers, IMO. Eggplants have no business being this good. And that red sauce? 🤌 My god."},
-  "2026-05-03": { word: "PLAZA", fact: "As in, the Plaza. I once heard large paintings throughout the Plaza were given to the bar in return for erasing the painter's $1,400+ running bar tab." },
-  "2026-05-04": { word: "GARTH", fact: "As in, Garth’s Brew Bar. Taxidermy trivia: the bar’s mascot (Marvin) is a Frankenmoose. His head and antlers come from two different moose. Mooses? No. Definitely moose."} 
+  "2026-05-02": { word: "GARTH", fact: "As in, Garth’s Brew Bar. A litte taxidermy trivia for you: the bar’s mascot (Marvin) is a Frankenmoose. His head and antlers come from two different moose. Mooses? No. Definitely moose." },
+  "2026-05-03": { word: "TASTY", fact: "As in, Bar Corallini's eggplant fritters. One of Madison's tastiest appetizers, IMO. Eggplants have no business being this good. And that red sauce? 🤌 My god."},
+  "2026-05-04": { word: "VIDEO", fact: "As in, those Chad Vader videos from 2006. The viral Star Wars parody web series was made here in Madison by Matt Sloan and Aaron Yonda. Many scenes were filmed at the Willy Street Co-op."},
+  "2026-05-05": { word: "PLAZA", fact: "As in, the Plaza. I once heard large paintings throughout the Plaza were given to the bar in return for erasing the painter's $1,400+ running bar tab." }
 };
 
 const BASE_DATE = "2026-04-18";
@@ -51,7 +52,7 @@ const TROPHIES = [
   { id: "first_guess", label: "🎯 Lucky Badger", description: "Solve in 1 guess" },
   { id: "two_guess", label: "✌️ 2nd Lap", description: "Solve in 2 guesses" },
   { id: "speed", label: "⚡ East Wash Racing Club", description: "Solve in <10 seconds" },
-  { id: "clutch", label: "😅 Last Call", description: "Solve on final guess" }
+  { id: "clutch", label: "🍻 Last Call", description: "Solve on final guess" }
 ];
 
 const getDevDate = () => {
@@ -300,24 +301,7 @@ export default function App() {
   const [isLandscape, setIsLandscape] = useState(false);
   const [timeLeft, setTimeLeft] = useState("");
   const [isPlaying, setIsPlaying] = useState(false);
-  const [audio] = useState(
-  typeof Audio !== "undefined" ? (() => {
-    const a = new Audio(import.meta.env.BASE_URL + "sounds/week1.mp3");
-    a.loop = true;
-    return a;
-  })() : null
-);
-  
-useEffect(() => {
-  if (!audio) return;
 
-  const handleEnded = () => setIsPlaying(false);
-  audio.addEventListener("ended", handleEnded);
-
-  return () => {
-    audio.removeEventListener("ended", handleEnded);
-  };
-}, [audio]);
 
 useEffect(() => {
   const style = document.createElement("style");
@@ -643,11 +627,7 @@ const text = `Consider myself puzzled.\n\n${grid}\n\nYour turn → MadTiles.com`
 
       <br /><br />
 
-        Play daily to add to your streak and unlock new badges.
-        <br /><br />
-        ~~~
-        <br /><br />
-        Add Mad Tiles to your phone's home screen to play in a tap.
+        Play every day to add to your streak and unlock new badges.
       </div>
 
       <button
@@ -704,7 +684,7 @@ const text = `Consider myself puzzled.\n\n${grid}\n\nYour turn → MadTiles.com`
 
 const toggleAudio = () => {
   if (!audioRef.current) {
-    const a = new Audio(import.meta.env.BASE_URL + "sounds/week1.mp3");
+    const a = new Audio("/sounds/wk1.mp3");
     a.loop = true;
     audioRef.current = a;
   }
@@ -924,7 +904,7 @@ if (showArchive) {
       <div style={{ fontSize: 14, color: "#444", lineHeight: 1.5 }}>
         📱 Improved keyboard <br />
         🏆 Skill-based trophies <br />
-        🌤️ Weather/events ticker <br />
+        🌤️ Weather & events ticker <br />
         🎧 Sounds of Madison <br />
         🗃️ Past puzzle archive <br />
 <br />
@@ -1030,7 +1010,7 @@ if (showArchive) {
     >
 <div
   style={{
-    fontSize: 11,
+    fontSize: 12,
     color: "#888",
     opacity: isPlaying ? 0 : 1,
     transition: "opacity 1.4s ease"
@@ -1222,7 +1202,7 @@ onClick={() => {
 
   <button
 onClick={() => {
-  if (audio) audio.pause();
+  audioRef.current?.pause();
   setStarted(false);
 }}
     style={styles.secondaryButton}
