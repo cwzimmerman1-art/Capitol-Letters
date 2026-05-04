@@ -32,7 +32,8 @@ const WORD_BANK = {
   "2026-05-02": { word: "GARTH", fact: "As in, Garth’s Brew Bar. A litte taxidermy trivia for you: the bar’s mascot (Marvin) is a Frankenmoose. His head and antlers come from two different moose. Mooses? No. Definitely moose." },
   "2026-05-03": { word: "TASTY", fact: "As in, Bar Corallini's eggplant fritters. One of Madison's tastiest appetizers, IMO. Eggplants have no business being this good. And that red sauce? 🤌 My god."},
   "2026-05-04": { word: "VIDEO", fact: "As in, those Chad Vader videos from 2006. The viral Star Wars parody web series was made here in Madison by Matt Sloan and Aaron Yonda. Many scenes were filmed at the Willy Street Co-op."},
-  "2026-05-05": { word: "PLAZA", fact: "As in, the Plaza. I once heard large paintings throughout the Plaza were given to the bar in return for erasing the painter's $1,400+ running bar tab." }
+  "2026-05-05": { word: "ZEBRA", fact: "As in, zebra mussels. The invasive species is prevalent enough in Lake Mendota to filter the lake's volume of water in just weeks, leading to clearer waters (cool) and increased algae growth (not cool)." },
+  "2026-05-06": { word: "PEDAL", fact: "As in, a bike pedal. About 1 in 20 Madisonians bike to work. Nationwide, that average is closer to 1 in 200. And then there's Amsterdam, where nearly 60% of residents commute via bike."}
 };
 
 const BASE_DATE = "2026-04-18";
@@ -50,7 +51,7 @@ const BADGES = [
 // --- TROPHIES ---
 const TROPHIES = [
   { id: "first_guess", label: "🎯 Lucky Badger", description: "Solve in 1 guess" },
-  { id: "two_guess", label: "✌️ 2nd Lap", description: "Solve in 2 guesses" },
+  { id: "second_guess", label: "✌️ 2nd Lap", description: "Solve in 2 guesses" },
   { id: "speed", label: "⚡ East Wash Racing Club", description: "Solve in <10 seconds" },
   { id: "clutch", label: "🍻 Last Call", description: "Solve on final guess" }
 ];
