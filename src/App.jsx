@@ -690,7 +690,7 @@ const text = `Consider myself puzzled.\n\n${grid}\n\nYour turn → MadTiles.com`
 
 const toggleAudio = () => {
   if (!audioRef.current) {
-    const a = new Audio("/sounds/wk1.mp3");
+    const a = new Audio("/sounds/wk2.mp3");
     a.preload = "none";
     a.loop = true;
     audioRef.current = a;
@@ -1023,7 +1023,7 @@ if (showArchive) {
     transition: "opacity 1.4s ease"
   }}
 >
-  Today's sound: Olbrich afternoon
+  Today's sound: Sardine happy hour
 </div>
 
   {isPlaying && (
