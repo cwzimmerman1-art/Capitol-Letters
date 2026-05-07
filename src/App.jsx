@@ -34,10 +34,11 @@ const WORD_BANK = {
   "2026-05-04": { word: "VIDEO", fact: "As in, those Chad Vader videos from 2006. The viral Star Wars parody web series was made here in Madison by Matt Sloan and Aaron Yonda. Many scenes were filmed at the Willy Street Co-op."},
   "2026-05-05": { word: "ZEBRA", fact: "As in, zebra mussels. The invasive species is prevalent enough in Lake Mendota to filter the lake's volume of water in just weeks, leading to clearer waters (cool) and increased algae growth (not cool)." },
   "2026-05-06": { word: "PEDAL", fact: "As in, a bike pedal. Nearly 1 in 20 Madisonians bike to work. Nationwide, that average is closer to 1 in 200. And then there's Amsterdam, where nearly 60% of residents commute via bike."},
-  "2026-05-07": { word: "ORDER", fact: "As in, a hidden order at Culver's. Order a patty melt, but sub out the beef for buffalo chicken tenders. My friend Lish, a former True Blue Crew member, told me about this. So you know it's legit."},
-  "2026-05-08": { word: "BLUFF", fact: "As in, Maple Bluff Country Club's Village Swim on Sunday's in the summer. It's meant for Maple Bluff residents, but you can sneak into the pool with a fake address. My go to is: 1077 Farwell Drive. So don't use that one."},
-  "2026-05-09": { word: "FRIES", fact: "As in, the fries at Sardine. I'm eating them with as I write this fact. They're delicious: thin, well-salted, totally addicting. $8 gets you plate big enough for two, the mayo is excellent, and the vibes are great."},
-  "2026-05-10": { word: "CHILL", fact: "As in, the chiller at the Dane County Regional Airport. It freezes 200-300 tons of ice per night (a little napkin math here) that's used to air condition the terminal throughout the day. And that's a cold, hard fact."}
+  "2026-05-07": { word: "ORDER", fact: "As in, a hidden order at Culver's. Get a patty melt, but sub out the beef for buffalo chicken tenders. My friend Lish, a former True Blue Crew member, told me about this. So you know it's legit."},
+  "2026-05-08": { word: "BIRCH", fact: "As in, the wood commonly used in IKEA products. The furniture giant has announced they'll be opening a new location on Madison's west side this fall in the old Bed Bath & Beyond. And yes, there will be meatballs."},
+  "2026-05-09": { word: "BLUFF", fact: "As in, Maple Bluff Country Club's Village Swim on Sunday's in the summer. It's only for Maple Bluff residents, but you can sneak in to the pool with a fake address. My go to is: 1077 Farwell Drive. So don't use that one."},
+  "2026-05-10": { word: "FRIES", fact: "As in, the fries at Sardine. I'm eating them with as I write this fact. They're delicious: thin, well-salted, totally addicting. $8 gets you plate big enough for two, the mayo is excellent, and the vibes are great."},
+  "2026-05-11": { word: "CHILL", fact: "As in, the chiller at the Dane County Regional Airport. It freezes 200-300 tons of ice per night (some napkin math here...) that's used to air condition the terminal throughout the day. And that's a cold, hard fact."}
 
 };
 
