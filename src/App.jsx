@@ -33,13 +33,20 @@ const WORD_BANK = {
   "2026-05-03": { word: "TASTY", fact: "As in, Bar Corallini's eggplant fritters. One of Madison's tastiest appetizers, IMO. Eggplants have no business being this good. And that red sauce? 🤌 My god."},
   "2026-05-04": { word: "VIDEO", fact: "As in, those Chad Vader videos from 2006. The viral Star Wars parody web series was made here in Madison by Matt Sloan and Aaron Yonda. Many scenes were filmed at the Willy Street Co-op."},
   "2026-05-05": { word: "ZEBRA", fact: "As in, zebra mussels. The invasive species is prevalent enough in Lake Mendota to filter the lake's volume of water in just weeks, leading to clearer waters (cool) and increased algae growth (not cool)." },
-  "2026-05-06": { word: "PEDAL", fact: "As in, a bike pedal. About 1 in 20 Madisonians bike to work. Nationwide, that average is closer to 1 in 200. And then there's Amsterdam, where nearly 60% of residents commute via bike."}
+  "2026-05-06": { word: "PEDAL", fact: "As in, a bike pedal. Nearly 1 in 20 Madisonians bike to work. Nationwide, that average is closer to 1 in 200. And then there's Amsterdam, where nearly 60% of residents commute via bike."},
+  "2026-05-07": { word: "ORDER", fact: "As in, a hidden order at Culver's. Order a patty melt, but sub out the beef for buffalo chicken tenders. My friend Lish, a former True Blue Crew member, told me about this. So you know it's legit."},
+  "2026-05-08": { word: "BLUFF", fact: "As in, Maple Bluff Country Club's Village Swim on Sunday's in the summer. It's meant for Maple Bluff residents, but you can sneak into the pool with a fake address. My go to is: 1077 Farwell Drive. So don't use that one."},
+  "2026-05-09": { word: "FRIES", fact: "As in, the fries at Sardine. I'm eating them with as I write this fact. They're delicious: thin, well-salted, totally addicting. $8 gets you plate big enough for two, the mayo is delicious, and the vibes are great."},
+  "2026-05-10": { word: "CHILL", fact: "As in, the chiller at the Dane County Regional Airport. It freezes 200-300 tons of ice per night (a little napkin math here) that's used to air condition the terminal throughout the day. And that's a cold, hard fact."}
+
 };
 
 const BASE_DATE = "2026-04-18";
 
 // --- BADGES ---
 const BADGES = [
+  { days: 30, label: '📻 Listens to WSUM in the car' },
+  { days: 25, label: '🍺 A little tired of Spotted Cow' },
   { days: 20, label: '🐉 Has seen the Lake Monona monster' },
   { days: 15, label: '🔦 First name basis w/ Tunnel Bob' },
   { days: 10, label: '🚕 Knows the "242-2000" jingle' },
@@ -381,13 +388,11 @@ useEffect(() => {
   const loadData = () => {
     const { streak } = getStreakData();
     setStreak(streak);
+
     const savedTrophies = getUnlockedTrophies();
-setTrophies(savedTrophies);
-window.addEventListener("trophiesUpdated", loadData);
-window.removeEventListener("trophiesUpdated", loadData);
+    setTrophies([...savedTrophies]);
 
-
-    // 🔥 AUTO-FIX: backfill missing badges
+    // auto-backfill badges
     BADGES.forEach(badge => {
       if (streak >= badge.days) {
         unlockBadge(badge.label);
@@ -395,19 +400,19 @@ window.removeEventListener("trophiesUpdated", loadData);
     });
 
     const savedBadges = getUnlockedBadges();
-    setUnlockedBadges(savedBadges);
+    setUnlockedBadges([...savedBadges]);
   };
 
   loadData();
 
   window.addEventListener("achievementsUpdated", loadData);
+  window.addEventListener("trophiesUpdated", loadData);
 
   return () => {
     window.removeEventListener("achievementsUpdated", loadData);
+    window.removeEventListener("trophiesUpdated", loadData);
   };
-}, []);
-
-
+},[]);
 
   const submitGuess = () => {
     const prevStreak = getStreakData().streak;
@@ -447,7 +452,7 @@ window.removeEventListener("trophiesUpdated", loadData);
         }
 
         if (newGuesses.length === 2) {
-        if (unlockTrophy("two_guess")) earnedTrophy = "✌️ Second try";
+        if (unlockTrophy("second_guess")) earnedTrophy = "✌️ Second try";
         }
 
         if (elapsedTime <= 10) {
