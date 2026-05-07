@@ -36,7 +36,7 @@ const WORD_BANK = {
   "2026-05-06": { word: "PEDAL", fact: "As in, a bike pedal. Nearly 1 in 20 Madisonians bike to work. Nationwide, that average is closer to 1 in 200. And then there's Amsterdam, where nearly 60% of residents commute via bike."},
   "2026-05-07": { word: "ORDER", fact: "As in, a hidden order at Culver's. Order a patty melt, but sub out the beef for buffalo chicken tenders. My friend Lish, a former True Blue Crew member, told me about this. So you know it's legit."},
   "2026-05-08": { word: "BLUFF", fact: "As in, Maple Bluff Country Club's Village Swim on Sunday's in the summer. It's meant for Maple Bluff residents, but you can sneak into the pool with a fake address. My go to is: 1077 Farwell Drive. So don't use that one."},
-  "2026-05-09": { word: "FRIES", fact: "As in, the fries at Sardine. I'm eating them with as I write this fact. They're delicious: thin, well-salted, totally addicting. $8 gets you plate big enough for two, the mayo is delicious, and the vibes are great."},
+  "2026-05-09": { word: "FRIES", fact: "As in, the fries at Sardine. I'm eating them with as I write this fact. They're delicious: thin, well-salted, totally addicting. $8 gets you plate big enough for two, the mayo is excellent, and the vibes are great."},
   "2026-05-10": { word: "CHILL", fact: "As in, the chiller at the Dane County Regional Airport. It freezes 200-300 tons of ice per night (a little napkin math here) that's used to air condition the terminal throughout the day. And that's a cold, hard fact."}
 
 };
