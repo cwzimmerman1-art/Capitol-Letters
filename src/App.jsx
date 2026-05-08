@@ -35,7 +35,7 @@ const WORD_BANK = {
   "2026-05-05": { word: "ZEBRA", fact: "As in, zebra mussels. The invasive species is prevalent enough in Lake Mendota to filter the lake's volume of water in just weeks, leading to clearer waters (cool) and increased algae growth (not cool)." },
   "2026-05-06": { word: "PEDAL", fact: "As in, a bike pedal. Nearly 1 in 20 Madisonians bike to work. Nationwide, that average is closer to 1 in 200. And then there's Amsterdam, where nearly 60% of residents commute via bike."},
   "2026-05-07": { word: "ORDER", fact: "As in, a hidden order at Culver's. Get a patty melt, but sub out the beef for buffalo chicken tenders. My friend Lish, a former True Blue Crew member, told me about this. So you know it's legit."},
-  "2026-05-08": { word: "BIRCH", fact: "As in, the wood commonly used in IKEA products. The furniture giant has announced they'll be opening a new location on Madison's west side this fall in the old Bed Bath & Beyond. And yes, there will be meatballs."},
+  "2026-05-08": { word: "BIRCH", fact: "As in, the wood commonly used in IKEA products. The furniture giant announced they'll be opening a new location on Madison's west side this fall in the old Bed Bath & Beyond. And yes, there will be meatballs."},
   "2026-05-09": { word: "BLUFF", fact: "As in, Maple Bluff Country Club's Village Swim on Sunday's in the summer. It's only for Maple Bluff residents, but you can sneak in to the pool with a fake address. My go to is: 1077 Farwell Drive. So don't use that one."},
   "2026-05-10": { word: "FRIES", fact: "As in, the fries at Sardine. I'm eating them with as I write this fact. They're delicious: thin, well-salted, totally addicting. $8 gets you plate big enough for two, the mayo is excellent, and the vibes are great."},
   "2026-05-11": { word: "CHILL", fact: "As in, the chiller at the Dane County Regional Airport. It freezes 200-300 tons of ice per night (some napkin math here...) that's used to air condition the terminal throughout the day. And that's a cold, hard fact."}
@@ -46,7 +46,7 @@ const BASE_DATE = "2026-04-18";
 
 // --- BADGES ---
 const BADGES = [
-  { days: 30, label: '📻 Listens to WSUM in the car' },
+  { days: 30, label: '📻 Set WSUM 91.7 as go-to preset' },
   { days: 25, label: '🍺 A little tired of Spotted Cow' },
   { days: 20, label: '🐉 Has seen the Lake Monona monster' },
   { days: 15, label: '🔦 First name basis w/ Tunnel Bob' },
@@ -61,7 +61,10 @@ const TROPHIES = [
   { id: "first_guess", label: "🎯 Lucky Badger", description: "Solve in 1 guess" },
   { id: "second_guess", label: "✌️ 2nd Lap", description: "Solve in 2 guesses" },
   { id: "speed", label: "⚡ East Wash Racing Club", description: "Solve in <10 seconds" },
-  { id: "clutch", label: "🍻 Last Call", description: "Solve on final guess" }
+  { id: "clutch", label: "🍻 Last Call", description: "Solve on final guess" },
+
+  // secret trophy
+  { id: "wife", label: "💍 Trophy for Wife", description: "Ultra rare achievement" }
 ];
 
 const getDevDate = () => {
@@ -290,6 +293,7 @@ export default function App() {
   const [newTrophy, setNewTrophy] = useState(null);
   const [unlockedBadges, setUnlockedBadges] = useState([]);
   const [secretTapCount, setSecretTapCount] = useState(0);
+  const [wifeTapCount, setWifeTapCount] = useState(0);
   const [showWhatsNew, setShowWhatsNew] = useState(false);
   const closeWhatsNew = () => {
   const VERSION = "whats_new_v1";
@@ -803,12 +807,21 @@ const nextBadges = sortedBadges
      </div>
 ) : (
   <div style={{ marginTop: 10 }}>
+
 {[...TROPHIES]
+  .filter(t => {
+    // hide secret trophy until unlocked
+    if (t.id === "wife" && !trophies.includes("wife")) {
+      return false;
+    }
+
+    return true;
+  })
   .sort((a, b) => {
     const aUnlocked = trophies.includes(a.id);
     const bUnlocked = trophies.includes(b.id);
 
-    return bUnlocked - aUnlocked; // unlocked first
+    return bUnlocked - aUnlocked;
   })
   .map((t, i) => {
     const unlocked = trophies.includes(t.id);
@@ -896,7 +909,33 @@ if (showArchive) {
         Back
       </button>
 
-      
+      <div
+  onClick={() => {
+    const newCount = wifeTapCount + 1;
+    setWifeTapCount(newCount);
+
+    if (newCount === 5) {
+      unlockTrophy("wife");
+
+      setShowArchive(false);
+      setShowTrophies(true);
+      setShowTrophiesTab(true);
+
+      setWifeTapCount(0);
+    }
+
+    // reset if taps stop
+    setTimeout(() => setWifeTapCount(0), 2000);
+  }}
+  style={{
+    height: 40,
+    width: "100%",
+    marginTop: 10,
+    opacity: 0,
+    cursor: "default"
+  }}
+/>
+    
     </div>
   );
 }
