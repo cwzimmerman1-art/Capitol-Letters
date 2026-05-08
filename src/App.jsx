@@ -64,7 +64,7 @@ const TROPHIES = [
   { id: "clutch", label: "🍻 Last Call", description: "Solve on final guess" },
 
   // secret trophy
-  { id: "wife", label: "💍 Trophy for Wife", description: "Ultra rare achievement" }
+  { id: "wife", label: "🌿 Lindsey's Secret Stash", description: "Rare wife achievement" }
 ];
 
 const getDevDate = () => {
