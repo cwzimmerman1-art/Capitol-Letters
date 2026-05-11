@@ -38,7 +38,11 @@ const WORD_BANK = {
   "2026-05-08": { word: "BIRCH", fact: "As in, the wood commonly used in IKEA products. The furniture giant announced they'll be opening a new location on Madison's west side this fall in the old Bed Bath & Beyond. And yes, there will be meatballs."},
   "2026-05-09": { word: "BLUFF", fact: "As in, Maple Bluff Country Club's Village Swim on Sunday's in the summer. It's only for Maple Bluff residents, but you can sneak in to the pool with a fake address. My go to is: 1077 Farwell Drive. So don't use that one."},
   "2026-05-10": { word: "FRIES", fact: "As in, the fries at Sardine. I'm eating them with as I write this fact. They're delicious: thin, well-salted, totally addicting. $8 gets you plate big enough for two, the mayo is excellent, and the vibes are great."},
-  "2026-05-11": { word: "CHILL", fact: "As in, the chiller at the Dane County Regional Airport. It freezes 200-300 tons of ice per night (some napkin math here...) that's used to air condition the terminal throughout the day. And that's a cold, hard fact."}
+  "2026-05-11": { word: "CHILL", fact: "As in, the chiller at the Dane County Regional Airport. It freezes 200-300 tons of ice per night (some napkin math here...) that's used to air condition the terminal throughout the day. And that's a cold, hard fact."},
+  "2026-05-12": { word: "CLOTS", fact: "As in, blood clots prevented by Warfarin — the famous anticoagulant invented at UW–Madison after researchers investigated why cows were mysteriously bleeding out from eating spoiled hay. Before it became medicine, it was used as rat poison."},
+  "2026-05-13": { word: "FONTS", fact: "As in, Segoe — the font used across Microsoft products like Windows and Outlook. The font got its name from Segoe Road in Madison, where one of the designers lived while working on it."}
+
+
 
 };
 
