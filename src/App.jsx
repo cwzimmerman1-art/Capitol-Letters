@@ -40,7 +40,9 @@ const WORD_BANK = {
   "2026-05-10": { word: "FRIES", fact: "As in, the fries at Sardine. I'm eating them with as I write this fact. They're delicious: thin, well-salted, totally addicting. $8 gets you plate big enough for two, the mayo is excellent, and the vibes are great."},
   "2026-05-11": { word: "CHILL", fact: "As in, the chiller at the Dane County Regional Airport. It freezes 200-300 tons of ice per night (some napkin math here...) that's used to air condition the terminal throughout the day. And that's a cold, hard fact."},
   "2026-05-12": { word: "CLOTS", fact: "As in, blood clots prevented by Warfarin — the famous anticoagulant invented at UW–Madison after researchers investigated why cows were mysteriously bleeding out from eating spoiled hay. Before it became medicine, it was used as rat poison."},
-  "2026-05-13": { word: "FONTS", fact: "As in, Segoe — the font used across Microsoft products like Windows and Outlook. The font got its name from Segoe Road in Madison, where one of the designers lived while working on it."}
+  "2026-05-13": { word: "FONTS", fact: "As in, Segoe — the font used across Microsoft products like Windows and Outlook. The font got its name from Segoe Road in Madison, where one of the designers lived while working on it. That's some Madison-type-shit."},
+  "2026-05-14": { word: "NIGHT", fact: "As in, the Madison Night Market, which returns to State Street tonight from 5-9pm. Tons of food + vendors to explore. Bonus tip: dodge Thursday's cover charge at Ivory Room when you mention the Night Market at the door."}
+
 
 
 
@@ -1037,7 +1039,7 @@ if (showArchive) {
         {yesterday && (
           <div style={styles.tickerWrapper}>
             <div style={styles.ticker}>
-              This week's forecast: Mon 58°🌤️ Tue 71°🌧️ Wed 58°🌤️ Thu 65°☀️ Fri 68°🌧️ • 100% chance of puzzles
+              This week's forecast: Thu 66°🌤️ Fri 74°🌤️ Sat 80°🌤️ Sun 68°🌧️ Mon 76°🌧️ • 100% chance of puzzles
             </div>
           </div>
         )}
