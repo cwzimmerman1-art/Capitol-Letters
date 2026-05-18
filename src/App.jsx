@@ -42,10 +42,9 @@ const WORD_BANK = {
   "2026-05-12": { word: "CLOTS", fact: "As in, blood clots prevented by Warfarin — the famous anticoagulant invented at UW–Madison after researchers investigated why cows were mysteriously bleeding out from eating spoiled hay. Before it became medicine, it was used as rat poison."},
   "2026-05-13": { word: "FONTS", fact: "As in, Segoe — the font used across Microsoft products like Windows and Outlook. The font got its name from Segoe Road in Madison, where one of the designers lived while working on it. That's some Madison-type-shit."},
   "2026-05-14": { word: "NIGHT", fact: "As in, the Madison Night Market, which returns to State Street tonight from 5-9pm. Tons of food + vendors to explore. Bonus tip: dodge Thursday's cover charge at Ivory Room when you mention the Night Market at the door."},
-  "2026-05-15": { word: "TACOS", fact: "As in, another great happy hour find in Madison. Tacos & margs at Bandit. The Bandito taco ($3.50) is elite. $3 off tap cocktails and beer + $2 tequila shots and a great patio. Go there. Be happy for hours."}
-
-
-
+  "2026-05-15": { word: "TACOS", fact: "As in, another great happy hour find in Madison. Tacos & margs at Bandit. The Bandito taco ($3.50) is elite. $3 off tap cocktails and beer + $2 tequila shots and a great patio. Go there. Be happy for hours."},
+  "2026-05-18": { word: "WATER", fact: "As in, the Stoughon water tower. I mean Stoughton. In 2010, the city accidentally misspelled its own name on a new water tower. It read “STOUGHON” after painters forgot the second T."},
+  "2026-05-19": { word: "BRIEF", fact: "As in, Belmont briefly served as the capital of the Wisconsin Territory in 1836. Lawmakers met there for just one session before deciding the new capital should move to Madison instead. Belmont's population today? Around 1,000."}
 
 
 };
