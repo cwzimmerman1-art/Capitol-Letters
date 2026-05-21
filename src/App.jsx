@@ -45,9 +45,8 @@ const WORD_BANK = {
   "2026-05-15": { word: "TACOS", fact: "As in, another great happy hour find in Madison. Tacos & margs at Bandit. The Bandito taco ($3.50) is elite. $3 off tap cocktails and beer + $2 tequila shots and a great patio. Go there. Be happy for hours."},
   "2026-05-18": { word: "WATER", fact: "As in, the Stoughon water tower. I mean Stoughton. In 2010, the city accidentally misspelled its own name on a new water tower. It read “STOUGHON” after painters forgot the second T."},
   "2026-05-19": { word: "BRIEF", fact: "As in, Belmont briefly served as the capital of the Wisconsin Territory in 1836. Lawmakers met there for just one session before deciding the new capital should move to Madison instead. Belmont's population today? Around 1,000."},
-  "2026-05-20": { word: "LUCKY", fact: "As in, the lucky driver that survived a close call with a falling steel beam that penetrated her car's roof under the Monona Terrace Ramp earlier this week. A full safety inspection by Madison City Engineering is underway."}
-
-
+  "2026-05-20": { word: "LUCKY", fact: "As in, the lucky driver that survived a close call with a falling steel beam that penetrated her car's roof under the Monona Terrace Ramp earlier this week. A full safety inspection by Madison City Engineering is underway."},
+  "2026-05-21": { word: "WITCH", fact: "As in, the Yahara Witches Paddle. The event, held on the Sunday before Halloween, invites paddlers to dress as witches and float down the Yahara River on kayaks, canoes, and paddle boards. Stay weird and witchy, Madison."}
 
 };
 
