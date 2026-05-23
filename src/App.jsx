@@ -47,7 +47,9 @@ const WORD_BANK = {
   "2026-05-19": { word: "BRIEF", fact: "As in, Belmont briefly served as the capital of the Wisconsin Territory in 1836. Lawmakers met there for just one session before deciding the new capital should move to Madison instead. Belmont's population today? Around 1,000."},
   "2026-05-20": { word: "LUCKY", fact: "As in, the lucky driver that survived a close call with a falling steel beam that penetrated her car's roof under the Monona Terrace Ramp earlier this week. A full safety inspection by Madison City Engineering is underway."},
   "2026-05-21": { word: "WITCH", fact: "As in, the Yahara Witches Paddle. The event, held on the Sunday before Halloween, invites paddlers to dress as witches and float down the Yahara River on kayaks, canoes, and paddle boards. Stay weird and witchy, Madison."},
-  "2026-05-22": { word: "VIEWS", fact: "As in, the rooftop views at Camp Trippalindee. Dog-owner pro-tip: the outdoor area overlooking Lake Mendota is dog-friendly. So bring the pup, grab the chicken sandwich, and walk off your meal on the Lakeshore Path after."}
+  "2026-05-22": { word: "VIEWS", fact: "As in, the rooftop views at Camp Trippalindee. Dog-owner pro-tip: the outdoor area overlooking Lake Mendota is dog-friendly. So bring the pup, grab the chicken sandwich, and walk off your meal on the Lakeshore Path after."},
+  "2026-05-23": { word: "SCOPE", fact: "As in, telescopes available to rent (free for residents) at Memorial High School. They're big enough to easily make out Saturn's rings. Available during the school year, so I guess now might be the absolute worst time to tell you this. But here we are."}
+
 
 
 };
