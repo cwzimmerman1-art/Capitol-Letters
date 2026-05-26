@@ -50,7 +50,9 @@ const WORD_BANK = {
   "2026-05-22": { word: "VIEWS", fact: "As in, the rooftop views at Camp Trippalindee. Dog-owner pro-tip: the outdoor area overlooking Lake Mendota is dog-friendly. So bring the pup, grab the chicken sandwich, and walk off your meal on the Lakeshore Path after."},
   "2026-05-23": { word: "SCOPE", fact: "As in, telescopes available to rent (free for residents) at Memorial High School. They're big enough to easily make out Saturn's rings. Available during the school year, so I guess now might be the absolute worst time to tell you this. But here we are."},
   "2026-05-24": { word: "FIZZY", fact: "As in, the complimentary sparkling water at Colectivo on Monroe St. It's a nice little perk you might not know about. Grab an espresso, cleanse your pallette with some bubbly, and live your most Parisian life right here in Madison."},
-  "2026-05-25": { word: "PATIO", fact: "As in, the cool little patio tucked behind the Education Building on Bascom Hill. During the school year, there's also a small cafe inside the building. Grab a lunch, relax while you eat, and take a walk on the Lakeshore path after."}
+  "2026-05-25": { word: "PATIO", fact: "As in, the cool little patio tucked behind the Education Building on Bascom Hill. During the school year, there's also a small cafe inside the building. Grab a lunch, relax while you eat, and take a walk on the Lakeshore path after."},
+  "2026-05-26": { word: "UNDER", fact: "As in, the free underground parking at Trader Joe's on Monroe St. Don't pay for those tiny little spots up top. Enjoy complimentary lower level parking (enter on W Lawn Ave) and treat yourself to a bottle of Three Buck Chuck with the money you save."}
+
 
 };
 
