@@ -51,8 +51,9 @@ const WORD_BANK = {
   "2026-05-23": { word: "SCOPE", fact: "As in, telescopes available to rent (free for residents) at Memorial High School. They're big enough to easily make out Saturn's rings. Available during the school year, so I guess now might be the absolute worst time to tell you this. But here we are."},
   "2026-05-24": { word: "FIZZY", fact: "As in, the complimentary sparkling water at Colectivo on Monroe St. It's a nice little perk you might not know about. Grab an espresso, cleanse your pallette with some bubbly, and live your most Parisian life right here in Madison."},
   "2026-05-25": { word: "PATIO", fact: "As in, the cool little patio tucked behind the Education Building on Bascom Hill. During the school year, there's also a small cafe inside the building. Grab a lunch, relax while you eat, and take a walk on the Lakeshore path after."},
-  "2026-05-26": { word: "UNDER", fact: "As in, free underground parking at Trader Joe's on Monroe St. Don't pay for those tiny little spots up top. Enjoy complimentary lower level parking (enter on W Lawn Ave) and treat yourself to a bottle of Three Buck Chuck with the money you save."}
-  "2026-05-27": { word: "MAPLE", fact: "As in, Wisconsin's state tree, the sugar maple. These trees typically have lifespans of 200-400 years, roughly as long as we've been waiting for the Madison Public Market to open."}
+  "2026-05-26": { word: "UNDER", fact: "As in, free underground parking at Trader Joe's on Monroe St. Don't pay for those tiny little spots up top. Enjoy complimentary lower level parking (enter on W Lawn Ave) and treat yourself to a bottle of Three Buck Chuck with the money you save."},
+  "2026-05-27": { word: "MAPLE", fact: "As in, Wisconsin's state tree, the sugar maple. These trees typically have lifespans of 200-400 years, roughly as long as we've been waiting for the Madison Public Market to open."},
+  "2026-05-28": { word: "EIGHT", fact: "As in, a delicious frozen margarita at Muskelounge for $8. Good vibes, great patio, and you'll almost certainly get to pet several dogs. Shoutout to Jimmy, the criminally chill golden retreiver I saw there tonight."}
 
 
 };
