@@ -53,7 +53,9 @@ const WORD_BANK = {
   "2026-05-25": { word: "PATIO", fact: "As in, the cool little patio tucked behind the Education Building on Bascom Hill. During the school year, there's also a small cafe inside the building. Grab a lunch, relax while you eat, and take a walk on the Lakeshore path after."},
   "2026-05-26": { word: "UNDER", fact: "As in, free underground parking at Trader Joe's on Monroe St. Don't pay for those tiny little spots up top. Enjoy complimentary lower level parking (enter on W Lawn Ave) and treat yourself to a bottle of Three Buck Chuck with the money you save."},
   "2026-05-27": { word: "MAPLE", fact: "As in, Wisconsin's state tree, the sugar maple. These trees typically have lifespans of 200-400 years, roughly as long as we've been waiting for the Madison Public Market to open."},
-  "2026-05-28": { word: "EIGHT", fact: "As in, a delicious frozen margarita at Muskelounge for $8. Good vibes, great patio, and you'll almost certainly get to pet several dogs. Shoutout to Jimmy, the criminally chill golden retreiver I saw there tonight."}
+  "2026-05-28": { word: "EIGHT", fact: "As in, a delicious frozen margarita at Muskelounge for $8. Good vibes, great patio, and you'll almost certainly get to pet several dogs. Shoutout to Jimmy, the criminally chill golden retreiver I saw there tonight."},
+  "2026-05-29": { word: "VINYL", fact: "As in, the vinyl and portable record players you're able to check out at the Madison Public Library. In fact, you're able to get all kinds of things at the library: birding backpacks, disc golf equipment, book club kits. Go check it out. Literally."}
+
 
 
 };
