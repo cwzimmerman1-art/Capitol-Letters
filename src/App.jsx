@@ -55,7 +55,8 @@ const WORD_BANK = {
   "2026-05-27": { word: "MAPLE", fact: "As in, Wisconsin's state tree, the sugar maple. These trees typically have lifespans of 200-400 years, roughly as long as we've been waiting for the Madison Public Market to open."},
   "2026-05-28": { word: "EIGHT", fact: "As in, a delicious frozen margarita at Muskelounge for $8. Good vibes, great patio, and you'll almost certainly get to pet several dogs. Shoutout to Jimmy, the criminally chill golden retreiver I saw there tonight."},
   "2026-05-29": { word: "VINYL", fact: "As in, the vinyl and portable record players you're able to check out at the Madison Public Library. In fact, you're able to get all kinds of things at the library: birding backpacks, disc golf equipment, book club kits. Go check it out. Literally."},
-  "2026-05-30": { word: "MULCH", fact: "As in, the mulch used at Olbrich Gardens. It's all sourced from Madison residents' yard waste, which the city processes into mulch and provides to the gardens."}
+  "2026-05-30": { word: "MULCH", fact: "As in, the mulch used at Olbrich Gardens. It's all sourced from Madison residents' yard waste, which the city processes into mulch and provides to the gardens."},
+  "2026-05-31": { word: "BLUFF", fact: "As in, the bluffs at Devil's Lake State Park. The iconic quartzite bluffs are roughly 1.6 billion years old, among the oldest exposed rock in North America."}
 
 
 
