@@ -57,7 +57,9 @@ const WORD_BANK = {
   "2026-05-29": { word: "VINYL", fact: "As in, the vinyl and portable record players you're able to check out at the Madison Public Library. In fact, you're able to get all kinds of things at the library: birding backpacks, disc golf equipment, book club kits. Go check it out. Literally."},
   "2026-05-30": { word: "MULCH", fact: "As in, the mulch used at Olbrich Gardens. It's all sourced from Madison residents' yard waste, which the city processes into mulch and provides to the gardens."},
   "2026-05-31": { word: "BLUFF", fact: "As in, the bluffs at Devil's Lake State Park. The iconic quartzite bluffs are roughly 1.6 billion years old, among the oldest exposed rock in North America."},
-  "2026-06-01": { word: "CHAIN", fact: "As in, the chain on a bike during Madison Bike Week. Visit MadisonBikes.org for info on daily bike events and discounts all week, like 15% off any Fontana Sports purchase. Ends June 7. And wear a helmet, or else my wife will yell at you."}
+  "2026-06-01": { word: "CHAIN", fact: "As in, the chain on a bike during Madison Bike Week. Visit MadisonBikes.org for info on daily bike events and discounts all week, like 15% off any Fontana Sports purchase. Ends June 7. And wear a helmet, or else my wife will yell at you."},
+  "2026-06-02": { word: "MUSIC", fact: "As in, Concerts on the Square. The free summer concert series returns to the Capitol lawn on June 24. Bring some friends, a bottle of wine, and some fancy cured meats. Or those cheap pre-sliced pepperonis. I don't care. It's a free country."}
+
 
 };
 
