@@ -59,7 +59,9 @@ const WORD_BANK = {
   "2026-05-31": { word: "BLUFF", fact: "As in, the bluffs at Devil's Lake State Park. The iconic quartzite bluffs are roughly 1.6 billion years old, among the oldest exposed rock in North America."},
   "2026-06-01": { word: "CHAIN", fact: "As in, the chain on a bike during Madison Bike Week. Visit MadisonBikes.org for info on daily bike events and discounts all week, like 15% off any Fontana Sports purchase. Ends June 7. And wear a helmet, or else my wife will yell at you."},
   "2026-06-02": { word: "MUSIC", fact: "As in, Concerts on the Square. The free summer concert series returns to the Capitol lawn on June 24. Bring some friends, a bottle of wine, and some fancy cured meats. Or those cheap pre-sliced pepperonis. I don't care. It's a free country."},
-  "2026-06-03": { word: "SWAMP", fact: "As in, the Shrek Rave and drone show after the Mallard's game this Saturday night. Throw on your Lord Farquaad costume, grab a dog, and enjoy the show."}
+  "2026-06-03": { word: "SWAMP", fact: "As in, the Shrek Rave and drone show after the Mallard's game this Saturday night. Throw on your Lord Farquaad costume, grab a dog, and enjoy the show."},
+  "2026-06-04": { word: "RITZY", fact: "As in, Judy Faulkner, the CEO of Epic Systems in Verona, WI. She is the 3rd richest self-made woman in America. The richest? Diane Hendricks. Also from Wisconsin. The 2nd? From Wisconsin, too! I'm kidding. She's from California."}
+
 
 
 
