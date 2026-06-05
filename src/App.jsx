@@ -61,7 +61,7 @@ const WORD_BANK = {
   "2026-06-02": { word: "MUSIC", fact: "As in, Concerts on the Square. The free summer concert series returns to the Capitol lawn on June 24. Bring some friends, a bottle of wine, and some fancy cured meats. Or those cheap pre-sliced pepperonis. I don't care. It's a free country."},
   "2026-06-03": { word: "SWAMP", fact: "As in, the Shrek Rave and drone show after the Mallard's game this Saturday night. Throw on your Lord Farquaad costume, grab a dog, and enjoy the show."},
   "2026-06-04": { word: "RITZY", fact: "As in, Judy Faulkner, the CEO of Epic Systems in Verona, WI. She is the 3rd richest self-made woman in America. The richest? Diane Hendricks. Also from Wisconsin. The 2nd? From Wisconsin, too! I'm kidding. She's from California."},
-  "2026-06-04": { word: "FLIES", fact: "As in, the $100 Burger at the Jet Room. It comes with a 30-minute scenic flight for 2-3 people around Madison. My wife surprised me with it once for my birthday. I got really motion sick, and I still had a great time. So you'll love it."}
+  "2026-06-05": { word: "FLIES", fact: "As in, the $100 Burger at the Jet Room. It comes with a 30-minute scenic flight for 2-3 people around Madison. My wife surprised me with it once for my birthday. I got really motion sick, and I still had a great time. So you'll love it."}
 
 
 
