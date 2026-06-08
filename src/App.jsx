@@ -63,11 +63,8 @@ const WORD_BANK = {
   "2026-06-04": { word: "RITZY", fact: "As in, Judy Faulkner, the CEO of Epic Systems in Verona, WI. She is the 3rd richest self-made woman in America. The richest? Diane Hendricks. Also from Wisconsin. The 2nd? From Wisconsin, too! I'm kidding. She's from California."},
   "2026-06-05": { word: "FLIES", fact: "As in, the $100 Burger at the Jet Room. It comes with a 30-minute scenic flight for 2-3 people around Madison. My wife surprised me with it once for my birthday. I got really motion sick, and I still had a great time. So you'll love it."},
   "2026-06-06": { word: "BREAK", fact: "As in, it's late. And it's Friday. And I haven't thought of a fact. So I'm taking a break. Back tomorrow with some fresh Madison knowledge."},
-  "2026-06-07": { word: "ROOMS", fact: "As in, A24's hit new horror film Backrooms. The unsettling meme that inspired the film (an image of an empty room with dull yellow walls) was traced back to a renovation photo taken in Oshkosh, Wisconsin."}
-
-
-
-
+  "2026-06-07": { word: "ROOMS", fact: "As in, A24's hit new horror film Backrooms. The unsettling meme that inspired the film (an image of an empty room with dull yellow walls) was traced back to a renovation photo taken in Oshkosh, Wisconsin."},
+  "2026-06-08": { word: "BRASH", fact: "As in, Frank Lloyd Wright. He was born on this day in 1867. Madison has eight Wright-designed buildings, more than any city outside Chicago. Architectural genius. Interpersonal disaster."}
 
 
 
